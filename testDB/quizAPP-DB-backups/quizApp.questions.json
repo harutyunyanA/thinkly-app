@@ -1,0 +1,2250 @@
+[{
+  "_id": {
+    "$oid": "68fddafeb669dcc926533eef"
+  },
+  "quiz": {
+    "$oid": "68fddafeb669dcc926533ee4"
+  },
+  "text": "What is the output of typeof null?",
+  "answers": [
+    {
+      "text": "object",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ef0"
+      }
+    },
+    {
+      "text": "null",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ef1"
+      }
+    },
+    {
+      "text": "undefined",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ef2"
+      }
+    },
+    {
+      "text": "number",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ef3"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/js-null.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:25:34.335Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddafeb669dcc926533ee5"
+  },
+  "quiz": {
+    "$oid": "68fddafeb669dcc926533ee4"
+  },
+  "text": "Which of the following are JavaScript data types?",
+  "answers": [
+    {
+      "text": "String",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ee6"
+      }
+    },
+    {
+      "text": "Boolean",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ee7"
+      }
+    },
+    {
+      "text": "Integer",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ee8"
+      }
+    },
+    {
+      "text": "Undefined",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ee9"
+      }
+    }
+  ],
+  "multipleAnswers": true,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:25:34.334Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddafeb669dcc926533eea"
+  },
+  "quiz": {
+    "$oid": "68fddafeb669dcc926533ee4"
+  },
+  "text": "Which keyword declares a constant in JS?",
+  "answers": [
+    {
+      "text": "let",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533eeb"
+      }
+    },
+    {
+      "text": "const",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533eec"
+      }
+    },
+    {
+      "text": "var",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533eed"
+      }
+    },
+    {
+      "text": "static",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533eee"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:25:34.334Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddafeb669dcc926533ef4"
+  },
+  "quiz": {
+    "$oid": "68fddafeb669dcc926533ee4"
+  },
+  "text": "Which operator checks both value and type equality?",
+  "answers": [
+    {
+      "text": "==",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ef5"
+      }
+    },
+    {
+      "text": "===",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ef6"
+      }
+    },
+    {
+      "text": "!=",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ef7"
+      }
+    },
+    {
+      "text": "!==",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533ef8"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:25:34.335Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddafeb669dcc926533ef9"
+  },
+  "quiz": {
+    "$oid": "68fddafeb669dcc926533ee4"
+  },
+  "text": "Which array methods mutate the original array?",
+  "answers": [
+    {
+      "text": "push()",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533efa"
+      }
+    },
+    {
+      "text": "pop()",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533efb"
+      }
+    },
+    {
+      "text": "map()",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533efc"
+      }
+    },
+    {
+      "text": "slice()",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533efd"
+      }
+    }
+  ],
+  "multipleAnswers": true,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:25:34.335Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddafeb669dcc926533efe"
+  },
+  "quiz": {
+    "$oid": "68fddafeb669dcc926533ee4"
+  },
+  "text": "What does JSON.parse do?",
+  "answers": [
+    {
+      "text": "Converts a JSON string to a JavaScript value",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533eff"
+      }
+    },
+    {
+      "text": "Converts a value to a JSON string",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f00"
+      }
+    },
+    {
+      "text": "Parses HTML into DOM nodes",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f01"
+      }
+    },
+    {
+      "text": "Executes a string as code",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f02"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:25:34.335Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddafeb669dcc926533f03"
+  },
+  "quiz": {
+    "$oid": "68fddafeb669dcc926533ee4"
+  },
+  "text": "Which statements about let and var are true?",
+  "answers": [
+    {
+      "text": "let is block-scoped",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f04"
+      }
+    },
+    {
+      "text": "var is function-scoped",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f05"
+      }
+    },
+    {
+      "text": "let variables are hoisted and initialized to undefined at top of scope",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f06"
+      }
+    },
+    {
+      "text": "var cannot be redeclared in the same function scope",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f07"
+      }
+    }
+  ],
+  "multipleAnswers": true,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:25:34.336Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddafeb669dcc926533f08"
+  },
+  "quiz": {
+    "$oid": "68fddafeb669dcc926533ee4"
+  },
+  "text": "What does the this keyword refer to inside a regular method call obj.method()?",
+  "answers": [
+    {
+      "text": "The object before the dot (obj)",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f09"
+      }
+    },
+    {
+      "text": "The global object always",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f0a"
+      }
+    },
+    {
+      "text": "The method function itself",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f0b"
+      }
+    },
+    {
+      "text": "undefined in all cases",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f0c"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:25:34.336Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddafeb669dcc926533f0d"
+  },
+  "quiz": {
+    "$oid": "68fddafeb669dcc926533ee4"
+  },
+  "text": "Which of the following create a shallow copy of an array?",
+  "answers": [
+    {
+      "text": "arr.slice()",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f0e"
+      }
+    },
+    {
+      "text": "[...arr]",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f0f"
+      }
+    },
+    {
+      "text": "Array.from(arr)",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f10"
+      }
+    },
+    {
+      "text": "arr = arr",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f11"
+      }
+    }
+  ],
+  "multipleAnswers": true,
+  "imageUrl": "https://example.com/array-copy.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:25:34.336Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddafeb669dcc926533f12"
+  },
+  "quiz": {
+    "$oid": "68fddafeb669dcc926533ee4"
+  },
+  "text": "What is a Promise in JavaScript?",
+  "answers": [
+    {
+      "text": "An object representing the eventual result of an asynchronous operation",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f13"
+      }
+    },
+    {
+      "text": "A synchronous loop",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f14"
+      }
+    },
+    {
+      "text": "A global variable",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f15"
+      }
+    },
+    {
+      "text": "A DOM API method",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddafeb669dcc926533f16"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:25:34.336Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb2ab669dcc926533f67"
+  },
+  "quiz": {
+    "$oid": "68fddb2ab669dcc926533f4d"
+  },
+  "text": "What is the smallest country in the world?",
+  "answers": [
+    {
+      "text": "Vatican City",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f68"
+      }
+    },
+    {
+      "text": "Monaco",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f69"
+      }
+    },
+    {
+      "text": "Liechtenstein",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f6a"
+      }
+    },
+    {
+      "text": "Nauru",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f6b"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:26:18.925Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb2ab669dcc926533f5d"
+  },
+  "quiz": {
+    "$oid": "68fddb2ab669dcc926533f4d"
+  },
+  "text": "Which continent has the most countries?",
+  "answers": [
+    {
+      "text": "Africa",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f5e"
+      }
+    },
+    {
+      "text": "Europe",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f5f"
+      }
+    },
+    {
+      "text": "Asia",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f60"
+      }
+    },
+    {
+      "text": "South America",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f61"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:26:18.925Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb2ab669dcc926533f4e"
+  },
+  "quiz": {
+    "$oid": "68fddb2ab669dcc926533f4d"
+  },
+  "text": "What is the capital of Australia?",
+  "answers": [
+    {
+      "text": "Canberra",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f4f"
+      }
+    },
+    {
+      "text": "Sydney",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f50"
+      }
+    },
+    {
+      "text": "Melbourne",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f51"
+      }
+    },
+    {
+      "text": "Brisbane",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f52"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:26:18.924Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb2ab669dcc926533f62"
+  },
+  "quiz": {
+    "$oid": "68fddb2ab669dcc926533f4d"
+  },
+  "text": "Which desert is the largest in the world?",
+  "answers": [
+    {
+      "text": "Sahara",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f63"
+      }
+    },
+    {
+      "text": "Gobi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f64"
+      }
+    },
+    {
+      "text": "Kalahari",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f65"
+      }
+    },
+    {
+      "text": "Arabian",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f66"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/desert.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:26:18.925Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb2ab669dcc926533f71"
+  },
+  "quiz": {
+    "$oid": "68fddb2ab669dcc926533f4d"
+  },
+  "text": "Which country is shaped like a boot?",
+  "answers": [
+    {
+      "text": "Italy",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f72"
+      }
+    },
+    {
+      "text": "Spain",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f73"
+      }
+    },
+    {
+      "text": "Portugal",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f74"
+      }
+    },
+    {
+      "text": "Greece",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f75"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/italy.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:26:18.927Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb2ab669dcc926533f6c"
+  },
+  "quiz": {
+    "$oid": "68fddb2ab669dcc926533f4d"
+  },
+  "text": "Which ocean borders the east coast of the United States?",
+  "answers": [
+    {
+      "text": "Atlantic Ocean",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f6d"
+      }
+    },
+    {
+      "text": "Pacific Ocean",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f6e"
+      }
+    },
+    {
+      "text": "Indian Ocean",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f6f"
+      }
+    },
+    {
+      "text": "Arctic Ocean",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f70"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:26:18.927Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb2ab669dcc926533f76"
+  },
+  "quiz": {
+    "$oid": "68fddb2ab669dcc926533f4d"
+  },
+  "text": "Which US state is known as the 'Sunshine State'?",
+  "answers": [
+    {
+      "text": "Florida",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f77"
+      }
+    },
+    {
+      "text": "California",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f78"
+      }
+    },
+    {
+      "text": "Texas",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f79"
+      }
+    },
+    {
+      "text": "Arizona",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f7a"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:26:18.927Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb2ab669dcc926533f7b"
+  },
+  "quiz": {
+    "$oid": "68fddb2ab669dcc926533f4d"
+  },
+  "text": "The Great Barrier Reef is located off the coast of which country?",
+  "answers": [
+    {
+      "text": "Australia",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f7c"
+      }
+    },
+    {
+      "text": "New Zealand",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f7d"
+      }
+    },
+    {
+      "text": "Indonesia",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f7e"
+      }
+    },
+    {
+      "text": "Philippines",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f7f"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/reef.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:26:18.927Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb2ab669dcc926533f53"
+  },
+  "quiz": {
+    "$oid": "68fddb2ab669dcc926533f4d"
+  },
+  "text": "Which river is the longest in the world?",
+  "answers": [
+    {
+      "text": "Nile",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f54"
+      }
+    },
+    {
+      "text": "Amazon",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f55"
+      }
+    },
+    {
+      "text": "Yangtze",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f56"
+      }
+    },
+    {
+      "text": "Mississippi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f57"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/river.jpg",
+  "createdAt": {
+    "$date": "2025-10-26T08:26:18.924Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb2ab669dcc926533f58"
+  },
+  "quiz": {
+    "$oid": "68fddb2ab669dcc926533f4d"
+  },
+  "text": "Mount Everest lies on the border of which two countries?",
+  "answers": [
+    {
+      "text": "Nepal",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f59"
+      }
+    },
+    {
+      "text": "China",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f5a"
+      }
+    },
+    {
+      "text": "India",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f5b"
+      }
+    },
+    {
+      "text": "Bhutan",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb2ab669dcc926533f5c"
+      }
+    }
+  ],
+  "multipleAnswers": true,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:26:18.925Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb96b669dcc926533fb8"
+  },
+  "quiz": {
+    "$oid": "68fddb96b669dcc926533fb7"
+  },
+  "text": "How many bones are in the adult human body?",
+  "answers": [
+    {
+      "text": "206",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fb9"
+      }
+    },
+    {
+      "text": "210",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fba"
+      }
+    },
+    {
+      "text": "201",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fbb"
+      }
+    },
+    {
+      "text": "190",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fbc"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:28:06.537Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb96b669dcc926533fbd"
+  },
+  "quiz": {
+    "$oid": "68fddb96b669dcc926533fb7"
+  },
+  "text": "Which organ pumps blood throughout the body?",
+  "answers": [
+    {
+      "text": "Heart",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fbe"
+      }
+    },
+    {
+      "text": "Lungs",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fbf"
+      }
+    },
+    {
+      "text": "Liver",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fc0"
+      }
+    },
+    {
+      "text": "Kidneys",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fc1"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/heart.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:28:06.537Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb96b669dcc926533fc2"
+  },
+  "quiz": {
+    "$oid": "68fddb96b669dcc926533fb7"
+  },
+  "text": "Which system controls hormones in the human body?",
+  "answers": [
+    {
+      "text": "Endocrine system",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fc3"
+      }
+    },
+    {
+      "text": "Nervous system",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fc4"
+      }
+    },
+    {
+      "text": "Digestive system",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fc5"
+      }
+    },
+    {
+      "text": "Respiratory system",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fc6"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:28:06.537Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb96b669dcc926533fc7"
+  },
+  "quiz": {
+    "$oid": "68fddb96b669dcc926533fb7"
+  },
+  "text": "Which blood type is known as the universal donor?",
+  "answers": [
+    {
+      "text": "O negative",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fc8"
+      }
+    },
+    {
+      "text": "O positive",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fc9"
+      }
+    },
+    {
+      "text": "A positive",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fca"
+      }
+    },
+    {
+      "text": "B negative",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fcb"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:28:06.538Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb96b669dcc926533fcc"
+  },
+  "quiz": {
+    "$oid": "68fddb96b669dcc926533fb7"
+  },
+  "text": "What part of the brain is responsible for balance and coordination?",
+  "answers": [
+    {
+      "text": "Cerebellum",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fcd"
+      }
+    },
+    {
+      "text": "Cerebrum",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fce"
+      }
+    },
+    {
+      "text": "Medulla",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fcf"
+      }
+    },
+    {
+      "text": "Brainstem",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fd0"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/brain.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:28:06.538Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb96b669dcc926533fd1"
+  },
+  "quiz": {
+    "$oid": "68fddb96b669dcc926533fb7"
+  },
+  "text": "Which vitamin is produced when human skin is exposed to sunlight?",
+  "answers": [
+    {
+      "text": "Vitamin D",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fd2"
+      }
+    },
+    {
+      "text": "Vitamin C",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fd3"
+      }
+    },
+    {
+      "text": "Vitamin B12",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fd4"
+      }
+    },
+    {
+      "text": "Vitamin A",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fd5"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:28:06.538Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb96b669dcc926533fd6"
+  },
+  "quiz": {
+    "$oid": "68fddb96b669dcc926533fb7"
+  },
+  "text": "Which organ is responsible for filtering blood in the human body?",
+  "answers": [
+    {
+      "text": "Kidneys",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fd7"
+      }
+    },
+    {
+      "text": "Liver",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fd8"
+      }
+    },
+    {
+      "text": "Spleen",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fd9"
+      }
+    },
+    {
+      "text": "Pancreas",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fda"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:28:06.538Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb96b669dcc926533fdb"
+  },
+  "quiz": {
+    "$oid": "68fddb96b669dcc926533fb7"
+  },
+  "text": "How many chambers are there in a human heart?",
+  "answers": [
+    {
+      "text": "4",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fdc"
+      }
+    },
+    {
+      "text": "2",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fdd"
+      }
+    },
+    {
+      "text": "3",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fde"
+      }
+    },
+    {
+      "text": "5",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fdf"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:28:06.538Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb96b669dcc926533fe0"
+  },
+  "quiz": {
+    "$oid": "68fddb96b669dcc926533fb7"
+  },
+  "text": "Which nutrient is the main source of energy for the human body?",
+  "answers": [
+    {
+      "text": "Carbohydrates",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fe1"
+      }
+    },
+    {
+      "text": "Proteins",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fe2"
+      }
+    },
+    {
+      "text": "Fats",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fe3"
+      }
+    },
+    {
+      "text": "Vitamins",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fe4"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:28:06.538Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb96b669dcc926533fe5"
+  },
+  "quiz": {
+    "$oid": "68fddb96b669dcc926533fb7"
+  },
+  "text": "What is the normal average body temperature in Celsius?",
+  "answers": [
+    {
+      "text": "37°C",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fe6"
+      }
+    },
+    {
+      "text": "36°C",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fe7"
+      }
+    },
+    {
+      "text": "38°C",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fe8"
+      }
+    },
+    {
+      "text": "35°C",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddb96b669dcc926533fe9"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:28:06.539Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbcdb669dcc926534026"
+  },
+  "quiz": {
+    "$oid": "68fddbcdb669dcc926534020"
+  },
+  "text": "In which sport is the term 'love' used to describe a score?",
+  "answers": [
+    {
+      "text": "Tennis",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534027"
+      }
+    },
+    {
+      "text": "Badminton",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534028"
+      }
+    },
+    {
+      "text": "Cricket",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534029"
+      }
+    },
+    {
+      "text": "Golf",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653402a"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:01.956Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbcdb669dcc92653402b"
+  },
+  "quiz": {
+    "$oid": "68fddbcdb669dcc926534020"
+  },
+  "text": "Which country won the FIFA World Cup in 2018?",
+  "answers": [
+    {
+      "text": "France",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653402c"
+      }
+    },
+    {
+      "text": "Croatia",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653402d"
+      }
+    },
+    {
+      "text": "Brazil",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653402e"
+      }
+    },
+    {
+      "text": "Germany",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653402f"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/fifa2018.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:29:01.956Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbcdb669dcc926534030"
+  },
+  "quiz": {
+    "$oid": "68fddbcdb669dcc926534020"
+  },
+  "text": "What is the national sport of Japan?",
+  "answers": [
+    {
+      "text": "Sumo Wrestling",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534031"
+      }
+    },
+    {
+      "text": "Judo",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534032"
+      }
+    },
+    {
+      "text": "Karate",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534033"
+      }
+    },
+    {
+      "text": "Baseball",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534034"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:01.956Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbcdb669dcc926534035"
+  },
+  "quiz": {
+    "$oid": "68fddbcdb669dcc926534020"
+  },
+  "text": "In basketball, how many points is a free throw worth?",
+  "answers": [
+    {
+      "text": "1",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534036"
+      }
+    },
+    {
+      "text": "2",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534037"
+      }
+    },
+    {
+      "text": "3",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534038"
+      }
+    },
+    {
+      "text": "5",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534039"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:01.956Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbcdb669dcc92653403a"
+  },
+  "quiz": {
+    "$oid": "68fddbcdb669dcc926534020"
+  },
+  "text": "Who holds the record for the most Olympic gold medals?",
+  "answers": [
+    {
+      "text": "Michael Phelps",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653403b"
+      }
+    },
+    {
+      "text": "Usain Bolt",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653403c"
+      }
+    },
+    {
+      "text": "Simone Biles",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653403d"
+      }
+    },
+    {
+      "text": "Carl Lewis",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653403e"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/olympics.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:29:01.956Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbcdb669dcc926534044"
+  },
+  "quiz": {
+    "$oid": "68fddbcdb669dcc926534020"
+  },
+  "text": "Which country hosted the 2016 Summer Olympics?",
+  "answers": [
+    {
+      "text": "Brazil",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534045"
+      }
+    },
+    {
+      "text": "China",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534046"
+      }
+    },
+    {
+      "text": "UK",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534047"
+      }
+    },
+    {
+      "text": "Russia",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534048"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/rio2016.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:29:01.957Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbcdb669dcc92653403f"
+  },
+  "quiz": {
+    "$oid": "68fddbcdb669dcc926534020"
+  },
+  "text": "Which sport uses the term 'birdie'?",
+  "answers": [
+    {
+      "text": "Golf",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534040"
+      }
+    },
+    {
+      "text": "Badminton",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534041"
+      }
+    },
+    {
+      "text": "Tennis",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534042"
+      }
+    },
+    {
+      "text": "Baseball",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534043"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:01.956Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbcdb669dcc926534049"
+  },
+  "quiz": {
+    "$oid": "68fddbcdb669dcc926534020"
+  },
+  "text": "In tennis, what is a score of 40-40 called?",
+  "answers": [
+    {
+      "text": "Deuce",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653404a"
+      }
+    },
+    {
+      "text": "Advantage",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653404b"
+      }
+    },
+    {
+      "text": "Tie",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653404c"
+      }
+    },
+    {
+      "text": "Break point",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653404d"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:01.957Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbcdb669dcc92653404e"
+  },
+  "quiz": {
+    "$oid": "68fddbcdb669dcc926534020"
+  },
+  "text": "Which sport is often referred to as 'The King of Sports'?",
+  "answers": [
+    {
+      "text": "Soccer (Football)",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbcdb669dcc92653404f"
+      }
+    },
+    {
+      "text": "Basketball",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534050"
+      }
+    },
+    {
+      "text": "Cricket",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534051"
+      }
+    },
+    {
+      "text": "Baseball",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534052"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:01.957Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbcdb669dcc926534021"
+  },
+  "quiz": {
+    "$oid": "68fddbcdb669dcc926534020"
+  },
+  "text": "How many players are there in a standard football (soccer) team?",
+  "answers": [
+    {
+      "text": "11",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534022"
+      }
+    },
+    {
+      "text": "10",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534023"
+      }
+    },
+    {
+      "text": "12",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534024"
+      }
+    },
+    {
+      "text": "9",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbcdb669dcc926534025"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:01.955Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbeeb669dcc926534099"
+  },
+  "quiz": {
+    "$oid": "68fddbeeb669dcc926534089"
+  },
+  "text": "Which ocean is the largest?",
+  "answers": [
+    {
+      "text": "Pacific Ocean",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbeeb669dcc92653409a"
+      }
+    },
+    {
+      "text": "Atlantic Ocean",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc92653409b"
+      }
+    },
+    {
+      "text": "Indian Ocean",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc92653409c"
+      }
+    },
+    {
+      "text": "Arctic Ocean",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc92653409d"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/ocean.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:29:34.022Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbeeb669dcc92653408a"
+  },
+  "quiz": {
+    "$oid": "68fddbeeb669dcc926534089"
+  },
+  "text": "What is the capital of France?",
+  "answers": [
+    {
+      "text": "Paris",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbeeb669dcc92653408b"
+      }
+    },
+    {
+      "text": "Berlin",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc92653408c"
+      }
+    },
+    {
+      "text": "Madrid",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc92653408d"
+      }
+    },
+    {
+      "text": "Rome",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc92653408e"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:34.021Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbeeb669dcc926534094"
+  },
+  "quiz": {
+    "$oid": "68fddbeeb669dcc926534089"
+  },
+  "text": "How many continents are there on Earth?",
+  "answers": [
+    {
+      "text": "7",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbeeb669dcc926534095"
+      }
+    },
+    {
+      "text": "6",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc926534096"
+      }
+    },
+    {
+      "text": "8",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc926534097"
+      }
+    },
+    {
+      "text": "5",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc926534098"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:34.022Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbeeb669dcc92653409e"
+  },
+  "quiz": {
+    "$oid": "68fddbeeb669dcc926534089"
+  },
+  "text": "Who wrote the play 'Romeo and Juliet'?",
+  "answers": [
+    {
+      "text": "William Shakespeare",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbeeb669dcc92653409f"
+      }
+    },
+    {
+      "text": "Charles Dickens",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340a0"
+      }
+    },
+    {
+      "text": "Leo Tolstoy",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340a1"
+      }
+    },
+    {
+      "text": "Mark Twain",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340a2"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:34.022Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbeeb669dcc9265340a3"
+  },
+  "quiz": {
+    "$oid": "68fddbeeb669dcc926534089"
+  },
+  "text": "Which element has the chemical symbol 'O'?",
+  "answers": [
+    {
+      "text": "Oxygen",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340a4"
+      }
+    },
+    {
+      "text": "Osmium",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340a5"
+      }
+    },
+    {
+      "text": "Gold",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340a6"
+      }
+    },
+    {
+      "text": "Hydrogen",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340a7"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:34.022Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbeeb669dcc9265340a8"
+  },
+  "quiz": {
+    "$oid": "68fddbeeb669dcc926534089"
+  },
+  "text": "Which country invented pizza?",
+  "answers": [
+    {
+      "text": "Italy",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340a9"
+      }
+    },
+    {
+      "text": "France",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340aa"
+      }
+    },
+    {
+      "text": "USA",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340ab"
+      }
+    },
+    {
+      "text": "Spain",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340ac"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/pizza.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:29:34.023Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbeeb669dcc9265340ad"
+  },
+  "quiz": {
+    "$oid": "68fddbeeb669dcc926534089"
+  },
+  "text": "How many colors are there in a rainbow?",
+  "answers": [
+    {
+      "text": "7",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340ae"
+      }
+    },
+    {
+      "text": "6",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340af"
+      }
+    },
+    {
+      "text": "8",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340b0"
+      }
+    },
+    {
+      "text": "9",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340b1"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:34.023Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbeeb669dcc9265340b2"
+  },
+  "quiz": {
+    "$oid": "68fddbeeb669dcc926534089"
+  },
+  "text": "Which gas do plants absorb from the atmosphere?",
+  "answers": [
+    {
+      "text": "Carbon Dioxide",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340b3"
+      }
+    },
+    {
+      "text": "Oxygen",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340b4"
+      }
+    },
+    {
+      "text": "Nitrogen",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340b5"
+      }
+    },
+    {
+      "text": "Hydrogen",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340b6"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:34.023Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbeeb669dcc92653408f"
+  },
+  "quiz": {
+    "$oid": "68fddbeeb669dcc926534089"
+  },
+  "text": "Which planet is known as the Red Planet?",
+  "answers": [
+    {
+      "text": "Mars",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbeeb669dcc926534090"
+      }
+    },
+    {
+      "text": "Venus",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc926534091"
+      }
+    },
+    {
+      "text": "Jupiter",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc926534092"
+      }
+    },
+    {
+      "text": "Mercury",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc926534093"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": null,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:34.021Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbeeb669dcc9265340b7"
+  },
+  "quiz": {
+    "$oid": "68fddbeeb669dcc926534089"
+  },
+  "text": "Which is the fastest land animal?",
+  "answers": [
+    {
+      "text": "Cheetah",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340b8"
+      }
+    },
+    {
+      "text": "Lion",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340b9"
+      }
+    },
+    {
+      "text": "Tiger",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340ba"
+      }
+    },
+    {
+      "text": "Leopard",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "68fddbeeb669dcc9265340bb"
+      }
+    }
+  ],
+  "multipleAnswers": false,
+  "imageUrl": "https://example.com/cheetah.png",
+  "createdAt": {
+    "$date": "2025-10-26T08:29:34.023Z"
+  },
+  "__v": 0
+}]

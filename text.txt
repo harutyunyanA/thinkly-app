@@ -1,0 +1,233 @@
+{
+    name: Avocado,
+    surname: Smith,
+    username: avo123,
+    mail: avo123@gmail.com
+    password: Qwerty-123
+}
+
+{
+name: Mango,
+surname: Johnson,
+username: mango_j,
+mail: mango.j@gmail.com
+password: Mango*2025
+}
+
+{
+name: Berry,
+surname: Thompson,
+username: berryT,
+mail: berry.t@example.com
+password: B3rry-Pass
+}
+
+{
+name: Kiwi,
+surname: Brown,
+username: kiwib,
+mail: kiwi.brown@mail.am
+password: Kiwi-Secure1
+}
+
+
+{
+  text: string,
+  isCorrect: boolean,
+}
+
+
+
+
+JSON request QUIZ ADD
+
+{
+  "title": "JavaScript Fundamentals",
+  "description": "Check your basic knowledge of JavaScript",
+  "category": "programming",
+  "difficulty": "medium",
+  "isPublic": true,
+  "questions": [
+    {
+      "text": "Which of the following are JavaScript data types?",
+      "multipleAnswers": true,
+      "answers": [
+        { "text": "String", "isCorrect": true },
+        { "text": "Boolean", "isCorrect": true },
+        { "text": "Integer", "isCorrect": false },
+        { "text": "Undefined", "isCorrect": true }
+      ],
+      "imageUrl": null
+    },
+    {
+      "text": "Which keyword declares a constant in JS?",
+      "multipleAnswers": false,
+      "answers": [
+        { "text": "let", "isCorrect": false },
+        { "text": "const", "isCorrect": true },
+        { "text": "var", "isCorrect": false },
+        { "text": "static", "isCorrect": false }
+      ],
+      "imageUrl": null
+    },
+    {
+      "text": "What is the output of `typeof null`?",
+      "multipleAnswers": false,
+      "answers": [
+        { "text": "object", "isCorrect": true },
+        { "text": "null", "isCorrect": false },
+        { "text": "undefined", "isCorrect": false },
+        { "text": "number", "isCorrect": false }
+      ],
+      "imageUrl": "https://example.com/question3.png"
+    }
+  ]
+}
+
+
+/////////////////////////////////////////////////////////////
+
+
+{
+  "answers": [
+    {
+      "questionId": "68fcb42a748c3db81b6354a7",
+      "selected": [
+        "68fcb42a748c3db81b6354a8",
+        "68fcb42a748c3db81b6354a9",
+        "68fcb42a748c3db81b6354ab"
+      ]
+    },
+    {
+      "questionId": "68fcb42a748c3db81b6354ac",
+      "selected": [
+        "68fcb42a748c3db81b6354ae"
+      ]
+    },
+    {
+      "questionId": "68fcb42a748c3db81b6354b1",
+      "selected": [
+        "68fcb42a748c3db81b6354b2"
+      ]
+    }
+  ]
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+{
+  "answers": {
+    "68fcb42a748c3db81b6354a7": [
+      "68fcb42a748c3db81b6354a8",
+      "68fcb42a748c3db81b6354a9",
+      "68fcb42a748c3db81b6354ab"
+    ],
+    "68fcb42a748c3db81b6354ac": [
+      "68fcb42a748c3db81b6354ae"
+    ],
+    "68fcb42a748c3db81b6354b1": [
+      "68fcb42a748c3db81b6354b2"
+    ]
+  }
+}
+
+
+
+?????????????????????????????????????????????????????????????
+
+
+[
+    {
+        "_id": "68fcb42a748c3db81b6354a7",
+        "quiz": "68fcb42a748c3db81b6354a6",
+        "text": "Which of the following are JavaScript data types?",
+        "answers": [
+            {
+                "text": "String",
+                "isCorrect": true,
+                "_id": "68fcb42a748c3db81b6354a8"
+            },
+            {
+                "text": "Boolean",
+                "isCorrect": true,
+                "_id": "68fcb42a748c3db81b6354a9"
+            },
+            {
+                "text": "Integer",
+                "isCorrect": false,
+                "_id": "68fcb42a748c3db81b6354aa"
+            },
+            {
+                "text": "Undefined",
+                "isCorrect": true,
+                "_id": "68fcb42a748c3db81b6354ab"
+            }
+        ],
+        "multipleAnswers": true,
+        "imageUrl": null,
+        "createdAt": "2025-10-25T11:27:38.988Z",
+        "__v": 0
+    },
+    {
+        "_id": "68fcb42a748c3db81b6354ac",
+        "quiz": "68fcb42a748c3db81b6354a6",
+        "text": "Which keyword declares a constant in JS?",
+        "answers": [
+            {
+                "text": "let",
+                "isCorrect": false,
+                "_id": "68fcb42a748c3db81b6354ad"
+            },
+            {
+                "text": "const",
+                "isCorrect": true,
+                "_id": "68fcb42a748c3db81b6354ae"
+            },
+            {
+                "text": "var",
+                "isCorrect": false,
+                "_id": "68fcb42a748c3db81b6354af"
+            },
+            {
+                "text": "static",
+                "isCorrect": false,
+                "_id": "68fcb42a748c3db81b6354b0"
+            }
+        ],
+        "multipleAnswers": false,
+        "imageUrl": null,
+        "createdAt": "2025-10-25T11:27:38.988Z",
+        "__v": 0
+    },
+    {
+        "_id": "68fcb42a748c3db81b6354b1",
+        "quiz": "68fcb42a748c3db81b6354a6",
+        "text": "What is the output of `typeof null`?",
+        "answers": [
+            {
+                "text": "object",
+                "isCorrect": true,
+                "_id": "68fcb42a748c3db81b6354b2"
+            },
+            {
+                "text": "null",
+                "isCorrect": false,
+                "_id": "68fcb42a748c3db81b6354b3"
+            },
+            {
+                "text": "undefined",
+                "isCorrect": false,
+                "_id": "68fcb42a748c3db81b6354b4"
+            },
+            {
+                "text": "number",
+                "isCorrect": false,
+                "_id": "68fcb42a748c3db81b6354b5"
+            }
+        ],
+        "multipleAnswers": false,
+        "imageUrl": "https://example.com/question3.png",
+        "createdAt": "2025-10-25T11:27:38.988Z",
+        "__v": 0
+    }
+]

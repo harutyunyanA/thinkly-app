@@ -1,0 +1,255 @@
+[{
+  "_id": {
+    "$oid": "68fddafeb669dcc926533ee4"
+  },
+  "title": "JavaScript Fundamentals",
+  "description": "Check your basic knowledge of JavaScript",
+  "category": "programming",
+  "difficulty": "medium",
+  "isPublic": true,
+  "owner": {
+    "$oid": "68fdd5f9b669dcc926533e00"
+  },
+  "questions": [
+    {
+      "$oid": "68fddafeb669dcc926533ee5"
+    },
+    {
+      "$oid": "68fddafeb669dcc926533eea"
+    },
+    {
+      "$oid": "68fddafeb669dcc926533eef"
+    },
+    {
+      "$oid": "68fddafeb669dcc926533ef4"
+    },
+    {
+      "$oid": "68fddafeb669dcc926533ef9"
+    },
+    {
+      "$oid": "68fddafeb669dcc926533efe"
+    },
+    {
+      "$oid": "68fddafeb669dcc926533f03"
+    },
+    {
+      "$oid": "68fddafeb669dcc926533f08"
+    },
+    {
+      "$oid": "68fddafeb669dcc926533f0d"
+    },
+    {
+      "$oid": "68fddafeb669dcc926533f12"
+    }
+  ],
+  "averageRating": 0,
+  "averageScore": 0,
+  "createdAt": {
+    "$date": "2025-10-26T08:25:34.333Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb2ab669dcc926533f4d"
+  },
+  "title": "Geography Challenge",
+  "description": "Test your knowledge about countries, capitals, and the physical world.",
+  "category": "geography",
+  "difficulty": "medium",
+  "isPublic": true,
+  "owner": {
+    "$oid": "68fdd5f9b669dcc926533e00"
+  },
+  "questions": [
+    {
+      "$oid": "68fddb2ab669dcc926533f4e"
+    },
+    {
+      "$oid": "68fddb2ab669dcc926533f53"
+    },
+    {
+      "$oid": "68fddb2ab669dcc926533f58"
+    },
+    {
+      "$oid": "68fddb2ab669dcc926533f5d"
+    },
+    {
+      "$oid": "68fddb2ab669dcc926533f62"
+    },
+    {
+      "$oid": "68fddb2ab669dcc926533f67"
+    },
+    {
+      "$oid": "68fddb2ab669dcc926533f6c"
+    },
+    {
+      "$oid": "68fddb2ab669dcc926533f71"
+    },
+    {
+      "$oid": "68fddb2ab669dcc926533f76"
+    },
+    {
+      "$oid": "68fddb2ab669dcc926533f7b"
+    }
+  ],
+  "averageRating": 0,
+  "averageScore": 0,
+  "createdAt": {
+    "$date": "2025-10-26T08:26:18.924Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddb96b669dcc926533fb7"
+  },
+  "title": "Human Body & Health",
+  "description": "Check your knowledge about human anatomy, organs, and basic health science.",
+  "category": "health",
+  "difficulty": "medium",
+  "isPublic": true,
+  "owner": {
+    "$oid": "68fdd5c7b669dcc926533df4"
+  },
+  "questions": [
+    {
+      "$oid": "68fddb96b669dcc926533fb8"
+    },
+    {
+      "$oid": "68fddb96b669dcc926533fbd"
+    },
+    {
+      "$oid": "68fddb96b669dcc926533fc2"
+    },
+    {
+      "$oid": "68fddb96b669dcc926533fc7"
+    },
+    {
+      "$oid": "68fddb96b669dcc926533fcc"
+    },
+    {
+      "$oid": "68fddb96b669dcc926533fd1"
+    },
+    {
+      "$oid": "68fddb96b669dcc926533fd6"
+    },
+    {
+      "$oid": "68fddb96b669dcc926533fdb"
+    },
+    {
+      "$oid": "68fddb96b669dcc926533fe0"
+    },
+    {
+      "$oid": "68fddb96b669dcc926533fe5"
+    }
+  ],
+  "averageRating": 0,
+  "averageScore": 0,
+  "createdAt": {
+    "$date": "2025-10-26T08:28:06.537Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbcdb669dcc926534020"
+  },
+  "title": "Sports Trivia",
+  "description": "Challenge yourself with fun and tricky questions about sports, players, and world competitions.",
+  "category": "sports",
+  "difficulty": "easy",
+  "isPublic": true,
+  "owner": {
+    "$oid": "68fdd5c7b669dcc926533df4"
+  },
+  "questions": [
+    {
+      "$oid": "68fddbcdb669dcc926534021"
+    },
+    {
+      "$oid": "68fddbcdb669dcc926534026"
+    },
+    {
+      "$oid": "68fddbcdb669dcc92653402b"
+    },
+    {
+      "$oid": "68fddbcdb669dcc926534030"
+    },
+    {
+      "$oid": "68fddbcdb669dcc926534035"
+    },
+    {
+      "$oid": "68fddbcdb669dcc92653403a"
+    },
+    {
+      "$oid": "68fddbcdb669dcc92653403f"
+    },
+    {
+      "$oid": "68fddbcdb669dcc926534044"
+    },
+    {
+      "$oid": "68fddbcdb669dcc926534049"
+    },
+    {
+      "$oid": "68fddbcdb669dcc92653404e"
+    }
+  ],
+  "averageRating": 0,
+  "averageScore": 0,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:01.955Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fddbeeb669dcc926534089"
+  },
+  "title": "General Knowledge",
+  "description": "A mix of interesting and diverse questions to test your general knowledge.",
+  "category": "general",
+  "difficulty": "easy",
+  "isPublic": true,
+  "owner": {
+    "$oid": "68fdd5c7b669dcc926533df4"
+  },
+  "questions": [
+    {
+      "$oid": "68fddbeeb669dcc92653408a"
+    },
+    {
+      "$oid": "68fddbeeb669dcc92653408f"
+    },
+    {
+      "$oid": "68fddbeeb669dcc926534094"
+    },
+    {
+      "$oid": "68fddbeeb669dcc926534099"
+    },
+    {
+      "$oid": "68fddbeeb669dcc92653409e"
+    },
+    {
+      "$oid": "68fddbeeb669dcc9265340a3"
+    },
+    {
+      "$oid": "68fddbeeb669dcc9265340a8"
+    },
+    {
+      "$oid": "68fddbeeb669dcc9265340ad"
+    },
+    {
+      "$oid": "68fddbeeb669dcc9265340b2"
+    },
+    {
+      "$oid": "68fddbeeb669dcc9265340b7"
+    }
+  ],
+  "averageRating": 0,
+  "averageScore": 0,
+  "createdAt": {
+    "$date": "2025-10-26T08:29:34.020Z"
+  },
+  "__v": 0
+}]

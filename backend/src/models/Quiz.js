@@ -1,0 +1,21 @@
+import { Schema, Types, model } from "mongoose";
+
+const quizSchema = new Schema({
+  title: { type: String, required: true, trim: true },
+  description: { type: String, trim: true },
+  category: { type: String, trim: true },
+  difficulty: {
+    type: String,
+    enum: ["easy", "medium", "hard"],
+    default: "easy",
+  },
+  isPublic: { type: Boolean, default: true },
+  owner: { type: Types.ObjectId, ref: "User", required: true },
+  questions: [{ type: Types.ObjectId, ref: "Question" }],
+  averageRating: { type: Number, default: 0 },
+  averageScore: { type: Number, default: 0 },
+  createdAt: { type: Date, default: Date.now },
+});
+
+export default model("Quiz", quizSchema);
+
