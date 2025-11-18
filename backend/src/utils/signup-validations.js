@@ -18,7 +18,7 @@ class SignupValidation {
 
   // --- Check that all required fields are present ---
   availabilityOfCredentials(data) {
-    const requiredFields = ["name", "surname", "username", "email", "password"];
+    const requiredFields = ["name", "username", "email", "password"];
     for (const field of requiredFields) {
       if (!this.isRequired(data[field])) {
         return { valid: false, message: "All fields are required" };
@@ -38,13 +38,6 @@ class SignupValidation {
       };
     }
 
-    if (!this.hasLetter(surname)) {
-      return {
-        valid: false,
-        message: "Surname should contain at least one letter",
-      };
-    }
-
     return { valid: true };
   }
 
@@ -56,7 +49,7 @@ class SignupValidation {
       return { valid: false, message: "Username is required" };
     }
 
-    username = username.toLowerCase();
+    username = username.trim().toLowerCase();
 
     const usernameRegExp = /^[a-zA-Z0-9_.-]{3,25}$/;
     if (!this.matchesRegex(username, usernameRegExp)) {
@@ -69,10 +62,10 @@ class SignupValidation {
 
     const result = await User.findOne({ username });
     if (result) {
-      return { valid: false, message: "Username is already taken" };
+      return { valid: false, message: "Username is not available" };
     }
 
-    return { valid: true };
+    return { valid: true, message: "Username is available" };
   }
 
   // --- Validate email format ---
@@ -83,7 +76,7 @@ class SignupValidation {
       return { valid: false, message: "Email is required" };
     }
 
-    email = email.toLowerCase();
+    email = email.trim().toLowerCase();
 
     const emailRegExp = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/;
     if (!this.matchesRegex(email, emailRegExp)) {

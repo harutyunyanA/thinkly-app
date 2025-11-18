@@ -6,7 +6,6 @@ import { mailer } from "../services/mailer.js";
 import { verificationCode } from "../services/verification.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
-// import Verification from "../models/Verification.js";
 
 class AuthController {
   async signup(req, res) {
@@ -52,7 +51,6 @@ class AuthController {
     //////////////CREATING AND SAVING NEW USER IN DB///////////////////
     const newUser = new User({
       name: data.name.trim(),
-      surname: data.surname.trim(),
       username: data.username.trim().toLowerCase(),
       email: data.email.trim().toLowerCase(),
       password: hashedPassword,
@@ -65,28 +63,26 @@ class AuthController {
     } catch (err) {
       return res.status(500).send({ message: "Internal server error" });
     }
-
-    ///////////SENDING VERIFICATION EMAIL//////////
-    const verifyCode = await verificationCode(newUser);
-    mailer.sendVerificationCode(verifyCode, newUser.email);
   }
 
   async verify(req, res) {
-    if (!req.body?.code.trim() || !req.body?.email.trim().toLowerCase()) {
+    if (!req.body?.code.trim() || !req.body?.username.trim().toLowerCase()) {
       return res.status(400).send({ message: "please fill all the fields" });
     }
 
-    let { code, email } = req.body;
-    email = email.trim().toLowerCase();
+    let { code, username } = req.body;
+    username = username.trim().toLowerCase();
 
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ username: username });
     if (!user) {
-      return res.status(404).send({ message: "Wrong email. User not found" });
+      return res
+        .status(404)
+        .send({ message: "Wrong username. User not found" });
     }
+
     if (user.isVerified) {
       return res.send({ message: "Account already verifed" });
     }
-
     const userVerificationRecord = await UserVerification.findOne({
       userId: user._id,
     });
@@ -97,11 +93,15 @@ class AuthController {
     }
 
     if (Number(code) !== userVerificationRecord.code) {
+      console.log(code, userVerificationRecord.code);
       return res.status(400).send({ message: "Wrong verification code" });
     }
 
     await UserVerification.deleteOne({ _id: userVerificationRecord._id });
-    await User.updateOne({ email: email }, { $set: { isVerified: true } });
+    await User.updateOne(
+      { username: username },
+      { $set: { isVerified: true } }
+    );
     res.send({ message: "User account verified successfully" });
   }
 
@@ -115,10 +115,12 @@ class AuthController {
 
     const user = await User.findOne({ username: username });
     if (!user) {
-      return res.status(404).send({ message: "User nor found" });
+      return res.status(400).send({ message: "Wrong Credentials" });
     }
-
     if (!user.isVerified) {
+      ///////////SENDING VERIFICATION EMAIL//////////
+      const verifyCode = await verificationCode(user);
+      mailer.sendVerificationCode(verifyCode, user.email);
       return res
         .status(403)
         .send({ message: "Please verify your account first" });

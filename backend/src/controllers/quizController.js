@@ -9,8 +9,15 @@ class QuizController {
 
   async createQuiz(req, res) {
     try {
-      const { title, description, category, difficulty, isPublic, questions } =
-        req.body || {};
+      const {
+        title,
+        description,
+        category,
+        difficulty,
+        imageUrl,
+        isPublic,
+        questions,
+      } = req.body || {};
 
       if (!title?.trim() || !description?.trim() || !category?.trim()) {
         return res.status(400).send({ message: "Please fill all the fields" });
@@ -24,11 +31,13 @@ class QuizController {
 
       const { _id: userId } = req.user;
 
+
       const newQuiz = new Quiz({
         title: title.trim(),
         description: description.trim(),
         category: category.trim(),
         difficulty,
+        imageUrl,
         isPublic,
         owner: userId,
         questions: [],
@@ -67,7 +76,7 @@ class QuizController {
           path: "questions",
           select: "-answers.isCorrect",
         })
-        .populate("owner", "name surname username");
+        .populate("owner", "name username");
       if (!quiz) {
         return res.status(404).send({ message: "Quiz not found" });
       }
@@ -155,9 +164,10 @@ class QuizController {
           .status(403)
           .send({ message: "You are not allowed to edit this quiz" });
       }
-
+      if (req.file) {
+        req.body.file = req.file;
+      }
       const question = await quizTools.addQuestion(req.body, quizId);
-
       quiz.questions.push(question._id);
       await quiz.save();
 
@@ -265,7 +275,7 @@ class QuizController {
   async submitQuiz(req, res) {
     const { id: quizId } = req.params;
     const userId = req.user?._id || null;
-    const userAnswers = req.body.answers; // объект: { questionId: [answerIds] }
+    const userAnswers = req.body.answers; // object: { questionId: [answerIds] }
 
     if (!quizId || !userAnswers || typeof userAnswers !== "object") {
       return res.status(400).send({ message: "Invalid request body" });
@@ -352,7 +362,7 @@ class QuizController {
       res.status(500).send({ message: "Internal server error" });
     }
   }
-
+  ////////////NOT TESTED//////////
   async searchQuiz(req, res) {
     const { title, category, difficulty } = req.query;
 
@@ -370,13 +380,12 @@ class QuizController {
 
     const result = await Quiz.find(filter)
       .select("title _id description category difficulty createdAt owner")
-      .populate("owner", "name surname username _id");
+      .populate("owner", "name username _id");
     if (!result.length) {
       return res.status(404).send({ message: "No quizzes found" });
     }
     res.send(result);
   }
-
 }
 
 export default new QuizController();

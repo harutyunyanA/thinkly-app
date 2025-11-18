@@ -1,0 +1,31 @@
+.brain-loader {
+  width: 100px; /* Adjust size as needed */
+  height: 80px; /* Adjust size as needed */
+}
+
+.brain-contour {
+  fill: none;
+  stroke: #0000FF;
+  stroke-width: 24;
+}
+
+.brain-path {
+  fill: none;
+  stroke: #0000FF;
+  stroke-width: 24;
+  stroke-dasharray: 1000; /* Total length of the path */
+  stroke-dashoffset: 1000;
+  animation: draw 3.5s ease-in-out infinite;
+}
+
+@keyframes draw {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -1000;
+  }
+}

@@ -1,7 +1,10 @@
 import express from "express";
 import controller from "../controllers/quizController.js";
-import { isAuthenticated } from "../middlewares/isAuthenticated.js";
-import { optionalAuthentication } from "../middlewares/optionalAuthentication.js";
+import {
+  imageUpload,
+  isAuthenticated,
+  optionalAuthentication,
+} from "../middlewares/index.js";
 
 const router = express.Router();
 
@@ -10,17 +13,26 @@ router.post("/", isAuthenticated, controller.createQuiz);
 router.get("/:id", controller.getQuizById);
 router.patch("/:id", isAuthenticated, controller.updateQuiz);
 router.delete("/:id", isAuthenticated, controller.deleteQuiz);
-router.post("/:id/question", isAuthenticated, controller.addQuestion);
+
+router.post(
+  "/:id/question",
+  isAuthenticated,
+  imageUpload("avatar"),
+  controller.addQuestion
+);
+
 router.patch(
   "/:quizId/question/:questionId",
   isAuthenticated,
   controller.updateQuestion
 );
+
 router.delete(
   "/:quizId/question/:questionId",
   isAuthenticated,
   controller.deleteQuestion
 );
+
 router.get("/user/:id", controller.getUserQuizzes);
 router.post("/:id/submit", optionalAuthentication, controller.submitQuiz);
 router.get("/:id/results", isAuthenticated, controller.getQuizResults);

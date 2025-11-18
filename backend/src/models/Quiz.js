@@ -9,6 +9,7 @@ const quizSchema = new Schema({
     enum: ["easy", "medium", "hard"],
     default: "easy",
   },
+  imageURL: { type: String, default: null },
   isPublic: { type: Boolean, default: true },
   owner: { type: Types.ObjectId, ref: "User", required: true },
   questions: [{ type: Types.ObjectId, ref: "Question" }],
@@ -18,4 +19,3 @@ const quizSchema = new Schema({
 });
 
 export default model("Quiz", quizSchema);
-

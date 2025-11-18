@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { env } from "../config/env.js";
+
 export function isAuthenticated(req, res, next) {
   const authHeder = req.headers.authorization;
   if (!authHeder) {

@@ -4,15 +4,18 @@ import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 import authRoutes from "./src/routes/authRoutes.js";
 import quizRoutes from "./src/routes/quizRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
 import cors from "cors";
+import { env } from "./src/config/env.js";
+
 const app = express();
 const swaggerDocument = YAML.load("./src/docs/api.yaml");
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://brainteaser.vercel.app"],
+    origin: ["http://localhost:5173", "https://thinkly.fun"],
     methods: ["GET", "POST", "PATCH", "DELETE"],
-    credentials: true,
+    // credentials: true,
   })
 );
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -22,5 +25,6 @@ app.use(json());
 
 app.use("/auth", authRoutes);
 app.use("/quiz", quizRoutes);
+app.use("/user", userRoutes);
 
-app.listen(4002, () => console.log("http://localhost:4002"));
+app.listen(env.BASE_PORT, () => console.log(`${env.BASE_URL}${env.BASE_PORT}`));
