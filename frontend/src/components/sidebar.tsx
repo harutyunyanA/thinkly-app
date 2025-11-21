@@ -11,7 +11,7 @@ export function Sidebar() {
 
       <nav className="flex flex-col gap-4">
         <NavLink
-          to="/dashboard"
+          to="/home"
           end
           className={({ isActive }) =>
             `flex items-center gap-2 px-3 py-2 rounded-md ${
@@ -24,7 +24,7 @@ export function Sidebar() {
         </NavLink>
 
         <NavLink
-          to="/dashboard/quizzes"
+          to="/home/quizzes"
           className={({ isActive }) =>
             `flex items-center gap-2 px-3 py-2 rounded-md ${
               isActive ? "bg-indigo-100 text-indigo-700" : "text-gray-700"
@@ -36,7 +36,7 @@ export function Sidebar() {
         </NavLink>
 
         <NavLink
-          to="/dashboard/settings"
+          to="/home/settings"
           className={({ isActive }) =>
             `flex items-center gap-2 px-3 py-2 rounded-md ${
               isActive ? "bg-indigo-100 text-indigo-700" : "text-gray-700"

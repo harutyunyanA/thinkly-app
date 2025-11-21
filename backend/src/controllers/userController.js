@@ -3,14 +3,14 @@ import bcrypt from "bcrypt";
 import signupTools from "../utils/signup-validations.js";
 import jwt from "jsonwebtoken";
 import { env } from "../config/env.js";
+import { sendResponse } from "../utils/sendResponse.js";
 
 class UserController {
   async getUserProfile(req, res) {
     try {
       const { id } = req.params;
-      if (!id) {
-        return res.status(400).send({ message: "id required" });
-      }
+
+      if (!id) return sendResponse(res, 400, false, "User ID is required");
 
       const user = await User.findById(id, {
         password: 0,
@@ -22,121 +22,141 @@ class UserController {
         select: "title description category difficulty",
       });
 
-      if (!user) {
-        return res.status(404).send({ message: "User not found" });
-      }
+      if (!user) return sendResponse(res, 404, false, "User not found");
 
-      res.send({ payload: user });
+      return sendResponse(res, 200, true, "User profile fetched", user);
     } catch (err) {
-      res
-        .status(500)
-        .send({ message: `Internal server error. ${err.message}` });
+      return sendResponse(res, 500, false, "Internal server error");
     }
   }
 
   async getCurrentUser(req, res) {
-    const { _id } = req.user;
-    const user = await User.findById(_id, { password: 0 });
-    if (!user) return res.status(404).send({ message: "User not found" });
-    res.send({ payload: user });
+    try {
+      const { _id } = req.user;
+
+      const user = await User.findById(_id, { password: 0 });
+      if (!user) return sendResponse(res, 404, false, "User not found");
+
+      return sendResponse(res, 200, true, "Current user fetched", user);
+    } catch (err) {
+      return sendResponse(res, 500, false, "Internal server error");
+    }
   }
 
   async changeUsername(req, res) {
-    let { username, password } = req.body;
-    username = username.trim().toLowerCase();
-    const user = await User.findById(req.user._id);
+    try {
+      let { username, password } = req.body;
 
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
+      username = username?.trim().toLowerCase();
+      const user = await User.findById(req.user._id);
+
+      if (!user) return sendResponse(res, 404, false, "User not found");
+
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch)
+        return sendResponse(res, 403, false, "Wrong password");
+
+      if (user.username === username)
+        return sendResponse(res, 200, true, "Username is available");
+
+      const usernameValidation = await signupTools.usernameValidation({
+        username,
+      });
+      if (!usernameValidation.valid)
+        return sendResponse(res, 400, false, usernameValidation.message);
+
+      user.username = username;
+
+      const newToken = jwt.sign(
+        { _id: user._id, username: user.username },
+        env.SECRET_KEY,
+        { expiresIn: "7d" }
+      );
+
+      await user.save();
+
+      return sendResponse(
+        res,
+        200,
+        true,
+        "Username successfully changed",
+        username,
+        newToken
+      );
+    } catch (err) {
+      return sendResponse(res, 500, false, "Internal server error");
     }
-
-    if (!(await bcrypt.compare(password, user.password))) {
-      return res.status(403).send({ message: "Wrong password" });
-    }
-
-    if (user.username === username) {
-      return res.send({ message: "username is available" });
-    }
-
-    const usernameValidation = await signupTools.usernameValidation(req.body);
-
-    if (!usernameValidation.valid) {
-      return res.status(400).send({ message: usernameValidation.message });
-    }
-
-    user.username = username;
-
-    const newToken = jwt.sign(
-      { _id: user._id, username: user.username },
-      env.SECRET_KEY,
-      { expiresIn: "7d" }
-    );
-
-    await user.save();
-    res.send({
-      message: "Username was successfully changed",
-      payload: username,
-      token: newToken,
-    });
   }
 
-  /////////DO NOT USE//////////////////
+  // UNUSED BUT FORMATTED FOR CONSISTENCY
   async changeEmail(req, res) {
-    let { email, password } = req.body;
-    email = email.trim().toLowerCase();
-    const user = await User.findById(req.user._id);
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
-    }
+    try {
+      let { email, password } = req.body;
+      email = email?.trim().toLowerCase();
 
-    if (!(await bcrypt.compare(password.trim(), user.password))) {
-      return res.status(403).send({ message: "Wrong password" });
-    }
+      const user = await User.findById(req.user._id);
+      if (!user) return sendResponse(res, 404, false, "User not found");
 
-    if (user.email === email) {
-      return res.send({ message: "email is available" });
-    }
+      const isMatch = await bcrypt.compare(password.trim(), user.password);
+      if (!isMatch) return sendResponse(res, 403, false, "Wrong password");
 
-    const emailValidation = await signupTools.emailValidation(req.body);
+      if (user.email === email)
+        return sendResponse(res, 200, true, "Email is available");
 
-    if (!emailValidation.valid) {
-      return res.status(400).send({ message: emailValidation.message });
+      const validation = await signupTools.emailValidation({ email });
+      if (!validation.valid)
+        return sendResponse(res, 400, false, validation.message);
+
+      return sendResponse(
+        res,
+        200,
+        true,
+        "Email successfully changed. Please verify your email"
+      );
+    } catch (err) {
+      return sendResponse(res, 500, false, "Internal server error");
     }
-    res.send({ message: "email successfully changed. Verify your email" });
-  } ////////////////////////////////////////
+  }
 
   async changePassword(req, res) {
-    const { currentPassword, newPassword } = req.body;
-    console.log(req.user);
-    const user = await User.findById(req.user._id);
-    if (!user) return res.status(404).send({ message: "User not found" });
+    try {
+      const { currentPassword, newPassword } = req.body;
 
-    if (!(await bcrypt.compare(currentPassword, user.password))) {
-      return res.status(403).send({ message: "Wrong password" });
+      const user = await User.findById(req.user._id);
+      if (!user) return sendResponse(res, 404, false, "User not found");
+
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      if (!isMatch)
+        return sendResponse(res, 403, false, "Wrong current password");
+
+      const validation = signupTools.passwordValidation({
+        password: newPassword,
+      });
+      if (!validation.valid)
+        return sendResponse(res, 400, false, validation.message);
+
+      const hashed = await bcrypt.hash(newPassword, 10);
+      user.password = hashed;
+      await user.save();
+
+      return sendResponse(res, 200, true, "Password changed successfully");
+    } catch (err) {
+      return sendResponse(res, 500, false, "Internal server error");
     }
-
-    const passwordValidation = signupTools.passwordValidation(req.body);
-    if (!passwordValidation.valid) {
-      return res.status(400).send({ message: passwordValidation.message });
-    }
-
-    const hashed = await bcrypt.hash(newPassword, 10);
-    user.password = hashed;
-    await user.save();
-
-    res.send({ message: "Password successfullu changed" });
   }
 
   async uploadAvatar(req, res) {
-    const user = await User.findById(req.user._id);
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
+    try {
+      const user = await User.findById(req.user._id);
+      if (!user) return sendResponse(res, 404, false, "User not found");
+
+      user.avatar = req.file.location;
+      await user.save();
+
+      return sendResponse(res, 200, true, "Avatar uploaded", req.file);
+    } catch (err) {
+      return sendResponse(res, 500, false, "Internal server error");
     }
-
-    user.avatar = req.file.location;
-
-    await user.save();
-    res.send(req.file);
   }
 }
 

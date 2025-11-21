@@ -18,7 +18,7 @@ export function Header() {
         {/* Add Quiz Button */}
         <button className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-md text-sm hover:bg-indigo-700 transition">
           <Plus size={18} />
-          Add Quiz
+          Create Quiz
         </button>
       </div>
     </header>

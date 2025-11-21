@@ -1,535 +1,639 @@
-{
-  "openapi": "3.0.0",
-  "info":
-    {
-      "title": "Quiz App API",
-      "version": "1.0.0",
-      "description": "REST API documentation for Quiz Platform",
-    },
-  "servers": [{ "url": "http://localhost:4003/api" }],
-  "tags":
-    [
-      { "name": "Auth", "description": "Authentication and user registration" },
-      { "name": "User", "description": "User profile management" },
-      { "name": "Quiz", "description": "Quiz creation and participation" },
-    ],
-  "components":
-    {
-      "securitySchemes":
-        {
-          "bearerAuth":
-            { "type": "http", "scheme": "bearer", "bearerFormat": "JWT" },
-        },
-      "schemas":
-        {
-          "User":
-            {
-              "type": "object",
-              "properties":
-                {
-                  "_id":
-                    { "type": "string", "example": "671c07fabc9345e65c95ffb1" },
-                  "name": { "type": "string", "example": "John Doe" },
-                  "username": { "type": "string", "example": "johndoe" },
-                  "email": { "type": "string", "example": "john@gmail.com" },
-                  "avatar":
-                    {
-                      "type": "string",
-                      "example": "https://s3.amazonaws.com/.../avatar.jpg",
-                    },
-                },
-            },
-          "Answer":
-            {
-              "type": "object",
-              "properties":
-                {
-                  "text": { "type": "string", "example": "React" },
-                  "isCorrect": { "type": "boolean", "example": true },
-                },
-            },
-          "Question":
-            {
-              "type": "object",
-              "properties":
-                {
-                  "_id":
-                    { "type": "string", "example": "67200bafbc231f0012ab8f7e" },
-                  "text": { "type": "string", "example": "What is React?" },
-                  "multipleAnswers": { "type": "boolean", "example": false },
-                  "answers":
-                    {
-                      "type": "array",
-                      "items": { "$ref": "#/components/schemas/Answer" },
-                    },
-                },
-            },
-          "Quiz":
-            {
-              "type": "object",
-              "properties":
-                {
-                  "_id":
-                    { "type": "string", "example": "67200bafbc231f0012ab8f7d" },
-                  "title": { "type": "string", "example": "JavaScript Basics" },
-                  "description":
-                    { "type": "string", "example": "Test your JS knowledge" },
-                  "category": { "type": "string", "example": "Programming" },
-                  "difficulty": { "type": "string", "example": "medium" },
-                  "isPublic": { "type": "boolean", "example": true },
-                  "owner": { "$ref": "#/components/schemas/User" },
-                  "questions":
-                    {
-                      "type": "array",
-                      "items": { "$ref": "#/components/schemas/Question" },
-                    },
-                },
-            },
-          "Attempt":
-            {
-              "type": "object",
-              "properties":
-                {
-                  "_id":
-                    { "type": "string", "example": "67200c2ebc231f0012ab8f82" },
-                  "quiz": { "$ref": "#/components/schemas/Quiz" },
-                  "score": { "type": "integer", "example": 80 },
-                  "correctCount": { "type": "integer", "example": 8 },
-                  "totalQuestions": { "type": "integer", "example": 10 },
-                },
-            },
-        },
-    },
-  "security": [{ "bearerAuth": [] }],
-  "paths":
-    {
-      "/auth/signup":
-        {
-          "post":
-            {
-              "tags": ["Auth"],
-              "summary": "Register a new user",
-              "requestBody":
-                {
-                  "required": true,
-                  "content":
-                    {
-                      "application/json":
-                        {
-                          "schema":
-                            {
-                              "type": "object",
-                              "required":
-                                ["name", "username", "email", "password"],
-                              "properties":
-                                {
-                                  "name": { "type": "string" },
-                                  "username": { "type": "string" },
-                                  "email": { "type": "string" },
-                                  "password": { "type": "string" },
-                                },
-                              "example":
-                                {
-                                  "name": "John Doe",
-                                  "username": "johnny",
-                                  "email": "johnny@gmail.com",
-                                  "password": "Qwerty123",
-                                },
-                            },
-                        },
-                    },
-                },
-              "responses":
-                {
-                  "201":
-                    {
-                      "description": "User created successfully",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "example":
-                                { "message": "User created successfully" },
-                            },
-                        },
-                    },
-                  "400": { "description": "Validation failed" },
-                },
-            },
-        },
-      "/auth/signin":
-        {
-          "post":
-            {
-              "tags": ["Auth"],
-              "summary": "Login and receive JWT token",
-              "requestBody":
-                {
-                  "required": true,
-                  "content":
-                    {
-                      "application/json":
-                        {
-                          "example":
-                            { "username": "johnny", "password": "Qwerty123" },
-                        },
-                    },
-                },
-              "responses":
-                {
-                  "200":
-                    {
-                      "description": "Successful login",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "example":
-                                {
-                                  "message": "signin successfully",
-                                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-                                },
-                            },
-                        },
-                    },
-                  "403": { "description": "Account not verified" },
-                },
-            },
-        },
-      "/auth/verify":
-        {
-          "post":
-            {
-              "tags": ["Auth"],
-              "summary": "Verify user email with code",
-              "requestBody":
-                {
-                  "required": true,
-                  "content":
-                    {
-                      "application/json":
-                        {
-                          "example":
-                            { "email": "johnny@gmail.com", "code": "123456" },
-                        },
-                    },
-                },
-              "responses":
-                {
-                  "200":
-                    {
-                      "description": "Account verified",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "example":
-                                {
-                                  "message": "User account verified successfully",
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-        },
-      "/auth/resend-verification":
-        {
-          "post":
-            {
-              "tags": ["Auth"],
-              "summary": "Resend verification code via email",
-              "responses":
-                {
-                  "200":
-                    {
-                      "description": "Code resent",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "example":
-                                { "message": "New verification code sent" },
-                            },
-                        },
-                    },
-                },
-            },
-        },
-      "/auth/user":
-        {
-          "get":
-            {
-              "tags": ["Auth"],
-              "summary": "Get authenticated user",
-              "security": [{ "bearerAuth": [] }],
-              "responses":
-                {
-                  "200":
-                    {
-                      "description": "User data returned",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "schema": { "$ref": "#/components/schemas/User" },
-                            },
-                        },
-                    },
-                },
-            },
-        },
-      "/user/me":
-        {
-          "get":
-            {
-              "tags": ["User"],
-              "summary": "Get current authenticated user",
-              "security": [{ "bearerAuth": [] }],
-              "responses":
-                {
-                  "200":
-                    {
-                      "description": "User info",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "schema": { "$ref": "#/components/schemas/User" },
-                            },
-                        },
-                    },
-                },
-            },
-        },
-      "/user/password":
-        {
-          "patch":
-            {
-              "tags": ["User"],
-              "summary": "Change password",
-              "security": [{ "bearerAuth": [] }],
-              "requestBody":
-                {
-                  "required": true,
-                  "content":
-                    {
-                      "application/json":
-                        {
-                          "example":
-                            {
-                              "currentPassword": "OldPass123",
-                              "newPassword": "NewPass456",
-                            },
-                        },
-                    },
-                },
-              "responses":
-                {
-                  "200":
-                    {
-                      "description": "Password changed",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "example":
-                                { "message": "Password successfully changed" },
-                            },
-                        },
-                    },
-                },
-            },
-        },
-      "/user/avatar":
-        {
-          "post":
-            {
-              "tags": ["User"],
-              "summary": "Upload avatar",
-              "security": [{ "bearerAuth": [] }],
-              "requestBody":
-                {
-                  "content":
-                    {
-                      "multipart/form-data":
-                        {
-                          "schema":
-                            {
-                              "type": "object",
-                              "properties":
-                                {
-                                  "avatar":
-                                    { "type": "string", "format": "binary" },
-                                },
-                            },
-                        },
-                    },
-                },
-              "responses":
-                {
-                  "200":
-                    {
-                      "description": "Avatar uploaded",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "example":
-                                {
-                                  "location": "https://s3.amazonaws.com/.../avatar.png",
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-        },
-      "/quiz":
-        {
-          "get":
-            {
-              "tags": ["Quiz"],
-              "summary": "Get all quizzes",
-              "responses":
-                {
-                  "200":
-                    {
-                      "description": "List of quizzes",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "schema":
-                                {
-                                  "type": "array",
-                                  "items":
-                                    { "$ref": "#/components/schemas/Quiz" },
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-          "post":
-            {
-              "tags": ["Quiz"],
-              "summary": "Create a new quiz",
-              "security": [{ "bearerAuth": [] }],
-              "requestBody":
-                {
-                  "content":
-                    {
-                      "application/json":
-                        {
-                          "example":
-                            {
-                              "title": "React Basics",
-                              "description": "Learn fundamentals",
-                              "category": "Frontend",
-                              "difficulty": "easy",
-                              "isPublic": true,
-                              "questions":
-                                [
-                                  {
-                                    "text": "What is JSX?",
-                                    "multipleAnswers": false,
-                                    "answers":
-                                      [
-                                        {
-                                          "text": "A JS XML syntax",
-                                          "isCorrect": true,
-                                        },
-                                        {
-                                          "text": "A CSS preprocessor",
-                                          "isCorrect": false,
-                                        },
-                                      ],
-                                  },
-                                ],
-                            },
-                        },
-                    },
-                },
-              "responses":
-                {
-                  "201":
-                    {
-                      "description": "Quiz created",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "example":
-                                {
-                                  "message": "Quiz created successfully",
-                                  "payload":
-                                    {
-                                      "title": "React Basics",
-                                      "difficulty": "easy",
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-        },
-      "/quiz/{id}/submit":
-        {
-          "post":
-            {
-              "tags": ["Quiz"],
-              "summary": "Submit quiz answers",
-              "parameters":
-                [
-                  {
-                    "in": "path",
-                    "name": "id",
-                    "required": true,
-                    "schema": { "type": "string" },
-                  },
-                ],
-              "requestBody":
-                {
-                  "required": true,
-                  "content":
-                    {
-                      "application/json":
-                        {
-                          "example":
-                            {
-                              "answers":
-                                {
-                                  "671c1bf5a2b3cd0012ac0b11":
-                                    ["671c1c00a2b3cd0012ac0b14"],
-                                },
-                            },
-                        },
-                    },
-                },
-              "responses":
-                {
-                  "200":
-                    {
-                      "description": "Submission success",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "schema":
-                                { "$ref": "#/components/schemas/Attempt" },
-                              "example":
-                                {
-                                  "score": 80,
-                                  "correctCount": 8,
-                                  "totalQuestions": 10,
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-        },
-    },
-}
+openapi: 3.0.3
+info:
+  title: Quiz App API
+  version: 1.0.0
+  description: API documentation for Quiz App project
+
+servers:
+  - url: http://localhost:4000
+    description: Local server
+
+tags:
+  - name: Auth
+  - name: Users
+  - name: Quizzes
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+
+    UnifiedResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        payload:
+          nullable: true
+        token:
+          type: string
+          nullable: true
+
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        avatar:
+          type: string
+          nullable: true
+
+    Quiz:
+      type: object
+      properties:
+        _id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        difficulty:
+          type: string
+        isPublic:
+          type: boolean
+        owner:
+          $ref: '#/components/schemas/User'
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Question'
+
+    Question:
+      type: object
+      properties:
+        _id:
+          type: string
+        text:
+          type: string
+        imageUrl:
+          type: string
+          nullable: true
+        multipleAnswers:
+          type: boolean
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Answer'
+
+    Answer:
+      type: object
+      properties:
+        _id:
+          type: string
+        text:
+          type: string
+        isCorrect:
+          type: boolean
+
+    Attempt:
+      type: object
+      properties:
+        _id:
+          type: string
+        quiz:
+          type: string
+        user:
+          type: string
+          nullable: true
+        score:
+          type: number
+        correctCount:
+          type: number
+        totalQuestions:
+          type: number
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              questionId:
+                type: string
+              correct:
+                type: boolean
+
+paths:
+
+  ##############################################
+  #                 AUTH ROUTES
+  ##############################################
+
+  /auth/signup:
+    post:
+      tags: [Auth]
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, username, email, password]
+              properties:
+                name: { type: string }
+                username: { type: string }
+                email: { type: string }
+                password: { type: string }
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /auth/verify:
+    post:
+      tags: [Auth]
+      summary: Verify email using code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, code]
+              properties:
+                email: { type: string }
+                code: { type: string }
+      responses:
+        "200":
+          description: Verified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /auth/signin:
+    post:
+      tags: [Auth]
+      summary: Sign in user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username: { type: string }
+                password: { type: string }
+      responses:
+        "200":
+          description: Signed in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /auth/isAuthenticated:
+    post:
+      tags: [Auth]
+      summary: Check if token is valid
+      security: [ { BearerAuth: [] } ]
+      responses:
+        "200":
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /auth/resend-verification:
+    post:
+      tags: [Auth]
+      summary: Resend verification code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email: { type: string }
+      responses:
+        "200":
+          description: Code sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /auth/user:
+    get:
+      tags: [Auth]
+      summary: Get authenticated user
+      security: [ { BearerAuth: [] } ]
+      responses:
+        "200":
+          description: User info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /auth/forgot-password:
+    post:
+      tags: [Auth]
+      summary: Send reset token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email: { type: string }
+      responses:
+        "200":
+          description: Email sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /auth/reset-password:
+    post:
+      tags: [Auth]
+      summary: Reset password via token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, password]
+              properties:
+                token: { type: string }
+                password: { type: string }
+      responses:
+        "200":
+          description: Password reset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+
+  ##############################################
+  #                USER ROUTES
+  ##############################################
+
+  /users/me:
+    get:
+      tags: [Users]
+      summary: Get current user
+      security: [ { BearerAuth: [] } ]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /users/{id}:
+    get:
+      tags: [Users]
+      summary: Get user profile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /users/username:
+    patch:
+      tags: [Users]
+      summary: Change username
+      security: [ { BearerAuth: [] } ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username: { type: string }
+                password: { type: string }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /users/email:
+    patch:
+      tags: [Users]
+      summary: Change email
+      security: [ { BearerAuth: [] } ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /users/password:
+    patch:
+      tags: [Users]
+      summary: Change password
+      security: [ { BearerAuth: [] } ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [currentPassword, newPassword]
+              properties:
+                currentPassword: { type: string }
+                newPassword: { type: string }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /users/avatar:
+    post:
+      tags: [Users]
+      summary: Upload avatar
+      security: [ { BearerAuth: [] } ]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                avatar:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Avatar uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+
+  ##############################################
+  #                 QUIZ ROUTES
+  ##############################################
+
+  /quiz:
+    get:
+      tags: [Quizzes]
+      summary: Get all quizzes
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+    post:
+      tags: [Quizzes]
+      summary: Create quiz
+      security: [ { BearerAuth: [] } ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, description, category, questions]
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /quiz/{id}:
+    get:
+      tags: [Quizzes]
+      summary: Get quiz by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+    patch:
+      tags: [Quizzes]
+      summary: Update quiz
+      security: [ { BearerAuth: [] } ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+    delete:
+      tags: [Quizzes]
+      summary: Delete quiz
+      security: [ { BearerAuth: [] } ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /quiz/{id}/question:
+    post:
+      tags: [Quizzes]
+      summary: Add question
+      security: [ { BearerAuth: [] } ]
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                avatar:
+                  type: string
+                  format: binary
+                text:
+                  type: string
+                answers:
+                  type: string
+                multipleAnswers:
+                  type: boolean
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /quiz/{quizId}/question/{questionId}:
+    patch:
+      tags: [Quizzes]
+      summary: Update question
+      security: [ { BearerAuth: [] } ]
+      parameters:
+        - name: quizId
+          in: path
+          required: true
+          schema: { type: string }
+        - name: questionId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+    delete:
+      tags: [Quizzes]
+      summary: Delete question
+      security: [ { BearerAuth: [] } ]
+      parameters:
+        - name: quizId
+          in: path
+          required: true
+          schema: { type: string }
+        - name: questionId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /quiz/user/{id}:
+    get:
+      tags: [Quizzes]
+      summary: Get quizzes of a user
+      parameters:
+        - name: id
+          in: path
+          schema: { type: string }
+          required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /quiz/{id}/submit:
+    post:
+      tags: [Quizzes]
+      summary: Submit quiz attempt
+      security: [] # optionalAuthentication allowed
+      parameters:
+        - name: id
+          in: path
+          schema: { type: string }
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                answers:
+                  type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /quiz/{id}/results:
+    get:
+      tags: [Quizzes]
+      summary: Get quiz results
+      security: [ { BearerAuth: [] } ]
+      parameters:
+        - name: id
+          in: path
+          schema: { type: string }
+          required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'
+
+  /quiz/search:
+    get:
+      tags: [Quizzes]
+      summary: Search quizzes
+      security: [ { BearerAuth: [] } ]
+      parameters:
+        - name: title
+          in: query
+          schema: { type: string }
+        - name: category
+          in: query
+          schema: { type: string }
+        - name: difficulty
+          in: query
+          schema: { type: string }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnifiedResponse'

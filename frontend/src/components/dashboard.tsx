@@ -1,16 +1,13 @@
 import { DashboardStats } from "./dashboard/dashboardStatistic";
-import { DashboardActivity } from "./dashboard/DashboardActivity";
-import { DashboardLeaderboard } from "./dashboard/DashboardLeaderboard";
-import { DashboardRecentQuizzes } from "./dashboard/DashboardRecentQuizzes";
+import { DashboardActivity } from "./dashboard/dashboardActivity";
+import { DashboardLeaderboard } from "./dashboard/dashboardLeaderboard";
+import { DashboardRecentQuizzes } from "./dashboard/dashboardRecentQuizzes";
 
 export function Dashboard() {
   return (
     <div className="space-y-10">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 text-sm mt-1">
-          Welcome back! Here’s your learning overview.
-        </p>
       </div>
 
       <DashboardStats />

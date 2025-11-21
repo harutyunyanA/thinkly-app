@@ -6,9 +6,10 @@ const router = express.Router();
 router.post("/signup", controller.signup);
 router.post("/verify", controller.verify);
 router.post("/signin", controller.signin);
+// router.post("/isAuthenticated", isAuthenticated, controller.isAuthenticated);
 router.post("/resend-verification", controller.resendVerificationEmail);
-router.get("/user", isAuthenticated, controller.getUser);
 router.post("/forgot-password", controller.forgotPassword);
 router.post("/reset-password", controller.resetPassword);
+router.get("/user", isAuthenticated, controller.getUser);
 
 export default router;

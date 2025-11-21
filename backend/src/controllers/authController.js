@@ -6,193 +6,182 @@ import { mailer } from "../services/mailer.js";
 import { verificationCode } from "../services/verification.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
+import { sendResponse } from "../utils/sendResponse.js";
 
 class AuthController {
   async signup(req, res) {
-    const data = req.body;
-
-    ////////////////CREDENTIALS AVAILABILITY CHECK///////////////////////////////
-    const credentialsAvailability = signupTools.availabilityOfCredentials(data);
-
-    if (!credentialsAvailability.valid) {
-      return res.status(400).send(credentialsAvailability);
-    }
-
-    ////////////////CREDENTIAL CONTENT VALIDATION////////////////////////////////////////////
-    const credentialsContentValidation =
-      signupTools.credentialsValidation(data);
-    if (!credentialsContentValidation.valid) {
-      return res.status(400).send(credentialsContentValidation);
-    }
-
-    ////////////////USERNAME VALIDATION////////////////////////////////////////////
-
-    const usernameValidation = await signupTools.usernameValidation(data);
-    if (!usernameValidation.valid) {
-      return res.status(400).send(usernameValidation);
-    }
-
-    ////////////////EMAIL VALIDATION///////////////////////////////////////
-
-    const emailValidation = await signupTools.emailValidation(data);
-    if (!emailValidation.valid) {
-      return res.status(400).send(emailValidation);
-    }
-
-    ////////////////PASSWORD VALIDATION///////////////////////////////////////
-
-    const passwordValidation = await signupTools.passwordValidation(data);
-    if (!passwordValidation.valid) {
-      return res.status(400).send(passwordValidation);
-    }
-
-    const hashedPassword = await bcrypt.hash(data.password.trim(), 10);
-
-    //////////////CREATING AND SAVING NEW USER IN DB///////////////////
-    const newUser = new User({
-      name: data.name.trim(),
-      username: data.username.trim().toLowerCase(),
-      email: data.email.trim().toLowerCase(),
-      password: hashedPassword,
-    });
-
     try {
+      const data = req.body;
+
+      // Проверка наличия всех данных
+      const availability = signupTools.availabilityOfCredentials(data);
+      if (!availability.valid)
+        return sendResponse(res, 400, false, availability.message);
+
+      const validation = signupTools.credentialsValidation(data);
+      if (!validation.valid)
+        return sendResponse(res, 400, false, validation.message);
+
+      const usernameCheck = await signupTools.usernameValidation(data);
+      if (!usernameCheck.valid)
+        return sendResponse(res, 400, false, usernameCheck.message);
+
+      const emailCheck = await signupTools.emailValidation(data);
+      if (!emailCheck.valid)
+        return sendResponse(res, 400, false, emailCheck.message);
+
+      const passwordCheck = await signupTools.passwordValidation(data);
+      if (!passwordCheck.valid)
+        return sendResponse(res, 400, false, passwordCheck.message);
+
+      const hashedPassword = await bcrypt.hash(data.password.trim(), 10);
+
+      const newUser = new User({
+        name: data.name.trim(),
+        username: data.username.trim().toLowerCase(),
+        email: data.email.trim().toLowerCase(),
+        password: hashedPassword,
+      });
+
       await newUser.save();
 
-      res.status(201).send({ message: "User created successfully" });
+      // Отправляем письмо подтверждения
+      const verifyCode = await verificationCode(newUser);
+      mailer.sendVerificationCode(verifyCode, newUser.email);
+
+      return sendResponse(res, 201, true, "User created successfully");
     } catch (err) {
-      return res.status(500).send({ message: "Internal server error" });
+      return sendResponse(res, 500, false, "Internal server error");
     }
   }
 
   async verify(req, res) {
-    if (!req.body?.code.trim() || !req.body?.username.trim().toLowerCase()) {
-      return res.status(400).send({ message: "please fill all the fields" });
+    try {
+      let { code, email } = req.body || {};
+
+      if (!code?.trim() || !email?.trim())
+        return sendResponse(res, 400, false, "Please fill all fields");
+
+      email = email.trim().toLowerCase();
+
+      const user = await User.findOne({ email });
+      if (!user) return sendResponse(res, 404, false, "User not found");
+
+      if (user.isVerified)
+        return sendResponse(res, 200, true, "Account already verified");
+
+      const record = await UserVerification.findOne({ userId: user._id });
+      if (!record)
+        return sendResponse(res, 400, false, "Verification record not found");
+
+      if (record.expiresAt < Date.now()) {
+        await UserVerification.deleteOne({ _id: record._id });
+        return sendResponse(res, 400, false, "Verification code expired");
+      }
+
+      if (Number(code) !== record.code)
+        return sendResponse(res, 400, false, "Wrong verification code");
+
+      await UserVerification.deleteOne({ _id: record._id });
+      await User.updateOne({ email }, { $set: { isVerified: true } });
+
+      return sendResponse(res, 200, true, "User account verified successfully");
+    } catch (err) {
+      return sendResponse(res, 500, false, "Internal server error");
     }
-
-    let { code, username } = req.body;
-    username = username.trim().toLowerCase();
-
-    const user = await User.findOne({ username: username });
-    if (!user) {
-      return res
-        .status(404)
-        .send({ message: "Wrong username. User not found" });
-    }
-
-    if (user.isVerified) {
-      return res.send({ message: "Account already verifed" });
-    }
-    const userVerificationRecord = await UserVerification.findOne({
-      userId: user._id,
-    });
-
-    if (userVerificationRecord.expiresAt < Date.now()) {
-      await UserVerification.deleteOne({ _id: userVerificationRecord._id });
-      return res.status(400).send({ message: "Verification code expired" });
-    }
-
-    if (Number(code) !== userVerificationRecord.code) {
-      console.log(code, userVerificationRecord.code);
-      return res.status(400).send({ message: "Wrong verification code" });
-    }
-
-    await UserVerification.deleteOne({ _id: userVerificationRecord._id });
-    await User.updateOne(
-      { username: username },
-      { $set: { isVerified: true } }
-    );
-    res.send({ message: "User account verified successfully" });
   }
 
   async signin(req, res) {
-    if (!req.body?.username?.trim() || !req.body.password?.trim()) {
-      return res.status(400).send({ message: "Please fill all the fields" });
-    }
+    try {
+      let { username, password } = req.body || {};
+      if (!username?.trim() || !password?.trim())
+        return sendResponse(res, 400, false, "Please fill all the fields");
 
-    let { username, password } = req.body;
-    username = username.trim().toLowerCase();
+      username = username.trim().toLowerCase();
 
-    const user = await User.findOne({ username: username });
-    if (!user) {
-      return res.status(400).send({ message: "Wrong Credentials" });
-    }
-    if (!user.isVerified) {
-      ///////////SENDING VERIFICATION EMAIL//////////
-      const verifyCode = await verificationCode(user);
-      mailer.sendVerificationCode(verifyCode, user.email);
-      return res
-        .status(403)
-        .send({ message: "Please verify your account first" });
-    }
+      const user = await User.findOne({ username });
+      if (!user) return sendResponse(res, 404, false, "User not found");
 
-    if (!(await bcrypt.compare(password, user.password))) {
-      return res.status(400).send({ message: "Wrong Credentials" });
-    }
+      if (!user.isVerified)
+        return sendResponse(
+          res,
+          403,
+          false,
+          "Please verify your account first"
+        );
 
-    const token = jwt.sign(
-      { _id: user._id, username: user.username },
-      env.SECRET_KEY
-    );
-    res.send({ message: "signin successfully", token: token });
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) return sendResponse(res, 400, false, "Wrong credentials");
+
+      const token = jwt.sign(
+        { _id: user._id, username: user.username },
+        env.SECRET_KEY,
+        { expiresIn: "7d" }
+      );
+
+      return sendResponse(res, 200, true, "Signin successful", null, token);
+    } catch (err) {
+      return sendResponse(res, 500, false, "Internal server error");
+    }
   }
 
   async getUser(req, res) {
-    const user = await User.findById(req.user._id, {
-      password: 0,
-      isVerified: 0,
-    });
-    res.send({ message: "ok", payload: user });
+    try {
+      const user = await User.findById(req.user._id, {
+        password: 0,
+        isVerified: 0,
+      });
+      if (!user) return sendResponse(res, 404, false, "User not found");
+
+      return sendResponse(res, 200, true, "User fetched successfully", user);
+    } catch (err) {
+      return sendResponse(res, 500, false, "Internal server error");
+    }
   }
 
   async resendVerificationEmail(req, res) {
-    if (!req.body?.email.trim()) {
-      return res.status(400).send({ message: "Please provide email" });
-    }
-    let { email } = req.body;
-    email = email.trim().toLowerCase();
-    const user = await User.findOne({ email: email });
-
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
-    }
-
-    if (user.isVerified) {
-      return res.send({ message: "User already verified" });
-    }
-
-    await UserVerification.deleteMany({ userId: user._id });
-
     try {
+      let { email } = req.body || {};
+      if (!email?.trim())
+        return sendResponse(res, 400, false, "Please provide email");
+
+      email = email.trim().toLowerCase();
+      const user = await User.findOne({ email });
+
+      if (!user) return sendResponse(res, 404, false, "User not found");
+      if (user.isVerified)
+        return sendResponse(res, 200, true, "User already verified");
+
+      await UserVerification.deleteMany({ userId: user._id });
+
       const code = await verificationCode(user);
       await mailer.sendVerificationCode(code, email);
-      res.send({ message: "New verification code send" });
+
+      return sendResponse(res, 200, true, "New verification code sent");
     } catch (err) {
-      res.status(500).send({ message: "Internal server error" });
+      return sendResponse(res, 500, false, "Internal server error");
     }
   }
 
   async forgotPassword(req, res) {
-    if (!req.body?.email.trim()) {
-      return res.status(400).send({ message: "Please input your email" });
-    }
-    let { email } = req.body;
-    email = email.trim().toLowerCase();
-    const user = await User.findOne({ email: email });
-    if (!user) {
-      return res.status(400).send({ message: "some error message " });
-    }
-
     try {
+      let { email } = req.body || {};
+      if (!email?.trim())
+        return sendResponse(res, 400, false, "Please provide email");
+
+      email = email.trim().toLowerCase();
+      const user = await User.findOne({ email });
+      if (!user) return sendResponse(res, 404, false, "User not found");
+
       const token = crypto.randomBytes(32).toString("hex");
       user.resetPasswordToken = token;
       user.resetPasswordTokenExp = Date.now() + 15 * 60 * 1000;
-
       await user.save();
+
       await mailer.sendResetPassword(token, email);
-      return res.send({ message: "Email was sent" });
+      return sendResponse(res, 200, true, "Reset email sent");
     } catch (err) {
-      return res.status(500).send({ message: "Internal server error" });
+      return sendResponse(res, 500, false, "Internal server error");
     }
   }
 
@@ -200,43 +189,35 @@ class AuthController {
     try {
       const { token, password } = req.body || {};
 
-      if (!token?.trim() || !password?.trim()) {
-        return res
-          .status(400)
-          .send({ message: "Token and new password are required" });
-      }
+      if (!token?.trim() || !password?.trim())
+        return sendResponse(res, 400, false, "Token and password are required");
 
       const user = await User.findOne({ resetPasswordToken: token });
-      if (!user) {
-        return res.status(400).send({ message: "Invalid reset token" });
-      }
+      if (!user) return sendResponse(res, 404, false, "Invalid reset token");
 
-      if (user.resetPasswordTokenExp < Date.now()) {
-        return res.status(400).send({ message: "Reset token has expired" });
-      }
+      if (user.resetPasswordTokenExp < Date.now())
+        return sendResponse(res, 400, false, "Reset token has expired");
 
-      if (await bcrypt.compare(password, user.password)) {
-        return res.status(400).send({
-          message: "New password cannot be the same as the old password",
-        });
-      }
+      if (await bcrypt.compare(password, user.password))
+        return sendResponse(
+          res,
+          400,
+          false,
+          "New password cannot match old one"
+        );
 
-      const passwordValidation = signupTools.passwordValidation(req.body);
-      if (!passwordValidation.valid) {
-        return res.status(400).send(passwordValidation);
-      }
+      const validation = signupTools.passwordValidation(req.body);
+      if (!validation.valid)
+        return sendResponse(res, 400, false, validation.message);
 
-      const hashed = await bcrypt.hash(password, 10);
-      user.password = hashed;
+      user.password = await bcrypt.hash(password, 10);
       user.resetPasswordToken = undefined;
       user.resetPasswordTokenExp = undefined;
       await user.save();
 
-      return res
-        .status(200)
-        .send({ message: "Password has been reset successfully" });
+      return sendResponse(res, 200, true, "Password reset successfully");
     } catch (err) {
-      return res.status(500).send({ message: "Internal server error" });
+      return sendResponse(res, 500, false, "Internal server error");
     }
   }
 }

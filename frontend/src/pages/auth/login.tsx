@@ -11,6 +11,7 @@ type User = {
 };
 
 export function Login() {
+
   const {
     register,
     handleSubmit,
@@ -32,12 +33,12 @@ export function Login() {
           localStorage.setItem("token", token);
         }
 
-        navigate("/dashboard");
+        navigate("/home");
       })
 
       .catch((err: AxiosError<{ message: string }>) => {
         if (err.response?.status === 403) {
-          setUserName(data.username); // запоминаем куда отправили код
+          setUserName(data.username);
           setShowVerify(true);
         }
         let errMessage = err.response?.data.message;
@@ -45,7 +46,6 @@ export function Login() {
       });
   };
 
-  // Если нужно подтвердить код — рендерим Verify
   if (showVerify) {
     return (
       <Verify
