@@ -13,36 +13,52 @@ class QuizController {
   }
 
   async createQuiz(req, res) {
+    console.log(req.body);
+    // return sendResponse(res, 500, false, "Internal server error");
     try {
-      const { title, description, category, difficulty, imageUrl, isPublic, questions } = req.body || {};
-
-      if (!title?.trim() || !description?.trim() || !category?.trim())
-        return sendResponse(res, 400, false, "Please fill all the fields");
-
-      if (!Array.isArray(questions) || questions.length === 0)
-        return sendResponse(res, 400, false, "Quiz should have at least one question");
-
-      const { _id: userId } = req.user;
-
-      const newQuiz = new Quiz({
-        title: title.trim(),
-        description: description.trim(),
-        category: category.trim(),
+      const {
+        title,
+        description,
+        category,
         difficulty,
         imageUrl,
         isPublic,
-        owner: userId,
-        questions: [],
-      });
+        questions,
+      } = req.body || {};
 
-      let questionDocs;
-      try {
-        questionDocs = await Promise.all(
-          questions.map((item) => quizTools.addQuestion(item, newQuiz._id))
-        );
-      } catch (err) {
-        return sendResponse(res, 400, false, err.message);
-      }
+      if (!title?.trim() || !description?.trim())
+        return sendResponse(res, 400, false, "Please fill all the fields");
+
+      if (!Array.isArray(questions) || questions.length === 0)
+        return sendResponse(
+      res,
+      400,
+      false,
+      "Quiz should have at least one question"
+    );
+
+    const { _id: userId } = req.user;
+
+    const newQuiz = new Quiz({
+      title: title.trim(),
+      description: description.trim(),
+      category: category.trim(),
+      difficulty,
+      imageUrl,
+      isPublic,
+      owner: userId,
+      questions: [],
+    });
+
+    let questionDocs;
+
+    try {
+      questionDocs = await Promise.all(
+            questions.map((q) => quizTools.addQuestion(q, newQuiz._id))
+          );
+        } catch (err) {
+          return sendResponse(res, 400, false, err.message);
+        }
 
       newQuiz.questions = questionDocs.map((q) => q._id);
 
@@ -77,7 +93,8 @@ class QuizController {
     try {
       const { id } = req.params;
       const { _id: userId } = req.user;
-      const { title, description, category, difficulty, isPublic } = req.body || {};
+      const { title, description, category, difficulty, isPublic } =
+        req.body || {};
 
       const quiz = await Quiz.findById(id);
       if (!quiz) return sendResponse(res, 404, false, "Quiz not found");
@@ -139,7 +156,13 @@ class QuizController {
       quiz.questions.push(question._id);
       await quiz.save();
 
-      return sendResponse(res, 201, true, "Question added successfully", question);
+      return sendResponse(
+        res,
+        201,
+        true,
+        "Question added successfully",
+        question
+      );
     } catch (err) {
       return sendResponse(res, 500, false, "Internal server error");
     }
@@ -171,7 +194,13 @@ class QuizController {
       question.imageUrl = imageUrl;
       await question.save();
 
-      return sendResponse(res, 200, true, "Question updated successfully", question);
+      return sendResponse(
+        res,
+        200,
+        true,
+        "Question updated successfully",
+        question
+      );
     } catch (err) {
       return sendResponse(res, 500, false, "Internal server error");
     }

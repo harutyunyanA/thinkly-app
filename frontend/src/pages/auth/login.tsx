@@ -19,7 +19,7 @@ export function Login() {
   } = useForm<User>();
 
   const [showVerify, setShowVerify] = useState(false);
-  const [userName, setUserName] = useState<string>(""); // email/username куда отправили код
+  const [userName, setUserName] = useState<string>("");
   const navigate = useNavigate();
 
   const [error, setError] = useState<string | undefined>("");

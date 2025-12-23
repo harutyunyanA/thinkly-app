@@ -15,7 +15,7 @@ app.use(
   cors({
     origin: ["http://localhost:5173", "https://thinkly.fun"],
     methods: ["GET", "POST", "PATCH", "DELETE"],
-    // credentials: true,
+    credentials: true,
   })
 );
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));

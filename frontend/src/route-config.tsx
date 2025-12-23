@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Signup } from "./pages/auth/signup";
 import { Login } from "./pages/auth/login";
-import { LandingPage } from "./pages/auth/landing-page";
+import { LandingPage } from "./pages/auth/landingPage";
 import { Home } from "./pages/main/home";
 import { Dashboard } from "./components/dashboard";
 import { Quizzes } from "./pages/main/quizzes";
 import { Settings } from "./pages/main/settings";
+import { CreateQuiz } from "./pages/main/createQuiz";
 
 export const router = createBrowserRouter([
   { path: "", element: <LandingPage /> },
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "", element: <Dashboard /> },
       { path: "quizzes", element: <Quizzes /> },
+      { path: "quizzes/createQuiz", element: <CreateQuiz /> },
       { path: "settings", element: <Settings /> },
     ],
   },

@@ -1,15 +1,19 @@
 import { Search } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Axios } from "../../lib/api";
 import type { IQuiz, IResponse, IUser } from "../../types";
 import { useOutletContext } from "react-router-dom";
 import { QuizItem } from "../../components/quizItem";
 import { useDebounce } from "../../lib/hooks/useDebounce";
+import { Modal } from "../../components/modal";
+import { CreateQuiz } from "./createQuiz";
 
 export function Quizzes() {
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 250);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { userContext } = useOutletContext<{
     userContext: IUser | null;
@@ -28,16 +32,17 @@ export function Quizzes() {
     );
   }, [userContext]);
 
-  const filteredQuizzes = quizzes.filter(
-    (quiz) =>
-      quiz.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-      quiz.description
-        .toLocaleLowerCase()
-        .includes(debouncedSearch.toLocaleLowerCase())
-  );
+  const filteredQuizzes = quizzes.filter((quiz) => {
+    const s = debouncedSearch.toLowerCase();
+    return (
+      quiz.title.toLowerCase().includes(s) ||
+      quiz.description.toLowerCase().includes(s)
+    );
+  });
 
   return (
     <div className="p-8 flex flex-col gap-8">
+      {/* ---------- HEADER ---------- */}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Quizzes</h1>
@@ -46,11 +51,15 @@ export function Quizzes() {
           </p>
         </div>
 
-        <button className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+        >
           + Create New Quiz
         </button>
       </div>
 
+      {/* ---------- CONTENT CARD ---------- */}
       <div className="bg-white shadow rounded-xl p-6 flex flex-col gap-6">
         <div>
           <h2 className="text-xl font-semibold">Quiz Library</h2>
@@ -59,25 +68,24 @@ export function Quizzes() {
           </p>
         </div>
 
+        {/* Search bar */}
         <div className="flex justify-between items-center flex-wrap gap-4">
-          <div className="flex gap-3">
-            <div className="relative">
-              <Search
-                size={18}
-                className="absolute left-3 top-2.5 text-gray-400"
-              />
-              <input
-                type="search"
-                placeholder="Search quizzes..."
-                className="pl-10 pr-3 py-2 border border-gray-300 rounded-md text-sm w-64"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
+          <div className="relative">
+            <Search
+              size={18}
+              className="absolute left-3 top-2.5 text-gray-400"
+            />
+            <input
+              type="search"
+              placeholder="Search quizzes..."
+              className="pl-10 pr-3 py-2 border border-gray-300 rounded-md text-sm w-64"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
         </div>
 
-        {/* QUIZ LIST */}
+        {/* ---------- QUIZ LIST ---------- */}
         <div className="flex flex-col gap-4 mt-4">
           {filteredQuizzes.length ? (
             filteredQuizzes.map((quiz) => (
@@ -88,6 +96,11 @@ export function Quizzes() {
           )}
         </div>
       </div>
+
+      {/* ---------- MODAL ---------- */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <CreateQuiz closeModal={() => setIsModalOpen(false)} />
+      </Modal>
     </div>
   );
 }

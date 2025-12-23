@@ -12,7 +12,6 @@ class AuthController {
   async signup(req, res) {
     try {
       const data = req.body;
-
       // Проверка наличия всех данных
       const availability = signupTools.availabilityOfCredentials(data);
       if (!availability.valid)
@@ -92,6 +91,7 @@ class AuthController {
   }
 
   async signin(req, res) {
+    console.log("hello");
     try {
       let { username, password } = req.body || {};
       if (!username?.trim() || !password?.trim())

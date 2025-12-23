@@ -10,5 +10,5 @@ export const sendResponse = (
   if (payload !== null) response.payload = payload;
   if (token !== null) response.token = token;
 
-  return res.status(statusCode).json(response);
+  return res.status(statusCode).send(response);
 };

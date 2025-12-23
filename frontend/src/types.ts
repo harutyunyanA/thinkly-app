@@ -12,15 +12,41 @@ export interface IResponse<T = unknown> {
   token?: string | null;
 }
 
+export interface QuizForm {
+  title: string;
+  description: string;
+  category: string;
+  difficulty: "easy" | "medium" | "hard";
+  imageURL: string;
+  // isPublic: boolean;
+  owner: string;
+  randomized: boolean;
+  questions: QuizQuestion[];
+}
+
+export interface QuestionAnswerForm {
+  key: string;
+  text: string;
+  isCorrect: boolean;
+}
+export interface QuizQuestion {
+  // quiz: IQuiz;
+  text: string;
+  answers: QuestionAnswerForm[];
+  multipleAnswers: boolean;
+  imageUrl: string;
+  key: string;
+}
 export interface IQuiz {
   _id: string;
   title: string;
   description: string;
   category: string;
-  difficulty: ["easy", "medium", "hard"];
+  difficulty: "easy" | "medium" | "hard";
   imageURL: string;
-  isPublic: boolean;
-  owner: IUser;
+  // isPublic: boolean;
+  owner: string;
+  randomized: boolean;
   questions: IQuestion[];
   averageRating: number;
   averageScore: number;

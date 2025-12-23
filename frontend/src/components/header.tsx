@@ -14,13 +14,13 @@ export function Header() {
       </div>
 
       {/* Right Actions */}
-      <div className="flex items-center gap-4">
+      {/* <div className="flex items-center gap-4"> */}
         {/* Add Quiz Button */}
-        <button className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-md text-sm hover:bg-indigo-700 transition">
+        {/* <button className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-md text-sm hover:bg-indigo-700 transition">
           <Plus size={18} />
           Create Quiz
         </button>
-      </div>
+      </div> */}
     </header>
   );
 }
