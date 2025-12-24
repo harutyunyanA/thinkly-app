@@ -72,6 +72,12 @@ export function CreateQuiz({ closeModal }: CreateQuizProps) {
         {page === 2 && <CreateQuizQuestions quiz={quiz} setQuiz={setQuiz} />}
 
         {page === 3 && <PreviewQuiz quiz={quiz} />}
+
+        {page === 3 && !validQuiz && (
+          <div className="px-6 py-3 bg-red-50 border border-red-200 text-red-700 rounded-md">
+            <p>Fill all required fields *</p>
+          </div>
+        )}
       </div>
 
       {/* ---------- FOOTER ---------- */}
