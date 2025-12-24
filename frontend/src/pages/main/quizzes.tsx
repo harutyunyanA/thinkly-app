@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { Axios } from "../../lib/api";
 import type { IQuiz, IResponse, IUser } from "../../types";
 import { useOutletContext } from "react-router-dom";
-import { QuizItem } from "../../components/quizItem";
+import { QuizItem } from "../../components/quizzes-components/quizItem";
 import { useDebounce } from "../../lib/hooks/useDebounce";
 import { Modal } from "../../components/modal";
-import { CreateQuiz } from "./createQuiz";
+import { CreateQuiz } from "../../components/createQuiz-components/createQuiz";
+import { EditQuiz } from "../../components/quizzes-components/editQuiz";
 
 export function Quizzes() {
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
@@ -39,6 +40,15 @@ export function Quizzes() {
       quiz.description.toLowerCase().includes(s)
     );
   });
+
+  function deleteQuiz(quizID: string) {
+    console.log("deleted");
+    setQuizzes((prev) => prev.filter((q) => q._id !== quizID));
+  }
+
+  function addQuiz(newQuiz: IQuiz) {
+    setQuizzes((prev) => [newQuiz, ...prev]);
+  }
 
   return (
     <div className="p-8 flex flex-col gap-8">
@@ -89,7 +99,7 @@ export function Quizzes() {
         <div className="flex flex-col gap-4 mt-4">
           {filteredQuizzes.length ? (
             filteredQuizzes.map((quiz) => (
-              <QuizItem key={quiz._id} quiz={quiz} />
+              <QuizItem key={quiz._id} quiz={quiz} deleteQuiz={deleteQuiz} />
             ))
           ) : (
             <p className="text-gray-400 text-sm">No quizzes found</p>
@@ -99,7 +109,14 @@ export function Quizzes() {
 
       {/* ---------- MODAL ---------- */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <CreateQuiz closeModal={() => setIsModalOpen(false)} />
+        <CreateQuiz
+          closeModal={() => setIsModalOpen(false)}
+          addQuiz={addQuiz}
+        />
+      </Modal>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <EditQuiz />
       </Modal>
     </div>
   );

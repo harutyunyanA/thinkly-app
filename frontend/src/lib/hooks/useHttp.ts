@@ -1,7 +1,8 @@
-import type { AxiosRequestConfig } from "axios";
+import type { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { Axios } from "../api";
 import axios from "axios";
+import type { IResponse } from "../../types";
 
 export function useHttp<T = unknown>(url: string, options: AxiosRequestConfig) {
   const [loading, setLoading] = useState<boolean>(false);

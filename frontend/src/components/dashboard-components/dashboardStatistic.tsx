@@ -1,4 +1,4 @@
-import { StatCard } from "../statCard";
+import { StatCard } from "./statCard";
 import { TrendingUp, Clock, CheckCircle, BookOpen } from "lucide-react";
 
 export function DashboardStats() {

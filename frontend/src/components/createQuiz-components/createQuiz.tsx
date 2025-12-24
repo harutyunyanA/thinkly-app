@@ -1,19 +1,20 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { CreateQuizDetails } from "../../components/createQuiz/quizDetails";
+import { CreateQuizDetails } from "./quizDetails";
 import { useState } from "react";
-import type { IUser, QuizForm } from "../../types";
+import type { IQuiz, IUser, QuizForm } from "../../types";
 import { useOutletContext } from "react-router-dom";
-import { CreateQuizQuestions } from "../../components/createQuiz/createQuizQuestions";
-import { PreviewQuiz } from "../../components/createQuiz/previewQuiz";
+import { CreateQuizQuestions } from "./createQuizQuestions";
+import { PreviewQuiz } from "./previewQuiz";
 import { AxiosError } from "axios";
 import { Axios } from "../../lib/api";
 import { validateQuiz } from "../../lib/validateQuiz";
 
 type CreateQuizProps = {
   closeModal: () => void;
+  addQuiz: (newQuiz: IQuiz) => void;
 };
 
-export function CreateQuiz({ closeModal }: CreateQuizProps) {
+export function CreateQuiz({ closeModal, addQuiz }: CreateQuizProps) {
   const { userContext } = useOutletContext<{
     userContext: IUser | null;
   }>();
@@ -133,7 +134,9 @@ export function CreateQuiz({ closeModal }: CreateQuizProps) {
                 onClick={() => {
                   Axios.post("/quiz", quiz)
                     .then((res) => {
-                      console.log("success", res.data.message);
+                      addQuiz(res.data.payload);
+                      console.log("successfully added new quiz");
+                      closeModal();
                     })
                     .catch((err: AxiosError<{ message: string }>) => {
                       console.log(err.response?.data.message);

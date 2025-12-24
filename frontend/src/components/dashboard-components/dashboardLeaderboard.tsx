@@ -1,4 +1,4 @@
-import { LeaderItem } from "../leaderItem";
+import { LeaderItem } from "./leaderItem";
 
 export function DashboardLeaderboard() {
   return (
