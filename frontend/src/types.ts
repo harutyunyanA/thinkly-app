@@ -60,11 +60,13 @@ export interface IQuestion {
   multipleAnswers: boolean;
   imageUrl: string;
   createdAt: Date;
+  _id:string
 }
 
 export interface IAnswer {
   text: string;
   isCorrect: boolean;
+  _id:string
 }
 
 export interface IUser {

@@ -2,14 +2,19 @@ import { MoreHorizontal } from "lucide-react";
 import { useState } from "react";
 import { ActionMenu } from "./actionMenu";
 import type { IQuiz } from "../../types";
+import { Modal } from "../modal";
+import { ViewQuiz } from "./view";
+import { EditQuiz } from "./editQuiz";
 
 type QuizItemProps = {
-  deleteQuiz: (quizID:string) => void;
+  deleteQuiz: (quizID: string) => void;
   quiz: IQuiz;
 };
 
 export function QuizItem({ quiz, deleteQuiz }: QuizItemProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isViewQuizOpen, setIsViewQuizOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   return (
     <div className="relative border border-gray-200 rounded-xl p-4 flex justify-between items-center hover:bg-gray-50 transition">
@@ -41,7 +46,10 @@ export function QuizItem({ quiz, deleteQuiz }: QuizItemProps) {
 
       {/* RIGHT */}
       <div className="relative flex items-center gap-2">
-        <button className="px-4 py-1.5 border rounded-md text-sm hover:bg-gray-100">
+        <button
+          className="px-4 py-1.5 border rounded-md text-sm hover:bg-gray-100"
+          onClick={() => setIsViewQuizOpen(true)}
+        >
           View
         </button>
 
@@ -54,9 +62,25 @@ export function QuizItem({ quiz, deleteQuiz }: QuizItemProps) {
         </button>
 
         {isMenuOpen && (
-          <ActionMenu onClose={() => setIsMenuOpen(false)} quiz={quiz} deleteQuiz={deleteQuiz}/>
+          <ActionMenu
+            onClose={() => setIsMenuOpen(false)}
+            quiz={quiz}
+            deleteQuiz={deleteQuiz}
+            setIsEditOpen={setIsEditOpen}
+          />
         )}
       </div>
+
+      <Modal isOpen={isViewQuizOpen} onClose={() => setIsViewQuizOpen(false)}>
+        <ViewQuiz
+          closeModal={() => setIsViewQuizOpen(false)}
+          quizId={quiz._id}
+        />
+      </Modal>
+
+      <Modal isOpen={isEditOpen} onClose={() => setIsEditOpen(false)}>
+        <EditQuiz closeModal={() => setIsEditOpen(false)} quizId={quiz._id} />
+      </Modal>
     </div>
   );
 }

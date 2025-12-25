@@ -1,11 +1,11 @@
 import type { IQuiz, QuizForm } from "../../types";
 
-type CreateQuizDetailsProps = {
-  quiz: QuizForm | IQuiz;
-  setQuiz: React.Dispatch<React.SetStateAction<QuizForm>>;
+type EditQuizDetailsProps = {
+  quiz: IQuiz;
+  setQuiz: React.Dispatch<React.SetStateAction<IQuiz | null>>;
 };
 
-export function CreateQuizDetails({ quiz, setQuiz }: CreateQuizDetailsProps) {
+export function EditQuizDetails({ quiz, setQuiz }: EditQuizDetailsProps) {
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col gap-6 w-full">
       {/* HEADER */}
@@ -23,7 +23,9 @@ export function CreateQuizDetails({ quiz, setQuiz }: CreateQuizDetailsProps) {
           type="text"
           value={quiz.title}
           onChange={(e) =>
-            setQuiz((prev) => ({ ...prev, title: e.target.value }))
+            setQuiz((prev) =>
+              prev ? { ...prev, title: e.target.value } : prev
+            )
           }
           placeholder="Enter quiz title"
           className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
@@ -36,7 +38,9 @@ export function CreateQuizDetails({ quiz, setQuiz }: CreateQuizDetailsProps) {
         <textarea
           value={quiz.description}
           onChange={(e) =>
-            setQuiz((prev) => ({ ...prev, description: e.target.value }))
+            setQuiz((prev) =>
+              prev ? { ...prev, description: e.target.value } : prev
+            )
           }
           placeholder="Describe your quiz..."
           rows={4}
@@ -44,26 +48,7 @@ export function CreateQuizDetails({ quiz, setQuiz }: CreateQuizDetailsProps) {
         ></textarea>
       </div>
 
-      {/* CATEGORY + DIFFICULTY */}
       <div className="grid grid-cols-2 gap-4">
-        {/* CATEGORY */}
-        {/* <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700">Category</label>
-          <select
-            value={quiz.category}
-            onChange={(e) =>
-              setQuiz((prev) => ({ ...prev, category: e.target.value }))
-            }
-            className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-          >
-            <option value="">Select...</option>
-            <option value="science">Science</option>
-            <option value="history">History</option>
-            <option value="math">Math</option>
-            <option value="language">Language</option>
-          </select>
-        </div> */}
-
         {/* DIFFICULTY */}
         <div className="flex flex-col gap-2">
           <label className="text-sm font-medium text-gray-700">
@@ -72,10 +57,14 @@ export function CreateQuizDetails({ quiz, setQuiz }: CreateQuizDetailsProps) {
           <select
             value={quiz.difficulty}
             onChange={(e) =>
-              setQuiz((prev) => ({
-                ...prev,
-                difficulty: e.target.value as QuizForm["difficulty"],
-              }))
+              setQuiz((prev) =>
+                prev
+                  ? {
+                      ...prev,
+                      difficulty: e.target.value as QuizForm["difficulty"],
+                    }
+                  : prev
+              )
             }
             className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
           >
@@ -104,7 +93,9 @@ export function CreateQuizDetails({ quiz, setQuiz }: CreateQuizDetailsProps) {
               className="sr-only peer"
               checked={quiz.randomized}
               onChange={(e) =>
-                setQuiz((prev) => ({ ...prev, randomized: e.target.checked }))
+                setQuiz((prev) =>
+                  prev ? { ...prev, randomized: e.target.checked } : prev
+                )
               }
             />
             <div

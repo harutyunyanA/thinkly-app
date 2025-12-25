@@ -1,17 +1,15 @@
 import type { QuizForm } from "../../types";
 import { BadgeCheck, ListChecks } from "lucide-react";
-import { QuestionPreview } from "./quiestionPreview";
+import { QuestionPreview } from "./previewQuestion";
 
 type PreviewQuizProps = {
   quiz: QuizForm;
 };
 
-export function PreviewQuiz({ quiz}: PreviewQuizProps) {
+export function PreviewQuiz({ quiz }: PreviewQuizProps) {
   const isTitleValid = Boolean(quiz.title?.trim());
   const isDescValid = Boolean(quiz.description?.trim());
   const hasQuestions = quiz.questions.length > 0;
-
-
 
   return (
     <div className="w-full space-y-6">
@@ -71,11 +69,7 @@ export function PreviewQuiz({ quiz}: PreviewQuizProps) {
       {/* Questions */}
       <div className="space-y-4">
         {quiz.questions.map((q, index) => (
-          <QuestionPreview
-            key={q.key}
-            question={q}
-            index={index}
-          />
+          <QuestionPreview key={q.key} question={q} index={index} />
         ))}
       </div>
     </div>

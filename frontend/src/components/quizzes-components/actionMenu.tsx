@@ -6,10 +6,16 @@ import type { IQuiz } from "../../types";
 type ActionMenuProps = {
   onClose: () => void;
   deleteQuiz: (quizID: string) => void;
+  setIsEditOpen: (boolean: boolean) => void;
   quiz: IQuiz;
 };
 
-export function ActionMenu({ onClose, quiz, deleteQuiz }: ActionMenuProps) {
+export function ActionMenu({
+  onClose,
+  quiz,
+  deleteQuiz,
+  setIsEditOpen,
+}: ActionMenuProps) {
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   function handleClickOutside(e: MouseEvent) {
@@ -31,7 +37,10 @@ export function ActionMenu({ onClose, quiz, deleteQuiz }: ActionMenuProps) {
     >
       <button
         type="button"
-        onClick={onClose}
+        onClick={() => {
+          onClose();
+          setIsEditOpen(true);
+        }}
         className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100 transition text-left"
       >
         <Pencil size={16} className="shrink-0" />

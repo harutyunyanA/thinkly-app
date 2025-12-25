@@ -7,7 +7,6 @@ import { QuizItem } from "../../components/quizzes-components/quizItem";
 import { useDebounce } from "../../lib/hooks/useDebounce";
 import { Modal } from "../../components/modal";
 import { CreateQuiz } from "../../components/createQuiz-components/createQuiz";
-import { EditQuiz } from "../../components/quizzes-components/editQuiz";
 
 export function Quizzes() {
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
@@ -99,7 +98,11 @@ export function Quizzes() {
         <div className="flex flex-col gap-4 mt-4">
           {filteredQuizzes.length ? (
             filteredQuizzes.map((quiz) => (
-              <QuizItem key={quiz._id} quiz={quiz} deleteQuiz={deleteQuiz} />
+              <QuizItem
+                key={quiz._id}
+                quiz={quiz}
+                deleteQuiz={deleteQuiz}
+              />
             ))
           ) : (
             <p className="text-gray-400 text-sm">No quizzes found</p>
@@ -113,10 +116,6 @@ export function Quizzes() {
           closeModal={() => setIsModalOpen(false)}
           addQuiz={addQuiz}
         />
-      </Modal>
-
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <EditQuiz />
       </Modal>
     </div>
   );
