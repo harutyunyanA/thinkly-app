@@ -10,7 +10,7 @@ const quizSchema = new Schema({
     default: "easy",
   },
   imageURL: { type: String, default: null },
-  isPublic: { type: Boolean, default: true },
+  // isPublic: { type: Boolean, default: true },
   owner: { type: Types.ObjectId, ref: "User", required: true },
   questions: [{ type: Types.ObjectId, ref: "Question" }],
   averageRating: { type: Number, default: 0 },

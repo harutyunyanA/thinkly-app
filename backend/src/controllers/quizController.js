@@ -13,8 +13,6 @@ class QuizController {
   }
 
   async createQuiz(req, res) {
-    console.log(req.body);
-    // return sendResponse(res, 500, false, "Internal server error");
     try {
       const {
         title,
@@ -79,6 +77,39 @@ class QuizController {
 
       const quiz = await Quiz.findById(id)
         .populate({ path: "questions", select: "-answers.isCorrect" })
+        .populate("owner", "name username");
+
+      if (!quiz) return sendResponse(res, 404, false, "Quiz not found");
+
+      return sendResponse(res, 200, true, "Quiz fetched successfully", quiz);
+    } catch (err) {
+      return sendResponse(res, 500, false, "Internal server error");
+    }
+  }
+  async getQuizById(req, res) {
+    try {
+      const { id } = req.params;
+      if (!id) return sendResponse(res, 400, false, "Quiz ID required");
+
+      const quiz = await Quiz.findById(id)
+        .populate({ path: "questions", select: "-answers.isCorrect" })
+        .populate("owner", "name username");
+
+      if (!quiz) return sendResponse(res, 404, false, "Quiz not found");
+
+      return sendResponse(res, 200, true, "Quiz fetched successfully", quiz);
+    } catch (err) {
+      return sendResponse(res, 500, false, "Internal server error");
+    }
+  }
+
+  async getQuizInfoById(req, res) {
+    try {
+      const { id } = req.params;
+      if (!id) return sendResponse(res, 400, false, "Quiz ID required");
+
+      const quiz = await Quiz.findById(id)
+        .populate({ path: "questions"})
         .populate("owner", "name username");
 
       if (!quiz) return sendResponse(res, 404, false, "Quiz not found");

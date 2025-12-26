@@ -11,6 +11,7 @@ const router = express.Router();
 router.get("/", controller.getAllQuizzes);
 router.post("/", isAuthenticated, controller.createQuiz);
 router.get("/:id", controller.getQuizById);
+router.get("/:id/info", controller.getQuizInfoById);
 router.patch("/:id", isAuthenticated, controller.updateQuiz);
 router.delete("/:id", isAuthenticated, controller.deleteQuiz);
 
