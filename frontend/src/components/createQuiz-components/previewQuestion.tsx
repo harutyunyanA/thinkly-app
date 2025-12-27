@@ -1,6 +1,6 @@
 import type { QuizQuestion } from "../../types";
 import { CheckSquare, CircleDot, ListChecks } from "lucide-react";
-import { AnswerPreview } from "./answerPreview";
+import { AnswerPreview } from "./previewAnswer";
 
 type QuestionPreviewProps = {
   question: QuizQuestion;

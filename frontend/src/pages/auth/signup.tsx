@@ -20,7 +20,6 @@ export function Signup() {
     console.log(data);
     Axios.post("/auth/signup", data)
       .then((res) => {
-        console.log(res.data);
         navigator("/login");
       })
       .catch((err: AxiosError<{ message: string }>) => {

@@ -1,9 +1,9 @@
 import { Plus } from "lucide-react";
-import type { QuizForm, QuizQuestion } from "../../types"; // Убедись, что IQuestion импортирован
+import type { IQuiz, QuizForm, QuizQuestion } from "../../types"; // Убедись, что IQuestion импортирован
 import { QuestionItem } from "./questionItem";
 
 interface CreateQuizQuestionsProps {
-  quiz: QuizForm;
+  quiz: QuizForm | IQuiz;
   setQuiz: React.Dispatch<React.SetStateAction<QuizForm>>;
   // quizReducer: any;
 }

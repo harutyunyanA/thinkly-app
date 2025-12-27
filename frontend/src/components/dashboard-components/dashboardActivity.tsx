@@ -1,4 +1,4 @@
-import { ActivityItem } from "../activityItem";
+import { ActivityItem } from "./activityItem";
 
 export function DashboardActivity() {
   return (

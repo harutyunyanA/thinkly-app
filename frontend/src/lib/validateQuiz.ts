@@ -1,6 +1,6 @@
-import type { QuizForm } from "../types";
+import type { IQuiz, QuizForm } from "../types";
 
-export function validateQuiz(quiz: QuizForm): boolean {
+export function validateQuiz(quiz: QuizForm | IQuiz): boolean {
   if (!quiz.title.trim()) return false;
   if (!quiz.description.trim()) return false;
   if (quiz.questions.length === 0) return false;

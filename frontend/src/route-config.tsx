@@ -3,10 +3,10 @@ import { Signup } from "./pages/auth/signup";
 import { Login } from "./pages/auth/login";
 import { LandingPage } from "./pages/auth/landingPage";
 import { Home } from "./pages/main/home";
-import { Dashboard } from "./components/dashboard";
+import { Dashboard } from "./pages/main/dashboard";
 import { Quizzes } from "./pages/main/quizzes";
 import { Settings } from "./pages/main/settings";
-import { CreateQuiz } from "./pages/main/createQuiz";
+import { CreateQuiz } from "./components/createQuiz-components/createQuiz";
 
 export const router = createBrowserRouter([
   { path: "", element: <LandingPage /> },
