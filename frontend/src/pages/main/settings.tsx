@@ -1,17 +1,30 @@
+import { useOutletContext } from "react-router-dom";
 import { AccountSecurity } from "../../components/settings-components/accountSecurity";
+import { ProfileInformation } from "../../components/settings-components/profileInformation";
 
 export function Settings() {
-  return (
-    <div className="max-w-3xl mx-auto px-6 py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-gray-900">Settings</h1>
-        <p className="text-gray-500">
-          Manage your account settings and preferences
-        </p>
-      </div>
+  const { userContext, setUserContext } = useOutletContext<{
+    userContext: any;
+    setUserContext: (u: any) => void;
+  }>();
 
-      {/* account security */}
-      <AccountSecurity />
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="mx-auto p-8 py-10 flex flex-col gap-10">
+        {/* Header */}
+        <div>
+          <h1 className="text-3xl font-semibold text-gray-900">Settings</h1>
+          <p className="text-sm text-gray-500 mt-1">
+            Manage your account settings and preferences
+          </p>
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-col gap-8">
+          <ProfileInformation user={userContext} setUser={setUserContext} />
+          <AccountSecurity />
+        </div>
+      </div>
     </div>
   );
 }

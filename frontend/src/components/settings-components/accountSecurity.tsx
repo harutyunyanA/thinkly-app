@@ -50,7 +50,7 @@ export function AccountSecurity() {
       </div>
 
       <form onSubmit={handleSubmit(handlePasswordUpdate)} className="space-y-5">
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col max-w-xl gap-1">
           <label className="text-sm font-medium text-gray-700">
             Current Password
           </label>
@@ -67,7 +67,7 @@ export function AccountSecurity() {
           )}
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col max-w-xl gap-1">
           <label className="text-sm font-medium text-gray-700">
             New Password
           </label>
@@ -84,7 +84,7 @@ export function AccountSecurity() {
           )}
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col max-w-xl gap-1">
           <label className="text-sm font-medium text-gray-700">
             Confirm New Password
           </label>
@@ -105,7 +105,7 @@ export function AccountSecurity() {
           )}
         </div>
 
-        <div className="pt-2">
+        <div className="pt-2 flex items-center gap-4">
           <button
             type="submit"
             className="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2

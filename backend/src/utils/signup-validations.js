@@ -1,22 +1,18 @@
 import { User } from "../models/index.js";
 
 class SignupValidation {
-  // Check if a value is a non-empty string
   isRequired(value) {
     return typeof value === "string" && value.trim() !== "";
   }
 
-  // Check if a string contains at least one letter (any language)
   hasLetter(value) {
     return /\p{L}/u.test(value);
   }
 
-  // Check if a string matches a regular expression
   matchesRegex(value, regex) {
     return regex.test(value);
   }
 
-  // --- Check that all required fields are present ---
   availabilityOfCredentials(data) {
     const requiredFields = ["name", "username", "email", "password"];
     for (const field of requiredFields) {
@@ -27,9 +23,8 @@ class SignupValidation {
     return { valid: true };
   }
 
-  // --- General validation for text fields like name and surname ---
   credentialsValidation(data) {
-    const { name, surname } = data;
+    const { name} = data;
 
     if (!this.hasLetter(name)) {
       return {
@@ -41,7 +36,6 @@ class SignupValidation {
     return { valid: true };
   }
 
-  // --- Validate username---
   async usernameValidation(data) {
     let { username } = data;
 
@@ -68,7 +62,6 @@ class SignupValidation {
     return { valid: true, message: "Username is available" };
   }
 
-  // --- Validate email format ---
   async emailValidation(data) {
     let { email } = data;
 
@@ -90,7 +83,6 @@ class SignupValidation {
     return { valid: true };
   }
 
-  // --- Validate password strength ---
   passwordValidation(data) {
     const { password } = data;
 
@@ -101,7 +93,6 @@ class SignupValidation {
       };
     }
 
-    // Password must have at least one uppercase letter, one lowercase letter, one number, one special character, and minimum 8 characters
     const passwordRegExp =
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 

@@ -1,5 +1,5 @@
 import { User } from "../models/index.js";
-import bcrypt from "bcrypt";
+import bcrypt, { compareSync } from "bcrypt";
 import signupTools from "../utils/signup-validations.js";
 import jwt from "jsonwebtoken";
 import { env } from "../config/env.js";
@@ -88,7 +88,6 @@ class UserController {
     }
   }
 
-  // UNUSED BUT FORMATTED FOR CONSISTENCY
   async changeEmail(req, res) {
     try {
       let { email, password } = req.body;
@@ -158,6 +157,43 @@ class UserController {
       return sendResponse(res, 500, false, "Internal server error");
     }
   }
-}
 
+  async updateProfileInfo(req, res) {
+    try {
+      const { name, email} = req.body;
+      // console.log("hello");
+      console.log("this is req file");
+      console.log("name", name);
+      console.log("email", email);
+  
+      const user = await User.findById(req.user._id);
+      if (!user) return sendResponse(res, 404, false, "User not found");
+      //name update
+
+      
+      if (name) {
+        const validName = signupTools.credentialsValidation(req.body);
+        if (!validName.valid) {
+          return sendResponse(res, 400, false, validName.message);
+        }
+        user.name = name;
+      }
+
+      //email update
+      if (email) {
+        const validEmail = await signupTools.emailValidation({ email });
+        if (!validEmail.valid) {
+          return sendResponse(res, 400, false, validEmail.message);
+        }
+        user.email = email;
+      }
+      
+      await user.save();
+      return sendResponse(res, 200, true, "User info updated", user);
+    } catch (err) {
+      console.log("errrrrror");
+      return sendResponse(res, 500, false, "Internal server error");
+    }
+  }
+}
 export default new UserController();

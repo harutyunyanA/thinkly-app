@@ -12,23 +12,29 @@ router.get("/me", isAuthenticated, controller.getCurrentUser);
 router.get("/:id", controller.getUserProfile);
 router.patch(
   "/username",
-  validateBody(["username", "password"]),
   isAuthenticated,
+  validateBody(["username", "password"]),
   controller.changeUsername
 );
 
 router.patch(
   "/email",
-  validateBody(["email", "password"]),
   isAuthenticated,
+  validateBody(["email", "password"]),
   controller.changeEmail
 );
 
 router.patch(
   "/password",
-  validateBody(["currentPassword", "newPassword"]),
   isAuthenticated,
+  validateBody(["currentPassword", "newPassword"]),
   controller.changePassword
+);
+
+router.patch(
+  "/profileInfoUpdate",
+  isAuthenticated,
+  controller.updateProfileInfo
 );
 
 router.post(
