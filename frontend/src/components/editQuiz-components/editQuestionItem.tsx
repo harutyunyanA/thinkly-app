@@ -1,14 +1,11 @@
 import { Trash2, Plus } from "lucide-react";
-import type {
-  IQuestion,
-  IQuiz,
-  QuestionAnswerForm,
-} from "../../types";
+import type { QuestionAnswerForm, QuizForm, QuizQuestion } from "../../types";
 import { EditSingleAnswerItem } from "./editSingleAnswerItem";
+import { EditMultiAnswerItem } from "./editMultiAnswerItem";
 type QuestionItemProps = {
   index: number;
-  question: IQuestion;
-  setQuiz: React.Dispatch<React.SetStateAction<IQuiz | null>>;
+  question: QuizQuestion;
+  setQuiz: React.Dispatch<React.SetStateAction<QuizForm>>;
 };
 
 export function EditQuestionItem({
@@ -16,14 +13,13 @@ export function EditQuestionItem({
   question,
   setQuiz,
 }: QuestionItemProps) {
-
-  const updateQuestion = (updated: Partial<IQuestion>) => {
+  const updateQuestion = (updated: Partial<QuizQuestion>) => {
     setQuiz((prev) =>
       prev
         ? {
             ...prev,
             questions: prev.questions.map((q) =>
-              q._id === question._id ? { ...q, ...updated } : q
+              q.key === question.key ? { ...q, ...updated } : q
             ),
           }
         : prev
@@ -35,7 +31,7 @@ export function EditQuestionItem({
       prev
         ? {
             ...prev,
-            questions: prev.questions.filter((q) => q._id !== questionKey),
+            questions: prev.questions.filter((q) => q.key !== questionKey),
           }
         : prev
     );
@@ -48,9 +44,9 @@ export function EditQuestionItem({
       key: String(crypto.randomUUID()),
     };
 
-    // updateQuestion({
-    //   answers: [...question.answers, newAnswer],
-    // });
+    updateQuestion({
+      answers: [...question.answers, newAnswer],
+    });
   };
 
   return (
@@ -75,7 +71,7 @@ export function EditQuestionItem({
 
           <button
             type="button"
-            onClick={() => deleteQuestion(question._id || question._id)}
+            onClick={() => deleteQuestion(question.key)}
             className="p-2 rounded-full hover:bg-red-50 text-red-500 transition"
           >
             <Trash2 className="w-5 h-5" />
@@ -111,21 +107,21 @@ export function EditQuestionItem({
 
         <div className="space-y-2">
           {question.answers.map((answer) =>
-            // question.multipleAnswers ? (
-            //   <EditMultiAnswerItem
-            //     key={answer._id}
-            //     question={question}
-            //     setQuiz={setQuiz}
-            //     answer={answer}
-            //   />
-            // ) : (
-              <EditSingleAnswerItem
-                key={answer._id}
+            question.multipleAnswers ? (
+              <EditMultiAnswerItem
+                key={answer.key}
                 question={question}
                 setQuiz={setQuiz}
                 answer={answer}
               />
-            // )
+            ) : (
+              <EditSingleAnswerItem
+                key={answer.key}
+                question={question}
+                setQuiz={setQuiz}
+                answer={answer}
+              />
+            )
           )}
         </div>
       </div>

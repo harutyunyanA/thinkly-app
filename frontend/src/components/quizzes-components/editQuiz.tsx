@@ -1,35 +1,46 @@
 import { useEffect, useState } from "react";
-import type { IQuiz } from "../../types";
+import type { QuizForm } from "../../types";
 import { Axios } from "../../lib/api";
-import { validateQuiz } from "../../lib/validateQuiz";
 import type { AxiosError } from "axios";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { EditQuizDetails } from "../editQuiz-components/editQuizDetails";
 import { EditQuizQuestions } from "../editQuiz-components/editQuizQuestions";
+import { convertQuiz } from "../../lib/convertQuiz";
+import { PreviewQuiz } from "../createQuiz-components/previewQuiz";
+import { validateQuiz } from "../../lib/validateQuiz";
 
 type EditQuizProps = {
   quizId: string;
   closeModal: () => void;
 };
 
-// interface QuizFormEditable extends IQuiz {
-//   questions: IQuiz["questions"] & { key: string }[];
-// }
-
 export function EditQuiz({ quizId, closeModal }: EditQuizProps) {
-  const [quiz, setQuiz] = useState<IQuiz | null>(null);
+  const [quiz, setQuiz] = useState<QuizForm | null>(null);
+  const [page, setPage] = useState(1);
+
+  const validQuiz = quiz ? validateQuiz(quiz) : false;
 
   useEffect(() => {
     Axios.get(`/quiz/${quizId}/info`)
       .then((res) => {
-        setQuiz(res.data.payload);
+        setQuiz(convertQuiz(res.data.payload));
       })
       .catch(() => {
         closeModal();
       });
   }, [quizId, closeModal]);
 
-  const [page, setPage] = useState(1);
+ //---safe quiz!==null
+  const setSafeQuiz: React.Dispatch<React.SetStateAction<QuizForm>> = (
+    action
+  ) => {
+    setQuiz((prev) => {
+      if (!prev) return prev;
+
+      return typeof action === "function" ? action(prev) : action;
+    });
+  };
+  // -------------------------------------
 
 
   if (!quiz) {
@@ -51,23 +62,20 @@ export function EditQuiz({ quizId, closeModal }: EditQuizProps) {
         </div>
       </div>
 
+      {/* ---------- CONTENT ---------- */}
       <div className="flex flex-col gap-6">
-        {page === 1 && (
-          <EditQuizDetails
-            quiz={quiz}
-            setQuiz={setQuiz}
-          />
-        )}
-        
-        {page === 2 && <EditQuizQuestions quiz={quiz} setQuiz={setQuiz} />}
+    
+        {page === 1 && <EditQuizDetails quiz={quiz} setQuiz={setSafeQuiz} />}
 
-        {/* {page === 3 && <PreviewQuiz quiz={quiz} />} */}
+        {page === 2 && <EditQuizQuestions quiz={quiz} setQuiz={setSafeQuiz} />}
 
-        {/* {page === 3 && !validQuiz && (
+        {page === 3 && <PreviewQuiz quiz={quiz} />}
+
+        {page === 3 && !validQuiz && (
           <div className="px-6 py-3 bg-red-50 border border-red-200 text-red-700 rounded-md">
             <p>Fill all required fields *</p>
           </div>
-        )} */}
+        )}
       </div>
 
       {/* ---------- FOOTER ---------- */}
@@ -97,16 +105,14 @@ export function EditQuiz({ quizId, closeModal }: EditQuizProps) {
 
           {page === 2 && (
             <button
+              onClick={() => setPage(3)}
               className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
-              onClick={() => {
-                console.log(quiz);
-                setPage(3);
-              }}
             >
               Preview & Save
               <ChevronRight className="w-4 h-4" />
             </button>
           )}
+
           {page === 3 && (
             <div className="flex items-center gap-2 px-4">
               <button
@@ -118,10 +124,13 @@ export function EditQuiz({ quizId, closeModal }: EditQuizProps) {
               </button>
 
               <button
-                className="flex items-center gap-2 px-4 py-2 rounded-md transition bg-indigo-600 text-white hover:bg-indigo-700 disabled:bg-gray-300 disabled:text-gray-600 disabled:hover:bg-gray-300 disabled:cursor-not-allowed"
-                // disabled={!validQuiz}
+                disabled={!validQuiz}
+                className="flex items-center gap-2 px-4 py-2 rounded-md transition
+                  bg-indigo-600 text-white hover:bg-indigo-700
+                  disabled:bg-gray-300 disabled:text-gray-600
+                  disabled:hover:bg-gray-300 disabled:cursor-not-allowed"
                 onClick={() => {
-                  Axios.patch("/quiz/" + quizId, quiz)
+                  Axios.patch(`/quiz/${quizId}`, quiz)
                     .then(() => {
                       console.log("quiz edited successfully");
                       closeModal();

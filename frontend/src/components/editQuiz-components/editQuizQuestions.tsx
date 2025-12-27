@@ -1,13 +1,10 @@
 import { Plus } from "lucide-react";
-import type { IQuiz, QuizForm, QuizQuestion } from "../../types"; // Убедись, что IQuestion импортирован
-import { QuestionItem } from "../createQuiz-components/questionItem";
+import type { QuizForm,QuizQuestion } from "../../types"; // Убедись, что IQuestion импортирован
 import { EditQuestionItem } from "./editQuestionItem";
-// import { QuestionItem } from "./questionItem";
 
 interface EditQuizQuestionsProps {
-  quiz: IQuiz;
-  setQuiz: React.Dispatch<React.SetStateAction<IQuiz | null>>;
-  // quizReducer: any;
+  quiz: QuizForm;
+  setQuiz: React.Dispatch<React.SetStateAction<QuizForm>>;
 }
 
 function newQuestionForm() {
@@ -26,23 +23,22 @@ export function EditQuizQuestions({
   setQuiz,
 }: 
 EditQuizQuestionsProps) {
-  console.log(quiz);
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
       <div>
         <h2 className="text-xl font-semibold text-white">Quiz Questions</h2>
       </div>
       {/* ---------------------------------------- */}
-      <div id="mainQuestionsBlock">
+      <div id="mainQuestionsBlock" className="space-y-4">
         {quiz.questions.map((q, i) => (
-          <div key={q._id}>
+          <div key={q.key}>
             <EditQuestionItem index={i} question={q} setQuiz={setQuiz} />
           </div>
         ))}
       </div>
 
       {/* ---------------------------------------- */}
-      {/* <button
+      <button
         onClick={() => {
           setQuiz((prev) =>
             prev
@@ -57,7 +53,7 @@ EditQuizQuestionsProps) {
       >
         <Plus className="w-5 h-5" />
         Add Question
-      </button> */}
+      </button>
     </div>
   );
 }

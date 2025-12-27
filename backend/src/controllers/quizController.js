@@ -43,7 +43,7 @@ class QuizController {
       category: category.trim(),
       difficulty,
       imageUrl,
-      isPublic,
+      // isPublic,
       owner: userId,
       questions: [],
     });
@@ -121,6 +121,7 @@ class QuizController {
   }
 
   async updateQuiz(req, res) {
+    console.log("heellloo")
     try {
       const { id } = req.params;
       const { _id: userId } = req.user;
@@ -133,14 +134,17 @@ class QuizController {
       if (quiz.owner.toString() !== userId.toString())
         return sendResponse(res, 403, false, "You cannot edit this quiz");
 
-      if (!title?.trim() || !description?.trim() || !category?.trim())
+      if (!title?.trim() || !description?.trim())
         return sendResponse(res, 400, false, "Please fill all the fields");
 
       quiz.title = title.trim();
       quiz.description = description.trim();
-      quiz.category = category.trim();
+      // quiz.category = category.trim();
+
       if (difficulty) quiz.difficulty = difficulty;
-      if (typeof isPublic === "boolean") quiz.isPublic = isPublic;
+      // if (typeof isPublic === "boolean") quiz.isPublic = isPublic;
+
+      
 
       await quiz.save();
       return sendResponse(res, 200, true, "Quiz updated successfully", quiz);

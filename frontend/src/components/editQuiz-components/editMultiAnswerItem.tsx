@@ -1,18 +1,22 @@
-import type { IQuestion, QuestionAnswerForm, QuizForm, QuizQuestion} from "../../types";
-import { Circle, CircleDot, Trash2 } from "lucide-react";
+import type { QuestionAnswerForm, QuizForm, QuizQuestion } from "../../types";
+import {
+  CheckSquare,
+  Square,
+  Trash2,
+} from "lucide-react";
 import React from "react";
 
-type SingleAnswerItemProps = {
+type EditMultiAnswerItemProps = {
   question: QuizQuestion;
   setQuiz: React.Dispatch<React.SetStateAction<QuizForm>>;
   answer: QuestionAnswerForm;
 };
 
-export function EditSingleAnswerItem({
+export function EditMultiAnswerItem({
   question,
   setQuiz,
   answer,
-}: SingleAnswerItemProps) {
+}: EditMultiAnswerItemProps) {
   const deleteAnswer = (questionKey: string, answerKey: string) => {
     setQuiz((prev) => ({
       ...prev,
@@ -21,6 +25,22 @@ export function EditSingleAnswerItem({
           ? { ...q, answers: q.answers.filter((a) => a.key !== answerKey) }
           : q
       ),
+    }));
+  };
+
+  const toggleCorrect = (questionKey: string, answerKey: string) => {
+    setQuiz((prev) => ({
+      ...prev,
+      questions: prev.questions.map((q) => {
+        if (q.key !== questionKey) return q;
+
+        return {
+          ...q,
+          answers: q.answers.map((a) =>
+            a.key === answerKey ? { ...a, isCorrect: !a.isCorrect } : a
+          ),
+        };
+      }),
     }));
   };
 
@@ -44,23 +64,6 @@ export function EditSingleAnswerItem({
     }));
   };
 
-  const selectSingleAnswer = (questionKey: string, answerKey: string) => {
-    setQuiz((prev) => ({
-      ...prev,
-      questions: prev.questions.map((q) => {
-        if (q.key !== questionKey) return q;
-
-        return {
-          ...q,
-          answers: q.answers.map((a) => ({
-            ...a,
-            isCorrect: a.key === answerKey,
-          })),
-        };
-      }),
-    }));
-  };
-
   return (
     <div
       className="
@@ -70,51 +73,51 @@ export function EditSingleAnswerItem({
         hover:bg-gray-50 transition
       "
     >
+      {/* checkbox */}
       <button
         type="button"
-        onClick={() => selectSingleAnswer(question.key, answer.key)}
+        onClick={() => toggleCorrect(question.key, answer.key)}
         className="
-          flex items-center justify-center
-          w-9 h-9 rounded-lg
-          hover:bg-purple-50 transition
-          text-purple-600
-          shrink-0
+          w-9 h-9 flex items-center justify-center
+          rounded-lg hover:bg-purple-50 transition
+          text-purple-600 shrink-0
         "
-        aria-label="Select answer"
+        aria-label="Toggle correct answer"
       >
         {answer.isCorrect ? (
-          <CircleDot className="w-5 h-5" />
+          <CheckSquare className="w-5 h-5" />
         ) : (
-          <Circle className="w-5 h-5" />
+          <Square className="w-5 h-5" />
         )}
       </button>
 
+      {/* text input */}
       <input
         type="text"
         value={answer.text}
         onChange={(e) =>
           updateAnswerText(question.key, answer.key, e.target.value)
         }
+        onClick={(e) => e.stopPropagation()}
         className="
-          flex-1
-          px-3 py-2
+          flex-1 px-3 py-2
           rounded-lg border border-gray-200 bg-white
           text-gray-800
-          placeholder:text-gray-400
           focus:outline-none focus:ring-2 focus:ring-purple-200 focus:border-purple-300
           transition
         "
         placeholder="Answer text..."
       />
 
+      {/* delete */}
       <button
         type="button"
         className="
           p-2 rounded-lg
-          hover:bg-red-50 text-red-500 transition
-          shrink-0
+          hover:bg-red-50 text-red-500 transition shrink-0
         "
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           deleteAnswer(question.key, answer.key);
         }}
         aria-label="Delete answer"

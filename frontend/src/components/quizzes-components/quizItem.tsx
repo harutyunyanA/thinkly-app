@@ -39,6 +39,7 @@ export function QuizItem({ quiz, deleteQuiz }: QuizItemProps) {
           <div className="flex gap-4 mt-1 text-xs text-gray-400">
             <p>{quiz.questions.length} questions</p>
             <p>Average Score {quiz.averageScore}</p>
+            <p>Difficulty: {quiz.difficulty.toUpperCase()}</p>
             <p>Created {new Date(quiz.createdAt).toLocaleString("en-US")}</p>
           </div>
         </div>

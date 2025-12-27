@@ -1,8 +1,8 @@
-import type { IQuiz, QuizForm } from "../../types";
+import type { QuizForm } from "../../types";
 
 type EditQuizDetailsProps = {
-  quiz: IQuiz;
-  setQuiz: React.Dispatch<React.SetStateAction<IQuiz | null>>;
+  quiz: QuizForm;
+  setQuiz: React.Dispatch<React.SetStateAction<QuizForm>>;
 };
 
 export function EditQuizDetails({ quiz, setQuiz }: EditQuizDetailsProps) {
