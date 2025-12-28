@@ -4,14 +4,14 @@ export function Header() {
   return (
     <header className="h-16 bg-white shadow-md flex items-center justify-between px-6">
       {/* Search */}
-      <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-md">
+      {/* <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-md">
         <Search size={18} className="text-gray-500" />
         <input
           type="text"
           placeholder="Search..."
           className="bg-transparent outline-none text-sm"
         />
-      </div>
+      </div> */}
 
       {/* Right Actions */}
       {/* <div className="flex items-center gap-4"> */}

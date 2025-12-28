@@ -29,34 +29,34 @@ class QuizController {
 
       if (!Array.isArray(questions) || questions.length === 0)
         return sendResponse(
-      res,
-      400,
-      false,
-      "Quiz should have at least one question"
-    );
+          res,
+          400,
+          false,
+          "Quiz should have at least one question"
+        );
 
-    const { _id: userId } = req.user;
+      const { _id: userId } = req.user;
 
-    const newQuiz = new Quiz({
-      title: title.trim(),
-      description: description.trim(),
-      category: category.trim(),
-      difficulty,
-      imageUrl,
-      // isPublic,
-      owner: userId,
-      questions: [],
-    });
+      const newQuiz = new Quiz({
+        title: title.trim(),
+        description: description.trim(),
+        // category: category.trim(),
+        difficulty,
+        imageUrl,
+        // isPublic,
+        owner: userId,
+        questions: [],
+      });
 
-    let questionDocs;
+      let questionDocs;
 
-    try {
-      questionDocs = await Promise.all(
-            questions.map((q) => quizTools.addQuestion(q, newQuiz._id))
-          );
-        } catch (err) {
-          return sendResponse(res, 400, false, err.message);
-        }
+      try {
+        questionDocs = await Promise.all(
+          questions.map((q) => quizTools.addQuestion(q, newQuiz._id))
+        );
+      } catch (err) {
+        return sendResponse(res, 400, false, err.message);
+      }
 
       newQuiz.questions = questionDocs.map((q) => q._id);
 
@@ -109,7 +109,7 @@ class QuizController {
       if (!id) return sendResponse(res, 400, false, "Quiz ID required");
 
       const quiz = await Quiz.findById(id)
-        .populate({ path: "questions"})
+        .populate({ path: "questions" })
         .populate("owner", "name username");
 
       if (!quiz) return sendResponse(res, 404, false, "Quiz not found");
@@ -121,7 +121,8 @@ class QuizController {
   }
 
   async updateQuiz(req, res) {
-    console.log("heellloo")
+    console.log("heellloo");
+    console.log(req.body);
     try {
       const { id } = req.params;
       const { _id: userId } = req.user;
@@ -143,8 +144,6 @@ class QuizController {
 
       if (difficulty) quiz.difficulty = difficulty;
       // if (typeof isPublic === "boolean") quiz.isPublic = isPublic;
-
-      
 
       await quiz.save();
       return sendResponse(res, 200, true, "Quiz updated successfully", quiz);
@@ -381,6 +380,44 @@ class QuizController {
     } catch (err) {
       return sendResponse(res, 500, false, "Internal server error");
     }
+  }
+
+  async duplicateQuiz(req, res) {
+    const { quizId } = req.params;
+    const original = await Quiz.findById(quizId).populate("questions");
+    if (!original) {
+      return sendResponse(res, 404, false, "Quiz not found");
+    }
+
+    const duplicatedQuiz = new Quiz({
+      title: original.title,
+      description: original.description,
+      difficulty: original.difficulty,
+      imageURL: original.imageURL,
+      owner: req.user._id,
+      questions: [],
+    });
+
+    let questionDocs;
+    try {
+      questionDocs = await Promise.all(
+        original.questions.map((q) =>
+          quizTools.addQuestion(q, duplicatedQuiz._id)
+        )
+      );
+    } catch (err) {
+      return sendResponse(res, 400, false, err.message);
+    }
+
+    duplicatedQuiz.questions = questionDocs.map((q) => q._id);
+
+    await duplicatedQuiz.save();
+
+    await User.findByIdAndUpdate(req.user._id, {
+      $push: { quizzes: duplicatedQuiz._id },
+    });
+
+    return sendResponse(res, 200, true, "Quiz duplicated", duplicatedQuiz);
   }
 }
 

@@ -102,6 +102,7 @@ export function Quizzes() {
                 key={quiz._id}
                 quiz={quiz}
                 deleteQuiz={deleteQuiz}
+                addQuiz={addQuiz}
               />
             ))
           ) : (

@@ -32,7 +32,7 @@ export function Sidebar() {
           }
         >
           <List size={18} />
-          Quizzes
+          My Quizzes
         </NavLink>
 
         <NavLink

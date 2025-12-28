@@ -44,6 +44,9 @@ class QuizTools {
       );
     }
   }
+  async updateQuiz(quiz) {
+    await Quiz.findByIdAndUpdate(quiz._id, quiz, { new: true });
+  }
 }
 
 export default new QuizTools();

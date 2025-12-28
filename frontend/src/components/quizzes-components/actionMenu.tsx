@@ -1,4 +1,4 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { Copy, Pencil, Trash2 } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Axios } from "../../lib/api";
 import type { IQuiz } from "../../types";
@@ -7,6 +7,7 @@ type ActionMenuProps = {
   onClose: () => void;
   deleteQuiz: (quizID: string) => void;
   setIsEditOpen: (boolean: boolean) => void;
+  addQuiz: (newQuiz: IQuiz) => void;
   quiz: IQuiz;
 };
 
@@ -15,6 +16,7 @@ export function ActionMenu({
   quiz,
   deleteQuiz,
   setIsEditOpen,
+  addQuiz,
 }: ActionMenuProps) {
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -45,6 +47,21 @@ export function ActionMenu({
       >
         <Pencil size={16} className="shrink-0" />
         <span>Edit</span>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          Axios.post("/quiz/" + quiz._id + "/duplicate").then((res) => {
+            addQuiz(res.data.payload);
+            console.dir(res.data);
+          });
+          onClose();
+        }}
+        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100 transition text-left"
+      >
+        <Copy size={16} className="shrink-0" />
+        <span>Duplicate</span>
       </button>
 
       <div className="h-px bg-gray-100" />

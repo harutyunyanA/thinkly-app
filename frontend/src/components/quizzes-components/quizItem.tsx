@@ -8,10 +8,11 @@ import { EditQuiz } from "./editQuiz";
 
 type QuizItemProps = {
   deleteQuiz: (quizID: string) => void;
+  addQuiz: (newQuiz: IQuiz) => void;
   quiz: IQuiz;
 };
 
-export function QuizItem({ quiz, deleteQuiz }: QuizItemProps) {
+export function QuizItem({ quiz, deleteQuiz, addQuiz }: QuizItemProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isViewQuizOpen, setIsViewQuizOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -68,6 +69,7 @@ export function QuizItem({ quiz, deleteQuiz }: QuizItemProps) {
             quiz={quiz}
             deleteQuiz={deleteQuiz}
             setIsEditOpen={setIsEditOpen}
+            addQuiz={addQuiz}
           />
         )}
       </div>

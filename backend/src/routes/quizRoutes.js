@@ -34,6 +34,12 @@ router.delete(
   controller.deleteQuestion
 );
 
+router.post(
+  "/:quizId/duplicate",
+  isAuthenticated,
+  controller.duplicateQuiz
+);
+
 router.get("/user/:id", controller.getUserQuizzes);
 router.post("/:id/submit", optionalAuthentication, controller.submitQuiz);
 router.get("/:id/results", isAuthenticated, controller.getQuizResults);
