@@ -8,7 +8,6 @@ export function QuizItem({ quiz }: QuizItemProps) {
 
   return (
     <div className="relative border border-gray-200 rounded-xl p-4 flex justify-between items-center hover:bg-gray-50 cursor-pointer transition">
-      {/* LEFT */}
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 rounded-xl overflow-hidden bg-gray-200 flex items-center justify-center">
           {quiz.imageURL ? (

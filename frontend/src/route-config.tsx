@@ -7,6 +7,7 @@ import { Dashboard } from "./pages/main/dashboard";
 import { Quizzes } from "./pages/main/quizzes";
 import { Settings } from "./pages/main/settings";
 import { CreateQuiz } from "./components/createQuiz-components/createQuiz";
+import { QuizPassDetails } from "./pages/main/quizPassDetails";
 
 export const router = createBrowserRouter([
   { path: "", element: <LandingPage /> },
@@ -24,8 +25,9 @@ export const router = createBrowserRouter([
     children: [
       { path: "", element: <Dashboard /> },
       { path: "quizzes", element: <Quizzes /> },
-      { path: "quizzes/createQuiz", element: <CreateQuiz /> },
+      // { path: "quizzes/createQuiz", element: <CreateQuiz /> },
       { path: "settings", element: <Settings /> },
+      { path: "quiz/:quizId", element: <QuizPassDetails /> },
     ],
   },
 ]);

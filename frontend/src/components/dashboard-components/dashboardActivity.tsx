@@ -4,6 +4,7 @@ import { Axios } from "../../lib/api";
 import { QuizItem } from "./quizItem";
 import { useDebounce } from "../../lib/hooks/useDebounce";
 import { Search } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function DashboardActivity() {
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
@@ -39,7 +40,11 @@ export function DashboardActivity() {
       </div>
       <div className="flex flex-col gap-2 mt-4 flex-1 overflow-y-auto">
         {filteredQuizzes.length ? (
-          filteredQuizzes.map((quiz) => <QuizItem key={quiz._id} quiz={quiz} />)
+          filteredQuizzes.map((quiz) => (
+            <Link to={"/home/quiz/" + quiz._id} key={quiz._id}>
+              <QuizItem quiz={quiz} />
+            </Link>
+          ))
         ) : (
           <p className="text-gray-500 text-sm">No quizzes found</p>
         )}

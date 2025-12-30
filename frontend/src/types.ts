@@ -51,6 +51,8 @@ export interface IQuiz {
   averageRating: number;
   averageScore: number;
   createdAt: Date;
+  topScore: number;
+  completions: number;
 }
 
 export interface IQuestion {
@@ -60,13 +62,13 @@ export interface IQuestion {
   multipleAnswers: boolean;
   imageUrl: string;
   createdAt: Date;
-  _id:string
+  _id: string;
 }
 
 export interface IAnswer {
   text: string;
   isCorrect: boolean;
-  _id:string
+  _id: string;
 }
 
 export interface IUser {

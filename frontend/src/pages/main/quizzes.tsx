@@ -51,7 +51,6 @@ export function Quizzes() {
 
   return (
     <div className="p-8 flex flex-col gap-8">
-      {/* ---------- HEADER ---------- */}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Quizzes</h1>
@@ -68,7 +67,6 @@ export function Quizzes() {
         </button>
       </div>
 
-      {/* ---------- CONTENT CARD ---------- */}
       <div className="bg-white shadow rounded-xl p-6 flex flex-col gap-6">
         <div>
           <h2 className="text-xl font-semibold">Quiz Library</h2>
@@ -77,7 +75,6 @@ export function Quizzes() {
           </p>
         </div>
 
-        {/* Search bar */}
         <div className="flex justify-between items-center flex-wrap gap-4">
           <div className="relative">
             <Search
@@ -94,7 +91,6 @@ export function Quizzes() {
           </div>
         </div>
 
-        {/* ---------- QUIZ LIST ---------- */}
         <div className="flex flex-col gap-4 mt-4">
           {filteredQuizzes.length ? (
             filteredQuizzes.map((quiz) => (
@@ -111,7 +107,6 @@ export function Quizzes() {
         </div>
       </div>
 
-      {/* ---------- MODAL ---------- */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <CreateQuiz
           closeModal={() => setIsModalOpen(false)}

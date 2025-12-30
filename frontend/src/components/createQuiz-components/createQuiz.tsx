@@ -46,7 +46,6 @@ export function CreateQuiz({ closeModal, addQuiz }: CreateQuizProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* ---------- HEADER ---------- */}
       <div className="flex items-center justify-between bg-white border border-gray-200 p-6 rounded-xl shadow-sm">
         <div className="flex items-center gap-4">
           <button
@@ -81,10 +80,8 @@ export function CreateQuiz({ closeModal, addQuiz }: CreateQuizProps) {
         )}
       </div>
 
-      {/* ---------- FOOTER ---------- */}
       <div className="flex justify-end p-6 bg-white border border-gray-200 rounded-xl shadow-sm">
         <div className="flex gap-3">
-          {/* PREV */}
           {page === 2 && (
             <button
               onClick={() => setPage(page - 1)}
@@ -95,7 +92,6 @@ export function CreateQuiz({ closeModal, addQuiz }: CreateQuizProps) {
             </button>
           )}
 
-          {/* NEXT */}
           {page === 1 && (
             <button
               onClick={() => setPage(2)}

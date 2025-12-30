@@ -86,6 +86,7 @@ class QuizController {
       return sendResponse(res, 500, false, "Internal server error");
     }
   }
+
   async getQuizById(req, res) {
     try {
       const { id } = req.params;
