@@ -6,12 +6,19 @@ const attemptSchema = new Schema({
   answers: [
     {
       questionId: { type: Types.ObjectId, ref: "Question", required: true },
-      correct: { type: Boolean, required: true },
+      isCorrect: { type: Boolean, required: true },
+      selectedAnswers: [
+        {
+          type: Types.ObjectId,
+          required: true,
+        },
+      ],
     },
   ],
-  score: { type: Number, required: true },
+  status: { type: Number, required: true },
+  // score: { type: Number, required: true },
   correctCount: { type: Number, required: true },
-  totalQuestions: { type: Number, required: true },
+  // totalQuestions: { type: Number, required: true },
   createdAt: { type: Date, default: Date.now },
 });
 

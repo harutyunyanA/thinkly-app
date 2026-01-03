@@ -17,7 +17,7 @@ export function AnswerPreview({ answer, question }: AnswerPreviewProprs) {
           : "border-gray-200 bg-white")
       }
     >
-      <div className={answer.isCorrect ? "text-green-600" : "text-purple-600"}>
+      <div className={answer.isCorrect ? "text-green-600" : "text-indigo-600"}>
         {question.multipleAnswers ? (
           <CheckSquare className="w-5 h-5" />
         ) : (

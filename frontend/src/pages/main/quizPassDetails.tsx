@@ -32,7 +32,6 @@ export function QuizPassDetails() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8 space-y-10">
-      {/* Header */}
       <div id="title" className="flex items-start justify-between gap-6">
         <div className="flex items-start gap-4">
           <Link
@@ -57,18 +56,19 @@ export function QuizPassDetails() {
             Share
           </button>
 
-          <button className="px-5 py-2 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition cursor-pointer">
+          <Link
+            to={"/home/quiz/pass/" + quizId}
+            className="px-5 py-2 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition cursor-pointer"
+          >
             Start Quiz
-          </button>
+          </Link>
         </div>
       </div>
 
-      {/* Stats */}
       <div
         id="stat-info"
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
       >
-        {/* Difficulty */}
         <div className="bg-white shadow-sm border border-gray-100 rounded-2xl p-5 flex items-center gap-4">
           <div className="p-3 bg-indigo-50 rounded-xl">
             <Brain size={22} className="text-indigo-600" />
@@ -81,7 +81,6 @@ export function QuizPassDetails() {
           </div>
         </div>
 
-        {/* Completions */}
         <div className="bg-white shadow-sm border border-gray-100 rounded-2xl p-5 flex items-center gap-4">
           <div className="p-3 bg-green-50 rounded-xl">
             <CircleCheck size={22} className="text-green-600" />
@@ -94,7 +93,6 @@ export function QuizPassDetails() {
           </div>
         </div>
 
-        {/* Average Score */}
         <div className="bg-white shadow-sm border border-gray-100 rounded-2xl p-5 flex items-center gap-4">
           <div className="p-3 bg-blue-50 rounded-xl">
             <ChartColumn size={22} className="text-blue-600" />
@@ -107,7 +105,6 @@ export function QuizPassDetails() {
           </div>
         </div>
 
-        {/* Top Score */}
         <div className="bg-white shadow-sm border border-gray-100 rounded-2xl p-5 flex items-center gap-4">
           <div className="p-3 bg-amber-50 rounded-xl">
             <Star size={22} className="text-amber-600" />
@@ -121,7 +118,6 @@ export function QuizPassDetails() {
         </div>
       </div>
 
-      {/* Recent Completions */}
       <div
         id="recent-comp"
         className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6"

@@ -420,6 +420,43 @@ class QuizController {
 
     return sendResponse(res, 200, true, "Quiz duplicated", duplicatedQuiz);
   }
+  // async checkAnswer(req, res) {
+  //   const { question, selectedAnswers } = req.body;
+  //   const { _id: userId } = req.user;
+
+  //   if (!question || !selectedAnswers) {
+  //     return sendResponse(res, 400, false, "question and answers required");
+  //   }
+
+  //   const foundQuestion = await Question.findById(question._id);
+
+  //   if (!foundQuestion) {
+  //     return sendResponse(res, 404, false, "question not found");
+  //   }
+
+  //   const correctAnswerIds = foundQuestion.answers
+  //     .filter((a) => a.isCorrect)
+  //     .map((a) => a._id.toString());
+
+  //   console.log(question);
+  //   const attempt = await new Attempt({
+  //     user: userId,
+  //     quiz: question.quiz
+
+
+  //   });
+
+  //   if (correctAnswerIds.length !== selectedAnswers.length) {
+  //     return sendResponse(res, 200, false, "NOT CORRECT", correctAnswerIds);
+  //   }
+
+  //   for (const answerId of selectedAnswers) {
+  //     if (!correctAnswerIds.includes(answerId)) {
+  //       return sendResponse(res, 200, false, "NOT CORRECT", correctAnswerIds);
+  //     }
+  //   }
+  //   return sendResponse(res, 200, true, "CORRECT", correctAnswerIds);
+  // }
 }
 
 export default new QuizController();

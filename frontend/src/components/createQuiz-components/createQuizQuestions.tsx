@@ -3,7 +3,7 @@ import type { IQuiz, QuizForm, QuizQuestion } from "../../types"; // Убеди�
 import { QuestionItem } from "./questionItem";
 
 interface CreateQuizQuestionsProps {
-  quiz: QuizForm | IQuiz;
+  quiz: QuizForm;
   setQuiz: React.Dispatch<React.SetStateAction<QuizForm>>;
   // quizReducer: any;
 }
@@ -36,11 +36,7 @@ CreateQuizQuestionsProps) {
       <div id="mainQuestionsBlock">
         {quiz.questions.map((q, i) => (
           <div key={q.key}>
-            <QuestionItem
-              index={i}
-              question={q}
-              setQuiz={setQuiz}
-            />
+            <QuestionItem index={i} question={q} setQuiz={setQuiz} />
           </div>
         ))}
       </div>

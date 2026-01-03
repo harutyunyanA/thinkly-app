@@ -1,0 +1,14 @@
+import express from "express";
+import controller from "../controllers/attemptController.js";
+import { isAuthenticated } from "../middlewares/index.js";
+const router = express.Router();
+
+router.post("/start", isAuthenticated, controller.createAttempt);
+
+router.post(
+  "/:attemptId/check-answer",
+  isAuthenticated,
+  controller.checkAnswer
+);
+
+export default router;

@@ -76,8 +76,8 @@ export function SingleAnswerItem({
         className="
           flex items-center justify-center
           w-9 h-9 rounded-lg
-          hover:bg-purple-50 transition
-          text-purple-600
+          hover:bg-indigo-50 transition
+          text-indigo-600
           shrink-0
         "
         aria-label="Select answer"
@@ -101,7 +101,7 @@ export function SingleAnswerItem({
           rounded-lg border border-gray-200 bg-white
           text-gray-800
           placeholder:text-gray-400
-          focus:outline-none focus:ring-2 focus:ring-purple-200 focus:border-purple-300
+          focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-300
           transition
         "
         placeholder="Answer text..."

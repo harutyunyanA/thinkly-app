@@ -4,6 +4,7 @@ import {
   imageUpload,
   isAuthenticated,
   optionalAuthentication,
+  validateBody,
 } from "../middlewares/index.js";
 
 const router = express.Router();
@@ -34,14 +35,11 @@ router.delete(
   controller.deleteQuestion
 );
 
-router.post(
-  "/:quizId/duplicate",
-  isAuthenticated,
-  controller.duplicateQuiz
-);
+router.post("/:quizId/duplicate", isAuthenticated, controller.duplicateQuiz);
 
 router.get("/user/:id", controller.getUserQuizzes);
-router.post("/:id/submit", optionalAuthentication, controller.submitQuiz);
+// router.post("/:id/submit", optionalAuthentication, controller.submitQuiz);
 router.get("/:id/results", isAuthenticated, controller.getQuizResults);
 router.get("/search", isAuthenticated, controller.searchQuiz);
+// router.post("/checkAnswer", isAuthenticated, controller.checkAnswer);
 export default router;

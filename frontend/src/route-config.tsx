@@ -8,6 +8,7 @@ import { Quizzes } from "./pages/main/quizzes";
 import { Settings } from "./pages/main/settings";
 import { CreateQuiz } from "./components/createQuiz-components/createQuiz";
 import { QuizPassDetails } from "./pages/main/quizPassDetails";
+import { QuizPass } from "./pages/main/quizPass";
 
 export const router = createBrowserRouter([
   { path: "", element: <LandingPage /> },
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
       // { path: "quizzes/createQuiz", element: <CreateQuiz /> },
       { path: "settings", element: <Settings /> },
       { path: "quiz/:quizId", element: <QuizPassDetails /> },
+      { path: "quiz/pass/:quizId", element: <QuizPass /> },
     ],
   },
 ]);
