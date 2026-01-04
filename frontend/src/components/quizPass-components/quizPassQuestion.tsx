@@ -4,6 +4,7 @@ import { SingleAnswerItem } from "./singleAnswer";
 import { MultiAnswerItem } from "./MultiAnswer";
 import { Axios } from "../../lib/api";
 import type { AnswerState } from "../../pages/main/quizPass";
+import { Loader } from "../loader";
 
 type QuizPassQuestionProps = {
   question: IQuestion;
@@ -60,6 +61,7 @@ export function QuizPassQuestion({
 
   return (
     <div className="flex flex-col gap-6">
+    
       <p className="text-lg font-medium text-gray-800">{question.text}</p>
 
       <div

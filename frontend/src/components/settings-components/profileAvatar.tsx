@@ -1,5 +1,5 @@
-import { useState } from "react";
-import Avatar from "react-avatar-edit";
+import { useRef, useState } from "react";
+import AvatarEditor from "react-avatar-editor";
 import { Axios } from "../../lib/api";
 import type { IUser } from "../../types";
 
@@ -9,36 +9,62 @@ type ProfileAvatarProps = {
 };
 
 export function ProfileAvatar({ setUser, user }: ProfileAvatarProps) {
+  const editorRef = useRef<AvatarEditor | null>(null);
+
+  const [image, setImage] = useState<string>(user.avatar);
   const [preview, setPreview] = useState<string>(user.avatar);
   const [isEditing, setIsEditing] = useState(false);
+  const [scale, setScale] = useState(1.2);
+
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
-  const onCrop = (preview: string) => setPreview(preview);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result as string);
+      setIsEditing(true);
+    };
+    reader.readAsDataURL(file);
+  };
 
   const onClose = () => {
+    setImage(user.avatar);
     setPreview(user.avatar);
     setIsEditing(false);
+    setScale(1.2);
   };
 
   const handleSave = async () => {
-    if (!preview) return;
+    if (!editorRef.current) return;
+
     setLoading(true);
 
     try {
-      const res = await fetch(preview);
-      const blob = await res.blob();
-      const file = new File([blob], "avatar.png", { type: blob.type });
+      const canvas = editorRef.current.getImageScaledToCanvas();
+      const blob: Blob | null = await new Promise((resolve) =>
+        canvas.toBlob(resolve, "image/png")
+      );
+
+      if (!blob) throw new Error("Canvas error");
+
+      const file = new File([blob], "avatar.png", { type: "image/png" });
 
       const formData = new FormData();
       formData.append("avatar", file);
 
-      Axios.post("/user/avatar", formData).then((res) => {
-        setUser({ ...user, avatar: res.data.payload.location });
-        setIsSuccess(true);
-        setMessage("Avatar updated successfully");
-      });
+      const res = await Axios.post("/user/avatar", formData);
+
+      const newAvatar = res.data.payload.location;
+
+      setUser({ ...user, avatar: newAvatar });
+      setPreview(newAvatar);
+      setIsSuccess(true);
+      setMessage("Avatar updated successfully");
     } catch {
       setIsSuccess(false);
       setMessage("Error uploading avatar");
@@ -54,7 +80,6 @@ export function ProfileAvatar({ setUser, user }: ProfileAvatarProps) {
 
   return (
     <div className="flex flex-col items-center gap-4 p-4 bg-white rounded-2xl shadow-sm max-w-sm">
-      {/* Avatar preview */}
       <div className="relative">
         <img
           src={preview || user.avatar}
@@ -63,18 +88,47 @@ export function ProfileAvatar({ setUser, user }: ProfileAvatarProps) {
         />
       </div>
 
-      {/* Edit mode */}
-      {isEditing ? (
+      {!isEditing && (
+        <>
+          <label
+            htmlFor="avatar-upload"
+            className="text-sm font-medium text-blue-600 cursor-pointer hover:underline"
+          >
+            Change avatar
+          </label>
+          <input
+            id="avatar-upload"
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+        </>
+      )}
+
+      {isEditing && (
         <div className="flex flex-col items-center gap-4 w-full">
-          <div className="rounded-xl overflow-hidden border bg-gray-50">
-            <Avatar
+          <div className="rounded-xl overflow-hidden border bg-gray-50 p-2">
+            <AvatarEditor
+              ref={editorRef}
+              image={image}
               width={220}
               height={220}
-              onCrop={onCrop}
-              onClose={onClose}
-              src=""
+              border={30}
+              borderRadius={110}
+              scale={scale}
             />
           </div>
+
+          <input
+            type="range"
+            min="1"
+            max="3"
+            step="0.01"
+            value={scale}
+            onChange={(e) => setScale(+e.target.value)}
+            className="w-full"
+          />
 
           <div className="flex gap-3">
             <button
@@ -95,16 +149,8 @@ export function ProfileAvatar({ setUser, user }: ProfileAvatarProps) {
             </button>
           </div>
         </div>
-      ) : (
-        <button
-          onClick={() => setIsEditing(true)}
-          className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline"
-        >
-          Change avatar
-        </button>
       )}
 
-      {/* Message */}
       {message && (
         <p
           className={`text-sm text-center ${
