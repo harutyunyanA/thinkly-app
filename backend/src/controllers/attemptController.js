@@ -1,5 +1,6 @@
 import Attempt from "../models/Attempt.js";
 import { sendResponse } from "../utils/sendResponse.js";
+import { Question } from "../models/index.js";
 
 class AttemptController {
   async createAttempt(req, res) {
@@ -10,29 +11,27 @@ class AttemptController {
       if (!quizId) {
         return sendResponse(res, 400, false, "Quiz ID is required");
       }
+      // const attempt = await Attempt.findOne({
+      //   user: userId,
+      //   quiz: quizId,
+      //   // status: "in_progress",
+      // });
 
-      const attempt = await Attempt.findOne({
-        user: userId,
-        quiz: quizId,
-        status: "in_progress",
-      });
-
-      if (attempt) {
-        return sendResponse(res, 200, true, "Attempt resumed", {
-          attemptId: attempt._id,
-        });
-      }
-
+      // if (attempt) {
+      //   return sendResponse(res, 200, true, "Attempt resumed", {
+      //     attemptId: attempt._id,
+      //   });
+      // }
       const newAttempt = await Attempt.create({
         user: userId,
         quiz: quizId,
         answers: [],
         correctCount: 0,
-        status: "inProgress",
+        // status: "in_progress",
       });
 
-      return sendResponse(res, 200, true, "Attempt created", {
-        attemptId: attempt._id.toString(),
+      return sendResponse(res, 201, true, "Attempt created", {
+        attemptId: newAttempt._id.toString(),
       });
     } catch (err) {
       return sendResponse(res, 500, false, "Server error");
@@ -40,34 +39,77 @@ class AttemptController {
   }
 
   async checkAnswer(req, res) {
-    const { question, selectedAnswers } = req.body;
-    const { _id: userId } = req.user;
-    const attemptId = useParams();
+    const { questionId, selectedAnswers } = req.body;
+    const { id: attemptId } = req.params;
 
-    if (!question || !selectedAnswers) {
-      return sendResponse(res, 400, false, "question and answers required");
+    const attempt = await Attempt.findById(attemptId);
+
+    if (!attempt) {
+      return sendResponse(res, 404, false, "attempt not found");
     }
 
-    const foundQuestion = await Question.findById(question._id);
+    if (!questionId || !selectedAnswers || selectedAnswers.length === 0) {
+      return sendResponse(res, 400, false, "questionId and answers required");
+    }
 
-    if (!foundQuestion) {
+    const question = await Question.findById(questionId);
+
+    if (!question) {
       return sendResponse(res, 404, false, "question not found");
     }
+    const updateAttempt = async (isCorrect) => {
+      if (isCorrect) {
+        attempt.correctCount += 1;
+      }
 
-    const correctAnswerIds = foundQuestion.answers
+      attempt.answers.push({
+        questionId,
+        selectedAnswers,
+        isCorrect: isCorrect,
+      });
+      await attempt.save();
+    };
+    const correctAnswerIds = question.answers
       .filter((a) => a.isCorrect)
       .map((a) => a._id.toString());
 
-    if (correctAnswerIds.length !== selectedAnswers.length) {
-      return sendResponse(res, 200, false, "NOT CORRECT", correctAnswerIds);
+    const isCorrect =
+      selectedAnswers.length === correctAnswerIds.length &&
+      selectedAnswers.every((id) => correctAnswerIds.includes(id));
+
+    await updateAttempt(isCorrect);
+
+    sendResponse(
+      res,
+      200,
+      isCorrect,
+      isCorrect ? "CORRECT" : "INCORRECT",
+      correctAnswerIds
+    );
+  }
+
+  async deleteAttempt(req, res) {
+    const { id: attemptId } = req.params;
+    const userId = req.user._id;
+
+    if (!attemptId) {
+      return sendResponse(res, 400, false, "attempt id is required");
     }
 
-    for (const answerId of selectedAnswers) {
-      if (!correctAnswerIds.includes(answerId)) {
-        return sendResponse(res, 200, false, "NOT CORRECT", correctAnswerIds);
+    try {
+      const deletedAttempt = await Attempt.findOneAndDelete({
+        _id: attemptId,
+        user: userId,
+      });
+
+      if (!deletedAttempt) {
+        return sendResponse(res, 404, false, "attempt not found");
       }
+
+      return sendResponse(res, 200, true, "attempt deleted");
+    } catch (err) {
+      return sendResponse(res, 500, false, "server error");
     }
-    return sendResponse(res, 200, true, "CORRECT", correctAnswerIds);
   }
 }
 

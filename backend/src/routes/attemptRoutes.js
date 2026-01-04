@@ -6,9 +6,11 @@ const router = express.Router();
 router.post("/start", isAuthenticated, controller.createAttempt);
 
 router.post(
-  "/:attemptId/check-answer",
+  "/:id/check-answer",
   isAuthenticated,
   controller.checkAnswer
 );
+
+router.delete("/:id", isAuthenticated, controller.deleteAttempt)
 
 export default router;

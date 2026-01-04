@@ -25,7 +25,6 @@ export function QuizPassDetails() {
       setQuiz(res.data.payload);
     });
   }, [quizId]);
-  console.log(quiz);
   if (!quiz) {
     return <div>Loading...</div>;
   }

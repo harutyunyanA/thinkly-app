@@ -4,25 +4,76 @@ import type { IQuiz } from "../../types";
 import { ChevronLeft } from "lucide-react";
 import { Axios } from "../../lib/api";
 import { QuizPassQuestion } from "../../components/quizPass-components/quizPassQuestion";
+import { Modal } from "../../components/modal";
+import { ExitQuizContent } from "../../components/quizPass-components/exitModal";
+import { QuizPassStat } from "../../components/quizPass-components/quizPassStat";
+
+export type AnswerState = {
+  questionIndex: number;
+  selectedAnswers: string[];
+  isCorrect: boolean | null;
+};
 
 export function QuizPass() {
   const { quizId } = useParams();
+
   const [quiz, setQuiz] = useState<IQuiz | null>(null);
   const [question, setQuestion] = useState<number>(0);
-  const [answered, setAnswered] = useState<number>(0);
   const [attemptId, setAttemptId] = useState<string>("");
+  const [answersState, setAnswersState] = useState<AnswerState[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>("");
+  const [isExitModalOpen, setIsExitModalOpen] = useState<boolean>(false);
+
+  function handleAnswerSubmit(selectedAnswers: string[], isCorrect: boolean) {
+    setAnswersState((prev) =>
+      prev.map((a) =>
+        a.questionIndex === question ? { ...a, selectedAnswers, isCorrect } : a
+      )
+    );
+  }
+
+  function hasUnansweredQuestions() {
+    return answersState.some((a) => a.isCorrect === null);
+  }
 
   useEffect(() => {
-    Axios.get("quiz/" + quizId).then((res) => {
-      setQuiz(res.data.payload);
-    });
+    if (!quizId) {
+      setError("Quiz id is missing");
+      setLoading(false);
+      return;
+    }
 
-    Axios.post("attempt/start", { quiz: quizId }).then((res) => {
-      setAttemptId(res.data.payload.attemptId);
-    });
-  }, []);
+    (async () => {
+      try {
+        setLoading(true);
+        setError("");
 
-  if (!quiz) {
+        const quizRes = await Axios.get("quiz/" + quizId);
+        setQuiz(quizRes.data.payload);
+
+        setAnswersState(
+          quizRes.data.payload.questions.map((_: any, i: number) => ({
+            questionIndex: i,
+            selectedAnswers: [],
+            isCorrect: null,
+          }))
+        );
+
+        const attemptRes = await Axios.post("/attempt/start", { quiz: quizId });
+        setAttemptId(attemptRes.data.payload.attemptId);
+      } catch (err: any) {
+        setError(
+          err?.response?.data?.message ||
+            "Something went wrong while loading the quiz"
+        );
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [quizId]);
+
+  if (loading) {
     return (
       <div className="flex items-center justify-center h-[60vh] text-gray-500">
         Loading...
@@ -30,23 +81,46 @@ export function QuizPass() {
     );
   }
 
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-[60vh] gap-4">
+        <p className="text-red-600 font-medium">{error}</p>
+        <Link
+          to="/home"
+          className="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition"
+        >
+          Go back
+        </Link>
+      </div>
+    );
+  }
+
+  if (!quiz || !attemptId) {
+    return (
+      <div className="flex items-center justify-center h-[60vh] text-gray-500">
+        Initializing attempt...
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-6xl py-4">
       <div className="flex items-center gap-3 mb-6">
-        <Link
-          to={"/home/quiz/" + quizId}
+        <button
+          onClick={() => {
+            if (hasUnansweredQuestions()) {
+              setIsExitModalOpen(true);
+            }
+          }}
           className="p-2 rounded-lg hover:bg-gray-100 transition"
         >
           <ChevronLeft className="w-5 h-5 text-gray-700" />
-        </Link>
+        </button>
+
         <p className="text-lg font-semibold text-gray-800">{quiz.title}</p>
       </div>
-
-      <div id="mainBlock" className="grid grid-cols-[220px_1fr_220px] gap-6">
-        <div
-          id="qustionOrder"
-          className="flex flex-col gap-2 p-4 border border-gray-200 rounded-xl bg-white"
-        >
+      <div className="grid grid-cols-[220px_1fr_220px] gap-6">
+        <div className="flex flex-col gap-2 p-4 border rounded-xl bg-white">
           {quiz.questions.map((_, i) => (
             <div
               key={i}
@@ -54,7 +128,11 @@ export function QuizPass() {
               className={`
                 p-2 text-sm rounded-lg cursor-pointer transition
                 ${
-                  question === i
+                  answersState[i]?.isCorrect === true
+                    ? "bg-green-100 text-green-700 font-medium"
+                    : answersState[i]?.isCorrect === false
+                    ? "bg-red-100 text-red-700 font-medium"
+                    : question === i
                     ? "bg-indigo-100 text-indigo-700 font-medium"
                     : "hover:bg-gray-100 text-gray-700"
                 }
@@ -64,24 +142,25 @@ export function QuizPass() {
             </div>
           ))}
         </div>
-
-        <div
-          id="questionContent"
-          className="p-6 border border-gray-200 rounded-xl bg-white "
-        >
-          <QuizPassQuestion question={quiz.questions[question]} />
+        <div className="p-6 border rounded-xl bg-white">
+          <QuizPassQuestion
+            question={quiz.questions[question]}
+            attemptId={attemptId}
+            answerState={answersState[question]}
+            onAnswerSubmit={handleAnswerSubmit}
+          />
         </div>
 
-        <div
-          id="quizStat"
-          className="p-4 border border-gray-200 rounded-xl bg-white flex flex-col gap-3"
-        >
-          <p className="text-sm text-gray-500">Progress</p>
-          <p className="text-sm text-gray-700">
-            {question + 1} / {quiz.questions.length}
-          </p>
+        <div className="p-4 border rounded-xl bg-white flex flex-col gap-3">
+          <QuizPassStat answersState={answersState}/>
         </div>
       </div>
+      <Modal isOpen={isExitModalOpen} onClose={() => setIsExitModalOpen(false)}>
+        <ExitQuizContent
+          setIsExitModalOpen={setIsExitModalOpen}
+          attemptId={attemptId}
+        />
+      </Modal>
     </div>
   );
 }
