@@ -17,7 +17,6 @@ export function Signup() {
 
   const handleSignup = (data: INewUser) => {
     setError("");
-    console.log(data);
     Axios.post("/auth/signup", data)
       .then(() => {
         navigator("/login");

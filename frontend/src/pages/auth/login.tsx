@@ -19,11 +19,13 @@ export function Login() {
 
   const [showVerify, setShowVerify] = useState(false);
   const [userName, setUserName] = useState<string>("");
+  const [data, setData] = useState<User | null>(null);
   const navigate = useNavigate();
 
   const [error, setError] = useState<string | undefined>("");
 
   const onSubmit = (data: User) => {
+    setData(data);
     Axios.post("/auth/signin", data)
       .then((res) => {
         const token = res.data.token;
@@ -41,7 +43,6 @@ export function Login() {
         }
         let errMessage = err.response?.data.message;
         setError(errMessage);
-        console.log(errMessage);
       });
   };
 
@@ -50,7 +51,9 @@ export function Login() {
       <Verify
         username={userName}
         onClose={() => setShowVerify(false)}
-        onSuccess={() => navigate("/")}
+        onSuccess={() => {
+          onSubmit(data as User);
+        }}
       />
     );
   }

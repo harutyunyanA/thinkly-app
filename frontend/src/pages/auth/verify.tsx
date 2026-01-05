@@ -23,7 +23,7 @@ export function Verify({ username, onClose, onSuccess }: VerifyProps) {
 
     try {
       console.log("helllooooo");
-      await Axios.post("/auth/verify", { username, code });
+      await Axios.post("/auth/verify", { username, code })
       onSuccess();
     } catch (err) {
       setError("Invalid code. Try again.");

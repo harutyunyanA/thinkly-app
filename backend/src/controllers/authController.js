@@ -43,7 +43,6 @@ class AuthController {
 
       await newUser.save();
 
-      // Отправляем письмо подтверждения
       const verifyCode = await verificationCode(newUser);
       mailer.sendVerificationCode(verifyCode, newUser.email);
 
@@ -53,21 +52,19 @@ class AuthController {
     }
   }
 
+  /////////find by username
   async verify(req, res) {
     try {
-      let { code, email } = req.body || {};
-
-      if (!code?.trim() || !email?.trim())
+      let { code, username } = req.body || {};
+      if (!code?.trim() || !username?.trim())
         return sendResponse(res, 400, false, "Please fill all fields");
 
-      email = email.trim().toLowerCase();
-
-      const user = await User.findOne({ email });
+      username = username.trim().toLowerCase();
+      const user = await User.findOne({ username });
       if (!user) return sendResponse(res, 404, false, "User not found");
 
       if (user.isVerified)
         return sendResponse(res, 200, true, "Account already verified");
-
       const record = await UserVerification.findOne({ userId: user._id });
       if (!record)
         return sendResponse(res, 400, false, "Verification record not found");
@@ -81,7 +78,7 @@ class AuthController {
         return sendResponse(res, 400, false, "Wrong verification code");
 
       await UserVerification.deleteOne({ _id: record._id });
-      await User.updateOne({ email }, { $set: { isVerified: true } });
+      await User.updateOne({ username }, { $set: { isVerified: true } });
 
       return sendResponse(res, 200, true, "User account verified successfully");
     } catch (err) {

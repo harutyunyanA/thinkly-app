@@ -6,7 +6,7 @@ export async function verificationCode(user) {
   await UserVerification.create({
     userId: _id,
     code: code,
-    expiresAt: new Date(Date.now() + 5 * 60 * 1000),
+    expiresAt: new Date(Date.now() + 10 * 60 * 1000),
   });
   return code;
 }
