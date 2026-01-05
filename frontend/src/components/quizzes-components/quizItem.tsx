@@ -19,7 +19,6 @@ export function QuizItem({ quiz, deleteQuiz, addQuiz }: QuizItemProps) {
 
   return (
     <div className="relative border border-gray-200 rounded-xl p-4 flex justify-between items-center hover:bg-gray-50 transition">
-      {/* LEFT */}
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 rounded-xl overflow-hidden bg-gray-200 flex items-center justify-center">
           {quiz.imageURL ? (
@@ -46,7 +45,6 @@ export function QuizItem({ quiz, deleteQuiz, addQuiz }: QuizItemProps) {
         </div>
       </div>
 
-      {/* RIGHT */}
       <div className="relative flex items-center gap-2">
         <button
           className="px-4 py-1.5 border rounded-md text-sm hover:bg-gray-100"

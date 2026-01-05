@@ -52,7 +52,6 @@ export function ProfileInformation({ user, setUser }: ProfileInformationProps) {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col gap-8">
-      {/* Header */}
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">
           Profile Information
@@ -62,16 +61,12 @@ export function ProfileInformation({ user, setUser }: ProfileInformationProps) {
         </p>
       </div>
 
-      {/* Content */}
       <div className="flex gap-8 items-start">
-        {/* Avatar */}
         <div className="shrink-0">
           <ProfileAvatar setUser={setUser} user={user} />
         </div>
 
-        {/* Form */}
         <div className="flex flex-col gap-5 flex-1 max-w-md">
-          {/* Name */}
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-medium text-gray-700">Name</label>
             <input
@@ -83,7 +78,6 @@ export function ProfileInformation({ user, setUser }: ProfileInformationProps) {
             />
           </div>
 
-          {/* Email */}
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-medium text-gray-700">Email</label>
             <input
@@ -97,7 +91,6 @@ export function ProfileInformation({ user, setUser }: ProfileInformationProps) {
         </div>
       </div>
 
-      {/* Actions */}
       <div className="flex items-center gap-4">
         <button
           disabled={loading || isUnchanged}

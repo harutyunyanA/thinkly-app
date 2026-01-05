@@ -13,7 +13,6 @@ export function PreviewQuiz({ quiz }: PreviewQuizProps) {
 
   return (
     <div className="w-full space-y-6">
-      {/* Header */}
       <div className="border border-gray-200 bg-white rounded-2xl shadow-sm p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
@@ -66,7 +65,6 @@ export function PreviewQuiz({ quiz }: PreviewQuizProps) {
         </div>
       </div>
 
-      {/* Questions */}
       <div className="space-y-4">
         {quiz.questions.map((q, index) => (
           <QuestionPreview key={q.key} question={q} index={index} />

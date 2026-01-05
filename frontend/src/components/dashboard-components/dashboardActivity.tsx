@@ -14,7 +14,6 @@ export function DashboardActivity() {
   const filteredQuizzes = quizzes.filter((quiz) => {
     const s = debouncedSearch.toLowerCase();
     return quiz.title.toLowerCase().includes(s);
-    // quiz.description.toLowerCase().includes(s)
   });
 
   useEffect(() => {

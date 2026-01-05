@@ -22,7 +22,6 @@ export function ViewQuiz({ quizId, closeModal }: ViewQuizProps) {
 
   return (
     <div className="w-full space-y-6">
-      {/* Header */}
       <div className="border border-gray-200 bg-white rounded-2xl shadow-sm p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
@@ -56,14 +55,12 @@ export function ViewQuiz({ quizId, closeModal }: ViewQuizProps) {
         </div>
       </div>
 
-      {/* Questions */}
       <div className="space-y-4">
         {quiz?.questions.map((question, index) => (
           <div
             key={question._id}
             className="border border-gray-200 bg-white rounded-2xl shadow-sm p-6"
           >
-            {/* Question header */}
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0">
                 <div className="flex items-center gap-3">
@@ -108,7 +105,6 @@ export function ViewQuiz({ quizId, closeModal }: ViewQuizProps) {
               </span>
             </div>
 
-            {/* Answers */}
             <div className="mt-4 space-y-2">
               {question.answers.map((answer) => (
                 <div

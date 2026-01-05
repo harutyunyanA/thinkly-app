@@ -73,7 +73,6 @@ export function QuestionPreview({ question, index }: QuestionPreviewProps) {
         </span>
       </div>
 
-      {/* Answers */}
       <div className="mt-4 space-y-2">
         {question.answers.map((a) => (
           <AnswerPreview key={a.key} answer={a} question={question} />

@@ -24,7 +24,6 @@ export function MultiAnswerItem({
         }
       `}
     >
-      {/* Icon */}
       <span className="flex-shrink-0 text-indigo-600">
         {isSelected ? (
           <SquareCheck className="w-5 h-5" />
@@ -33,7 +32,6 @@ export function MultiAnswerItem({
         )}
       </span>
 
-      {/* Text */}
       <span className="text-gray-800">{answer.text}</span>
     </div>
   );

@@ -30,7 +30,7 @@ export function EditQuiz({ quizId, closeModal }: EditQuizProps) {
       });
   }, [quizId, closeModal]);
 
- //---safe quiz!==null
+  //---safe quiz!==null
   const setSafeQuiz: React.Dispatch<React.SetStateAction<QuizForm>> = (
     action
   ) => {
@@ -42,14 +42,12 @@ export function EditQuiz({ quizId, closeModal }: EditQuizProps) {
   };
   // -------------------------------------
 
-
   if (!quiz) {
     return <div className="p-6 text-gray-600">Loading...</div>;
   }
 
   return (
     <div className="flex flex-col gap-6">
-      {/* ---------- HEADER ---------- */}
       <div className="flex items-center justify-between bg-white border border-gray-200 p-6 rounded-xl shadow-sm">
         <div className="flex items-center gap-4">
           <button
@@ -62,9 +60,7 @@ export function EditQuiz({ quizId, closeModal }: EditQuizProps) {
         </div>
       </div>
 
-      {/* ---------- CONTENT ---------- */}
       <div className="flex flex-col gap-6">
-    
         {page === 1 && <EditQuizDetails quiz={quiz} setQuiz={setSafeQuiz} />}
 
         {page === 2 && <EditQuizQuestions quiz={quiz} setQuiz={setSafeQuiz} />}
@@ -78,10 +74,8 @@ export function EditQuiz({ quizId, closeModal }: EditQuizProps) {
         )}
       </div>
 
-      {/* ---------- FOOTER ---------- */}
       <div className="flex justify-end p-6 bg-white border border-gray-200 rounded-xl shadow-sm">
         <div className="flex gap-3">
-          {/* PREV */}
           {page === 2 && (
             <button
               onClick={() => setPage(page - 1)}
@@ -92,7 +86,6 @@ export function EditQuiz({ quizId, closeModal }: EditQuizProps) {
             </button>
           )}
 
-          {/* NEXT */}
           {page === 1 && (
             <button
               onClick={() => setPage(2)}

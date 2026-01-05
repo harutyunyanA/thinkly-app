@@ -1,9 +1,5 @@
 import type { QuestionAnswerForm, QuizForm, QuizQuestion } from "../../types";
-import {
-  CheckSquare,
-  Square,
-  Trash2,
-} from "lucide-react";
+import { CheckSquare, Square, Trash2 } from "lucide-react";
 import React from "react";
 
 type EditMultiAnswerItemProps = {
@@ -73,7 +69,6 @@ export function EditMultiAnswerItem({
         hover:bg-gray-50 transition
       "
     >
-      {/* checkbox */}
       <button
         type="button"
         onClick={() => toggleCorrect(question.key, answer.key)}
@@ -91,7 +86,6 @@ export function EditMultiAnswerItem({
         )}
       </button>
 
-      {/* text input */}
       <input
         type="text"
         value={answer.text}
@@ -109,7 +103,6 @@ export function EditMultiAnswerItem({
         placeholder="Answer text..."
       />
 
-      {/* delete */}
       <button
         type="button"
         className="

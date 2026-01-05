@@ -40,7 +40,6 @@ export function QuestionItem({ index, question, setQuiz }: QuestionItemProps) {
 
   return (
     <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-6 space-y-6">
-      {/* ---------- Header ---------- */}
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-lg font-semibold text-gray-900">
           Question {index + 1}
@@ -68,7 +67,6 @@ export function QuestionItem({ index, question, setQuiz }: QuestionItemProps) {
         </div>
       </div>
 
-      {/* ---------- Question text ---------- */}
       <div className="space-y-2">
         <p className="text-sm font-medium text-gray-700">Question Text</p>
         <textarea
@@ -79,7 +77,6 @@ export function QuestionItem({ index, question, setQuiz }: QuestionItemProps) {
         />
       </div>
 
-      {/* ---------- Answers ---------- */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <p className="text-sm font-medium text-gray-700">Answer Options</p>

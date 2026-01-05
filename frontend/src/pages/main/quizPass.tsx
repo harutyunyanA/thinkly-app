@@ -5,7 +5,7 @@ import { ChevronLeft } from "lucide-react";
 import { Axios } from "../../lib/api";
 import { QuizPassQuestion } from "../../components/quizPass-components/quizPassQuestion";
 import { Modal } from "../../components/modal";
-import { ExitQuizContent } from "../../components/quizPass-components/exitModal";
+import { ExitQuizContent } from "../../components/quizPass-components/quizExitModal";
 import { QuizPassStat } from "../../components/quizPass-components/quizPassStat";
 import { QuizResults } from "../../components/quizPass-components/results";
 

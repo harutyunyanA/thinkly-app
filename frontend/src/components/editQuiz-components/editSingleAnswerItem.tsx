@@ -1,4 +1,4 @@
-import type { QuestionAnswerForm, QuizForm, QuizQuestion} from "../../types";
+import type { QuestionAnswerForm, QuizForm, QuizQuestion } from "../../types";
 import { Circle, CircleDot, Trash2 } from "lucide-react";
 import React from "react";
 

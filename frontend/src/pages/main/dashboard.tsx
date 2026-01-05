@@ -1,7 +1,6 @@
 import { DashboardStats } from "../../components/dashboard-components/dashboardStatistic";
 import { DashboardActivity } from "../../components/dashboard-components/dashboardActivity";
 import { DashboardLeaderboard } from "../../components/dashboard-components/dashboardLeaderboard";
-// import { DashboardRecentQuizzes } from "../../components/dashboard-components/dashboardRecentQuizzes";
 
 export function Dashboard() {
   return (
