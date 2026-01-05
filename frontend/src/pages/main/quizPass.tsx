@@ -73,6 +73,16 @@ export function QuizPass() {
     })();
   }, [quizId]);
 
+  useEffect(() => {
+    const answeredCount = answersState.filter(
+      (a) => a.isCorrect !== null
+    ).length;
+
+    if (answeredCount === quiz?.questions.length) {
+      Axios.post(`/attempt/${attemptId}/complete`);
+    }
+  }, [answersState]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-[60vh] text-gray-500">
@@ -154,7 +164,7 @@ export function QuizPass() {
         </div>
 
         <div className="p-4 border rounded-xl bg-white flex flex-col gap-3">
-          <QuizPassStat answersState={answersState}/>
+          <QuizPassStat answersState={answersState} />
         </div>
       </div>
       <Modal isOpen={isExitModalOpen} onClose={() => setIsExitModalOpen(false)}>

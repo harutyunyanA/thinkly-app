@@ -52,7 +52,6 @@ export function QuizPassQuestion({
       .then((res) => {
         const isCorrect = res.data.success;
         onAnswerSubmit(selectedAnswers, isCorrect);
-        console.log(res.data.message);
       })
       .finally(() => {
         setIsSubmitting(false);

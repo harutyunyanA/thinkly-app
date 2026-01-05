@@ -13,6 +13,6 @@ router.post(
 
 router.delete("/:id", isAuthenticated, controller.deleteAttempt)
 
-router.post("/complete-quiz/:id", isAuthenticated, controller.complete)
+router.post("/:id/complete", isAuthenticated, controller.complete)
 
 export default router;

@@ -108,7 +108,10 @@ class AttemptController {
   }
 
   async complete(req, res) {
-    console.log("completed");
+    const { id: attemptId } = req.params;
+
+    const attempt = await Attempt.findById(attemptId);
+    console.log(attempt);
   }
 }
 
