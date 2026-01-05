@@ -8,7 +8,7 @@ const attemptSchema = new Schema({
     {
       questionId: { type: Types.ObjectId, ref: "Question", required: true },
       selectedAnswers: [{ type: Types.ObjectId, required: true }],
-      isCorrect: { type: Boolean, required: true },
+      isCorrect: { type: Boolean, default: null },
     },
   ],
 
@@ -17,8 +17,10 @@ const attemptSchema = new Schema({
     enum: ["in_progress", "finished"],
     default: "in_progress",
   },
+  score: { type: Number, default: 0 },
 
   correctCount: { type: Number, default: 0 },
+  finishedAt: { type: Date },
 
   createdAt: { type: Date, default: Date.now },
 });

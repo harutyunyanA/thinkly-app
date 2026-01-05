@@ -6,7 +6,7 @@ import { Home } from "./pages/main/home";
 import { Dashboard } from "./pages/main/dashboard";
 import { Quizzes } from "./pages/main/quizzes";
 import { Settings } from "./pages/main/settings";
-import { CreateQuiz } from "./components/createQuiz-components/createQuiz";
+// import { CreateQuiz } from "./components/createQuiz-components/createQuiz";
 import { QuizPassDetails } from "./pages/main/quizPassDetails";
 import { QuizPass } from "./pages/main/quizPass";
 

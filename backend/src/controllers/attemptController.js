@@ -1,6 +1,6 @@
 import Attempt from "../models/Attempt.js";
 import { sendResponse } from "../utils/sendResponse.js";
-import { Question } from "../models/index.js";
+import { Question, Quiz } from "../models/index.js";
 
 class AttemptController {
   async createAttempt(req, res) {
@@ -108,10 +108,54 @@ class AttemptController {
   }
 
   async complete(req, res) {
-    const { id: attemptId } = req.params;
+    try {
+      const { id: attemptId } = req.params;
 
-    const attempt = await Attempt.findById(attemptId);
-    console.log(attempt);
+      const attempt = await Attempt.findById(attemptId);
+      if (!attempt) {
+        return sendResponse(res, 404, false, "attempt not found");
+      }
+
+      if (attempt.status === "finished") {
+        return sendResponse(res, 400, false, "attempt already finished");
+      }
+
+      attempt.status = "finished";
+      attempt.score = (attempt.correctCount / attempt.answers.length) * 100;
+
+      const quiz = await Quiz.findById(attempt.quiz);
+      if (!quiz) {
+        return sendResponse(res, 404, false, "quiz not found");
+      }
+
+      quiz.averageScore = Number(
+        (
+          (quiz.averageScore * quiz.completions + attempt.score) /
+          (quiz.completions + 1)
+        ).toFixed(2)
+      );
+
+      quiz.completions += 1;
+
+      if (quiz.topScore < attempt.score) quiz.topScore = attempt.score;
+
+      attempt.finishedAt = Date.now();
+
+      await quiz.save();
+      await attempt.save();
+
+      const userAttempts = await Attempt.find({
+        user: req.user._id,
+        quiz: attempt.quiz,
+        status: "finished",
+      });
+
+      console.log(userAttempts);
+
+      return sendResponse(res, 200, true, "quiz completed", userAttempts);
+    } catch {
+      return sendResponse(res, 500, false, "server error");
+    }
   }
 }
 

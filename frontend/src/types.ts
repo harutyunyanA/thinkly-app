@@ -81,3 +81,15 @@ export interface IUser {
   createdAt: Date;
   quizzes: IQuiz[];
 }
+
+export interface IAttempt {
+  _id: string;
+  user: string;
+  quiz: string;
+  answers: IAnswer[];
+  status: string;
+  score: number;
+  correctCount: number;
+  createdAt: Date;
+  finishedAt: Date;
+}

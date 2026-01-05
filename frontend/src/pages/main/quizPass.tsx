@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import type { IQuiz } from "../../types";
 import { ChevronLeft } from "lucide-react";
 import { Axios } from "../../lib/api";
@@ -7,6 +7,7 @@ import { QuizPassQuestion } from "../../components/quizPass-components/quizPassQ
 import { Modal } from "../../components/modal";
 import { ExitQuizContent } from "../../components/quizPass-components/exitModal";
 import { QuizPassStat } from "../../components/quizPass-components/quizPassStat";
+import { QuizResults } from "../../components/quizPass-components/results";
 
 export type AnswerState = {
   questionIndex: number;
@@ -24,7 +25,10 @@ export function QuizPass() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
   const [isExitModalOpen, setIsExitModalOpen] = useState<boolean>(false);
+  const [userAttempts, setUserAttempts] = useState(null);
+  const [result, setResult] = useState<boolean>(false);
 
+  const navigator = useNavigate();
   function handleAnswerSubmit(selectedAnswers: string[], isCorrect: boolean) {
     setAnswersState((prev) =>
       prev.map((a) =>
@@ -33,6 +37,10 @@ export function QuizPass() {
     );
   }
 
+  function closeResults() {
+    setResult(false);
+    navigator("/home/quiz/" + quizId);
+  }
   function hasUnansweredQuestions() {
     return answersState.some((a) => a.isCorrect === null);
   }
@@ -79,7 +87,10 @@ export function QuizPass() {
     ).length;
 
     if (answeredCount === quiz?.questions.length) {
-      Axios.post(`/attempt/${attemptId}/complete`);
+      Axios.post(`/attempt/${attemptId}/complete`).then((res) => {
+        setUserAttempts(res.data.payload);
+        setResult(true);
+      });
     }
   }, [answersState]);
 
@@ -173,6 +184,10 @@ export function QuizPass() {
           attemptId={attemptId}
         />
       </Modal>
+
+      {quiz && userAttempts && <Modal isOpen={result} onClose={closeResults}>
+        <QuizResults attempts={userAttempts} quiz={quiz}/>
+      </Modal>}
     </div>
   );
 }
