@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Axios } from "../../lib/api";
 
 type VerifyProps = {
-  username: string; // почта или username
+  username: string; // почта или
   onClose: () => void; // закрыть окно
   onSuccess: () => void; // успешная верификация
 };

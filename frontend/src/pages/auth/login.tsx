@@ -11,7 +11,6 @@ type User = {
 };
 
 export function Login() {
-
   const {
     register,
     handleSubmit,
@@ -28,9 +27,8 @@ export function Login() {
     Axios.post("/auth/signin", data)
       .then((res) => {
         const token = res.data.token;
-
         if (token) {
-          localStorage.setItem("token", token);
+          localStorage.setItem("ThinklyToken", token);
         }
 
         navigate("/home");
@@ -43,6 +41,7 @@ export function Login() {
         }
         let errMessage = err.response?.data.message;
         setError(errMessage);
+        console.log(errMessage);
       });
   };
 

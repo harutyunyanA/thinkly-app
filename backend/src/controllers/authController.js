@@ -12,7 +12,6 @@ class AuthController {
   async signup(req, res) {
     try {
       const data = req.body;
-      // Проверка наличия всех данных
       const availability = signupTools.availabilityOfCredentials(data);
       if (!availability.valid)
         return sendResponse(res, 400, false, availability.message);
@@ -91,7 +90,6 @@ class AuthController {
   }
 
   async signin(req, res) {
-    console.log("hello");
     try {
       let { username, password } = req.body || {};
       if (!username?.trim() || !password?.trim())
@@ -115,8 +113,7 @@ class AuthController {
 
       const token = jwt.sign(
         { _id: user._id, username: user.username },
-        env.SECRET_KEY,
-        { expiresIn: "7d" }
+        env.SECRET_KEY
       );
 
       return sendResponse(res, 200, true, "Signin successful", null, token);

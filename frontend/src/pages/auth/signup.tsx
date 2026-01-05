@@ -36,7 +36,6 @@ export function Signup() {
         </h1>
 
         <form onSubmit={handleSubmit(handleSignup)} className="space-y-4">
-          {/* Full Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Full Name
@@ -53,7 +52,6 @@ export function Signup() {
             />
           </div>
 
-          {/* Username */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Username
@@ -70,7 +68,6 @@ export function Signup() {
             />
           </div>
 
-          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Email
@@ -87,7 +84,6 @@ export function Signup() {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Password
@@ -106,7 +102,6 @@ export function Signup() {
 
           {error && <p className="">{error}</p>}
 
-          {/* Submit */}
           <button
             type="submit"
             className="w-full py-2 mt-4 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition cursor-pointer shadow-sm"
@@ -115,14 +110,12 @@ export function Signup() {
           </button>
         </form>
 
-        {/* Divider */}
         <div className="flex items-center my-5">
           <hr className="flex-1 border-gray-300" />
           <span className="px-2 text-gray-400 text-sm">OR</span>
           <hr className="flex-1 border-gray-300" />
         </div>
 
-        {/* Google button */}
         <div className="flex gap-3 mb-5 my-2">
           <button className="flex-1 border border-gray-300 rounded-md py-2 flex items-center justify-center gap-2 hover:bg-gray-50 transition cursor-pointer">
             <img src="/google-logo.svg" alt="Google" className="w-5 h-5" />
@@ -130,7 +123,6 @@ export function Signup() {
           </button>
         </div>
 
-        {/* Sign in link */}
         <p className="text-center text-sm text-gray-600 mt-5">
           Already have an account?{" "}
           <Link

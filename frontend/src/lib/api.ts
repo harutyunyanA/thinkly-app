@@ -6,7 +6,7 @@ export const Axios = axios.create({
 });
 
 Axios.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("ThinklyToken");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

@@ -12,6 +12,7 @@ export function Home() {
   useEffect(() => {
     Axios.get<IResponse<IUser>>("/auth/user")
       .then((res) => {
+        console.log("momo",res.data.payload);
         setUserContext(res.data.payload as IUser);
       })
       .catch(() => {

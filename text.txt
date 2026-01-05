@@ -231,3 +231,20 @@ JSON request QUIZ ADD
         "__v": 0
     }
 ]
+
+
+
+<button
+          onClick={handleLogout}
+          className="w-full max-w-xs bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-md transition-colors"
+        >
+          Log Out
+        </button>
+
+        const handleLogout = () => {
+    // Сброс контекста пользователя
+    setUserContext(null);
+    // Перенаправление на страницу логина
+    localStorage.removeItem("ThinklyToken");
+    navigate("/login");
+  };

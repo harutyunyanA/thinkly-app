@@ -11,7 +11,6 @@ export function LandingPage() {
           </Link>
         </div>
 
-        {/* Navigation with anchors */}
         <nav className="flex items-center gap-8 text-sm font-medium">
           <a
             href="#quiz-categories"
@@ -82,7 +81,6 @@ export function LandingPage() {
           </button>
         </div>
 
-        {/* Quiz Categories Anchor */}
         <div
           id="quiz-categories"
           className="inline-flex items-center gap-2 px-4 py-1 bg-white border border-gray-300 text-gray-700 rounded-full shadow-sm mb-3"
@@ -162,7 +160,6 @@ export function LandingPage() {
           ))}
         </div>
 
-        {/* Why Thinkly Anchor */}
         <div
           id="why-thinkly"
           className="w-full bg-white py-24 px-6 flex flex-col items-center text-center"
@@ -217,13 +214,11 @@ export function LandingPage() {
         </div>
       </main>
 
-      {/* Footer Anchor */}
       <footer
         id="footer"
         className="w-full bg-white border-t border-gray-200 py-12 px-6"
       >
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
-          {/* Left: Brand */}
           <div>
             <div className="flex items-center gap-2 mb-3">
               <img src="/main-logo.svg" className="w-7 h-7" alt="logo" />
@@ -252,7 +247,6 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* Right: Contacts */}
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Contacts
