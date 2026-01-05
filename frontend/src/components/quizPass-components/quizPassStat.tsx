@@ -11,22 +11,24 @@ export function QuizPassStat({ answersState }: QuizPassStat) {
     answeredCount > 0 ? ((correctCount / answeredCount) * 100).toFixed(2) : "0";
 
   return (
-    <div>
-      <div>
-        <p className="text-sm text-gray-500">Answered</p>
-        <p className="text-sm text-gray-700">
+    <div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-white p-4">
+      <div className="flex justify-between text-sm">
+        <span className="text-gray-500">Answered</span>
+        <span className="font-medium text-gray-800">
           {answeredCount}/{answersState.length}
-        </p>
+        </span>
       </div>
-      <div>
-        <p className="text-sm text-gray-500">Correct</p>
-        <p className="text-sm text-gray-700">
+
+      <div className="flex justify-between text-sm">
+        <span className="text-gray-500">Correct</span>
+        <span className="font-medium text-gray-800">
           {correctCount}/{answersState.length}
-        </p>
+        </span>
       </div>
-      <div>
-        <p className="text-sm text-gray-500">Score</p>
-        <p className="text-sm text-gray-700">{score}%</p>
+
+      <div className="flex justify-between text-sm">
+        <span className="text-gray-500">Score</span>
+        <span className="font-medium text-gray-800">{score}%</span>
       </div>
     </div>
   );

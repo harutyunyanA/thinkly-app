@@ -11,23 +11,18 @@ class AttemptController {
       if (!quizId) {
         return sendResponse(res, 400, false, "Quiz ID is required");
       }
-      // const attempt = await Attempt.findOne({
-      //   user: userId,
-      //   quiz: quizId,
-      //   // status: "in_progress",
-      // });
+      await Attempt.findOneAndDelete({
+        user: userId,
+        quiz: quizId,
+        status: "in_progress",
+      });
 
-      // if (attempt) {
-      //   return sendResponse(res, 200, true, "Attempt resumed", {
-      //     attemptId: attempt._id,
-      //   });
-      // }
       const newAttempt = await Attempt.create({
         user: userId,
         quiz: quizId,
         answers: [],
         correctCount: 0,
-        // status: "in_progress",
+        status: "in_progress",
       });
 
       return sendResponse(res, 201, true, "Attempt created", {
@@ -110,6 +105,10 @@ class AttemptController {
     } catch (err) {
       return sendResponse(res, 500, false, "server error");
     }
+  }
+
+  async complete(req, res) {
+    console.log("completed");
   }
 }
 

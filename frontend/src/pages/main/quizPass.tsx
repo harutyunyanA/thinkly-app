@@ -148,6 +148,8 @@ export function QuizPass() {
             attemptId={attemptId}
             answerState={answersState[question]}
             onAnswerSubmit={handleAnswerSubmit}
+            setQuestion={setQuestion}
+            quizLength={quiz.questions.length}
           />
         </div>
 

@@ -12,11 +12,11 @@ const attemptSchema = new Schema({
     },
   ],
 
-  // status: {
-  //   type: String,
-  //   enum: ["in_progress", "finished"],
-  //   default: "in_progress",
-  // },
+  status: {
+    type: String,
+    enum: ["in_progress", "finished"],
+    default: "in_progress",
+  },
 
   correctCount: { type: Number, default: 0 },
 
