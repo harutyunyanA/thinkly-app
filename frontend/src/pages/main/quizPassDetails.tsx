@@ -13,7 +13,6 @@ import {
 import { RecentCompletions } from "../../components/quizPass-components/recentCompletions";
 import { Modal } from "../../components/modal";
 import { ShareQuiz } from "../../components/quizPass-components/shareQuiz";
-import { AttemptsTable } from "../../components/quizPass-components/userAttemptsTable";
 
 export function QuizPassDetails() {
   const { quizId } = useParams();

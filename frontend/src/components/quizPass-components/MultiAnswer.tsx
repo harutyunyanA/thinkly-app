@@ -1,4 +1,4 @@
-import { Circle, CircleDot, Square, SquareCheck } from "lucide-react";
+import { Square, SquareCheck } from "lucide-react";
 import type { IAnswer } from "../../types";
 
 type MultiAnswerItemProps = {
@@ -24,7 +24,7 @@ export function MultiAnswerItem({
         }
       `}
     >
-      <span className="flex-shrink-0 text-indigo-600">
+      <span className="shrink-0 text-indigo-600">
         {isSelected ? (
           <SquareCheck className="w-5 h-5" />
         ) : (

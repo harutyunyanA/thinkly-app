@@ -47,14 +47,14 @@ export const AllUsersAttemptsTable = ({ attempts }: AttemptsTableProps) => {
 
                 <td className="px-4 py-2 border-b border-gray-200">
                   <div className="flex items-center gap-2">
-                    {attempt.user?.avatar && (
+                    {attempt.user.avatar && (
                       <img
                         src={attempt.user.avatar}
                         alt={attempt.user.username}
                         className="w-6 h-6 rounded-full"
                       />
                     )}
-                    <span>{attempt.user?.username ?? "Unknown"}</span>
+                    <span>{attempt.user.username}</span>
                   </div>
                 </td>
 
@@ -63,7 +63,7 @@ export const AllUsersAttemptsTable = ({ attempts }: AttemptsTableProps) => {
                 </td>
 
                 <td className="px-4 py-2 border-b border-gray-200">
-                  {attempt.correctCount} / {attempt.answers?.length ?? 0}
+                  {attempt.correctCount} / {attempt.answers.length}
                 </td>
 
                 <td className="px-4 py-2 border-b border-gray-200">

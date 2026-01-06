@@ -24,7 +24,7 @@ export function SingleAnswerItem({
         }
       `}
     >
-      <span className="flex-shrink-0 text-indigo-600">
+      <span className="shrink-0 text-indigo-600">
         {isSelected ? (
           <CircleDot className="w-5 h-5" />
         ) : (
