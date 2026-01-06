@@ -6,7 +6,7 @@ const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true, lowerCase: true },
-  avatar: { type: String, default: null },
+  avatar: { type: String, default: "" },
   isVerified: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   quizzes: [{ type: Types.ObjectId, ref: "Quiz" }],

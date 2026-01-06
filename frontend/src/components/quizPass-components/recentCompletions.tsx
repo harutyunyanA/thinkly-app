@@ -1,23 +1,27 @@
-export function RecentCompletions() {
+import type { IAttempt } from "../../types";
+import { AllUsersAttemptsTable } from "./allUsersAttemptsTable";
+
+type RecentCompletionsProps = {
+  attempts: IAttempt[];
+};
+
+export function RecentCompletions({ attempts }: RecentCompletionsProps) {
   return (
-    <div>
-      <div>
-        <h1>Recent Completions</h1>
-        <p>Students who recently completed this quiz</p>
+    <section className="bg-white border border-gray-200 rounded-xl shadow-sm">
+      {/* Header */}
+      <div className="px-6 py-4 border-b border-gray-200">
+        <h1 className="text-lg font-semibold text-gray-900">
+          Recent Completions
+        </h1>
+        <p className="text-sm text-gray-500">
+          Students who recently completed this quiz
+        </p>
       </div>
-      <div className="border border-gray-600 rounded-lg">
-        <table>
-          <thead>
-            <tr>
-              <th>Student</th>
-              <th>Score</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody className="border border-gray-600 rounded-lg">{
-            }</tbody>
-        </table>
+
+      {/* Table container (NO page scroll) */}
+      <div className="max-h-[420px] overflow-y-auto">
+        <AllUsersAttemptsTable attempts={attempts} />
       </div>
-    </div>
+    </section>
   );
 }

@@ -7,6 +7,7 @@ import { verificationCode } from "../services/verification.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { sendResponse } from "../utils/sendResponse.js";
+import { randomAvatar } from "../utils/random-avatar.js";
 
 class AuthController {
   async signup(req, res) {
@@ -39,6 +40,7 @@ class AuthController {
         username: data.username.trim().toLowerCase(),
         email: data.email.trim().toLowerCase(),
         password: hashedPassword,
+        avatar: randomAvatar()
       });
 
       await newUser.save();

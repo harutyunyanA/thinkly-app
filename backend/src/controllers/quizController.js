@@ -5,7 +5,7 @@ import { sendResponse } from "../utils/sendResponse.js";
 class QuizController {
   async getAllQuizzes(req, res) {
     try {
-      const quizzes = await Quiz.find({});
+      const quizzes = await Quiz.find({}).sort({ createdAt: -1 });
       return sendResponse(res, 200, true, "All quizzes fetched", quizzes);
     } catch (err) {
       return sendResponse(res, 500, false, "Internal server error");
@@ -65,23 +65,6 @@ class QuizController {
 
       const result = await Quiz.findById(newQuiz._id).populate("questions");
       return sendResponse(res, 201, true, "Quiz created successfully", result);
-    } catch (err) {
-      return sendResponse(res, 500, false, "Internal server error");
-    }
-  }
-
-  async getQuizById(req, res) {
-    try {
-      const { id } = req.params;
-      if (!id) return sendResponse(res, 400, false, "Quiz ID required");
-
-      const quiz = await Quiz.findById(id)
-        .populate({ path: "questions", select: "-answers.isCorrect" })
-        .populate("owner", "name username");
-
-      if (!quiz) return sendResponse(res, 404, false, "Quiz not found");
-
-      return sendResponse(res, 200, true, "Quiz fetched successfully", quiz);
     } catch (err) {
       return sendResponse(res, 500, false, "Internal server error");
     }
@@ -442,7 +425,6 @@ class QuizController {
   //   const attempt = await new Attempt({
   //     user: userId,
   //     quiz: question.quiz
-
 
   //   });
 

@@ -16,7 +16,6 @@ class UserController {
         password: 0,
         isVerified: 0,
         createdAt: 0,
-        results: 0,
       }).populate({
         path: "quizzes",
         select: "title description category difficulty",
@@ -160,17 +159,12 @@ class UserController {
 
   async updateProfileInfo(req, res) {
     try {
-      const { name, email} = req.body;
-      // console.log("hello");
-      console.log("this is req file");
-      console.log("name", name);
-      console.log("email", email);
-  
+      const { name, email } = req.body;
+
       const user = await User.findById(req.user._id);
       if (!user) return sendResponse(res, 404, false, "User not found");
       //name update
 
-      
       if (name) {
         const validName = signupTools.credentialsValidation(req.body);
         if (!validName.valid) {
@@ -179,7 +173,6 @@ class UserController {
         user.name = name;
       }
 
-      //email update
       if (email) {
         const validEmail = await signupTools.emailValidation({ email });
         if (!validEmail.valid) {
@@ -187,11 +180,10 @@ class UserController {
         }
         user.email = email;
       }
-      
+
       await user.save();
       return sendResponse(res, 200, true, "User info updated", user);
     } catch (err) {
-      console.log("errrrrror");
       return sendResponse(res, 500, false, "Internal server error");
     }
   }

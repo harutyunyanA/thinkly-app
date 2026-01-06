@@ -10,7 +10,7 @@ type ProfileAvatarProps = {
 
 export function ProfileAvatar({ setUser, user }: ProfileAvatarProps) {
   const editorRef = useRef<AvatarEditor | null>(null);
-
+  console.log(user);
   const [image, setImage] = useState<string>(user.avatar);
   const [preview, setPreview] = useState<string>(user.avatar);
   const [isEditing, setIsEditing] = useState(false);

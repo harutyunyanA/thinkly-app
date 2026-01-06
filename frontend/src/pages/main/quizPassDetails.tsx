@@ -13,19 +13,25 @@ import {
 import { RecentCompletions } from "../../components/quizPass-components/recentCompletions";
 import { Modal } from "../../components/modal";
 import { ShareQuiz } from "../../components/quizPass-components/shareQuiz";
+import { AttemptsTable } from "../../components/quizPass-components/userAttemptsTable";
 
 export function QuizPassDetails() {
   const { quizId } = useParams();
 
   const [quiz, setQuiz] = useState<IQuiz | null>(null);
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const [allAttempts, setAllAttempts] = useState(null);
 
   useEffect(() => {
     Axios.get("quiz/" + quizId).then((res) => {
       setQuiz(res.data.payload);
     });
-  }, [quizId]);
-  if (!quiz) {
+
+    Axios.get("/attempt/quiz/" + quizId).then((res) => {
+      setAllAttempts(res.data.payload);
+    });
+  }, [quizId, allAttempts]);
+  if (!quiz || !allAttempts) {
     return <div>Loading...</div>;
   }
 
@@ -121,7 +127,7 @@ export function QuizPassDetails() {
         id="recent-comp"
         className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6"
       >
-        <RecentCompletions />
+        <RecentCompletions attempts={allAttempts}/>
       </div>
       <Modal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)}>
         <ShareQuiz />

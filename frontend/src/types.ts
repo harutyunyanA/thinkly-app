@@ -84,7 +84,10 @@ export interface IUser {
 
 export interface IAttempt {
   _id: string;
-  user: string;
+  user: {
+    username: string;
+    avatar: string;
+  };
   quiz: string;
   answers: IAnswer[];
   status: string;

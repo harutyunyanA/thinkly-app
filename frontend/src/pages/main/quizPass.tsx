@@ -149,9 +149,9 @@ export function QuizPass() {
               className={`
                 p-2 text-sm rounded-lg cursor-pointer transition
                 ${
-                  answersState[i]?.isCorrect === true
+                  answersState[i].isCorrect === true
                     ? "bg-green-100 text-green-700 font-medium"
-                    : answersState[i]?.isCorrect === false
+                    : answersState[i].isCorrect === false
                     ? "bg-red-100 text-red-700 font-medium"
                     : question === i
                     ? "bg-indigo-100 text-indigo-700 font-medium"

@@ -234,17 +234,21 @@ JSON request QUIZ ADD
 
 
 
-<button
-          onClick={handleLogout}
-          className="w-full max-w-xs bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-md transition-colors"
-        >
-          Log Out
-        </button>
+import { Schema, Types, model } from "mongoose";
 
-        const handleLogout = () => {
-    // Сброс контекста пользователя
-    setUserContext(null);
-    // Перенаправление на страницу логина
-    localStorage.removeItem("ThinklyToken");
-    navigate("/login");
-  };
+const userSchema = new Schema({
+  name: { type: String, required: true },
+  // surname: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  email: { type: String, required: true, unique: true, lowerCase: true },
+  avatar: { type: String, default: "https://api.dicebear.com/9.x/thumbs/svg?seed=Adrian" },
+  isVerified: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now },
+  quizzes: [{ type: Types.ObjectId, ref: "Quiz" }],
+  results: [{ type: Types.ObjectId, ref: "Attempt" }],
+  resetPasswordToken: { type: String },
+  resetPasswordTokenExp: { type: Date },
+});
+
+export default model("User", userSchema);

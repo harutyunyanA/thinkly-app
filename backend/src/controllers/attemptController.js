@@ -157,6 +157,25 @@ class AttemptController {
       return sendResponse(res, 500, false, "server error");
     }
   }
+
+  async quizAttempts(req, res) {
+    try {
+      const { id: quizId } = req.params;
+
+      const attempts = await Attempt.find({
+        quiz: quizId,
+        status: "finished",
+      })
+        .sort({ finishedAt: -1 })
+        .limit(20)
+        .populate({ path: "user", select: "username avatar" })
+        .lean();
+
+      return sendResponse(res, 200, true, "", attempts);
+    } catch {
+      return sendResponse(res, 500, false, "server error");
+    }
+  }
 }
 
 export default new AttemptController();

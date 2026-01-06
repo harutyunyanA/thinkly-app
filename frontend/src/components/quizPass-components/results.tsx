@@ -1,5 +1,5 @@
 import type { IAttempt, IQuiz } from "../../types";
-import { AttemptsTable } from "./attemptsTable";
+import { AttemptsTable } from "./userAttemptsTable";
 
 type ResultsProps = {
   attempts: IAttempt[] | null;

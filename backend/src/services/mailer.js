@@ -14,7 +14,6 @@ class Mailer {
     });
   }
 
-  // Универсальный метод отправки
   async send({ to, subject, html }) {
     return await this.transporter.sendMail({
       from: `"Quizzes" <${env.SERVER_EMAIL}>`,

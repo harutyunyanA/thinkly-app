@@ -5,14 +5,12 @@ const router = express.Router();
 
 router.post("/start", isAuthenticated, controller.createAttempt);
 
-router.post(
-  "/:id/check-answer",
-  isAuthenticated,
-  controller.checkAnswer
-);
+router.post("/:id/check-answer", isAuthenticated, controller.checkAnswer);
 
-router.delete("/:id", isAuthenticated, controller.deleteAttempt)
+router.delete("/:id", isAuthenticated, controller.deleteAttempt);
 
-router.post("/:id/complete", isAuthenticated, controller.complete)
+router.post("/:id/complete", isAuthenticated, controller.complete);
+
+router.get("/quiz/:id", isAuthenticated, controller.quizAttempts);
 
 export default router;
