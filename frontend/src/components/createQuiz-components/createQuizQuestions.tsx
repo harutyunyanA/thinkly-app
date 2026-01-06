@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import type { IQuiz, QuizForm, QuizQuestion } from "../../types"; // Убедись, что IQuestion импортирован
+import type { QuizForm, QuizQuestion } from "../../types"; // Убедись, что IQuestion импортирован
 import { QuestionItem } from "./questionItem";
 
 interface CreateQuizQuestionsProps {

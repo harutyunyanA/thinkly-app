@@ -14,7 +14,7 @@ export function ExitQuizContent({
 
   const handleExit = () => {
     if (!attemptId) return;
-    Axios.delete("/attempt/" + attemptId).then((res) => {
+    Axios.delete("/attempt/" + attemptId).then(() => {
       setIsExitModalOpen(false);
       navigate("/home");
     });

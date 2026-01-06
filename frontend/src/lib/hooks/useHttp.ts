@@ -14,15 +14,16 @@ export function useHttp<T = unknown>(url: string, options: AxiosRequestConfig) {
       setLoading(true);
       setError("");
       const response: AxiosResponse<IResponse<T>> = await Axios(url, options);
-      setData(response.data.payload);
+      setData(response.data.payload ?? null);
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        setError(err.response?.data.message);
+        setError(err.response?.data.message ?? "Unknown error");
       }
     } finally {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     refetch();
   }, []);
