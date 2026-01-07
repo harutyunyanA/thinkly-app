@@ -9,7 +9,6 @@ import {
 const router = express.Router();
 
 router.get("/me", isAuthenticated, controller.getCurrentUser);
-router.get("/:id", controller.getUserProfile);
 router.patch(
   "/username",
   isAuthenticated,
@@ -43,5 +42,7 @@ router.post(
   imageUpload("avatar"),
   controller.uploadAvatar
 );
+router.get("/dashboardStat", isAuthenticated, controller.dashboardStat);
+router.get("/:id", controller.getUserProfile);
 
 export default router;

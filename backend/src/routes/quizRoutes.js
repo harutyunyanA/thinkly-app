@@ -3,7 +3,7 @@ import controller from "../controllers/quizController.js";
 import {
   imageUpload,
   isAuthenticated,
-  optionalAuthentication,
+  // optionalAuthentication,
   validateBody,
 } from "../middlewares/index.js";
 

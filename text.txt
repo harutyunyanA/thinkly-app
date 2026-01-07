@@ -252,3 +252,27 @@ const userSchema = new Schema({
 });
 
 export default model("User", userSchema);
+
+
+    console.log("hhhell");
+    const userId = req.user._id;
+
+    const totalQuizzes = await Quiz.find({});
+    const completed = await Attempt.find({ user: userId, status: "finished" });
+
+    const avgScore = completed.length
+      ? completed.reduce((a, b) => a + b.score, 0) / completed.length
+      : 0;
+
+    const timeSpent = completed.length
+      ? completed.reduce((a, b) => a + (b.finishedAt - b.createdAt), 0)
+      : 0;
+
+    const stats = {
+      totalQuizzes: totalQuizzes.length,
+      completed: completed.length,
+      avgScore: avgScore,
+      timeSpent: timeSpent,
+    };
+
+    return sendResponse(res, 200, true, "", stats);

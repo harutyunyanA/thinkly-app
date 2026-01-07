@@ -40,7 +40,7 @@ class AuthController {
         username: data.username.trim().toLowerCase(),
         email: data.email.trim().toLowerCase(),
         password: hashedPassword,
-        avatar: randomAvatar()
+        avatar: randomAvatar(),
       });
 
       await newUser.save();
@@ -137,12 +137,12 @@ class AuthController {
 
   async resendVerificationEmail(req, res) {
     try {
-      let { email } = req.body || {};
-      if (!email?.trim())
-        return sendResponse(res, 400, false, "Please provide email");
+      let { username } = req.body || {};
+      if (!username?.trim())
+        return sendResponse(res, 400, false, "Please provide username");
 
-      email = email.trim().toLowerCase();
-      const user = await User.findOne({ email });
+      username = username.trim().toLowerCase();
+      const user = await User.findOne({ username });
 
       if (!user) return sendResponse(res, 404, false, "User not found");
       if (user.isVerified)
@@ -151,7 +151,7 @@ class AuthController {
       await UserVerification.deleteMany({ userId: user._id });
 
       const code = await verificationCode(user);
-      await mailer.sendVerificationCode(code, email);
+      await mailer.sendVerificationCode(code, user.email);
 
       return sendResponse(res, 200, true, "New verification code sent");
     } catch (err) {

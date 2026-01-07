@@ -1,4 +1,4 @@
-import { User } from "../models/index.js";
+import { Attempt, Quiz, User } from "../models/index.js";
 import bcrypt, { compareSync } from "bcrypt";
 import signupTools from "../utils/signup-validations.js";
 import jwt from "jsonwebtoken";
@@ -186,6 +186,30 @@ class UserController {
     } catch (err) {
       return sendResponse(res, 500, false, "Internal server error");
     }
+  }
+
+  async dashboardStat(req, res) {
+    const userId = req.user._id;
+
+    const totalQuizzes = await Quiz.find({});
+    const completed = await Attempt.find({ user: userId, status: "finished" });
+
+    const avgScore = completed.length
+      ? completed.reduce((a, b) => a + b.score, 0) / completed.length
+      : 0;
+
+    const timeSpent = completed.length
+      ? completed.reduce((a, b) => a + (b.finishedAt - b.createdAt), 0)
+      : 0;
+
+    const stats = {
+      totalQuizzes: totalQuizzes.length,
+      completed: completed.length,
+      avgScore: avgScore,
+      timeSpent: timeSpent,
+    };
+
+    return sendResponse(res, 200, true, "", stats);
   }
 }
 export default new UserController();

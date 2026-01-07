@@ -29,11 +29,11 @@ export function QuizPassDetails() {
     Axios.get("/attempt/quiz/" + quizId).then((res) => {
       setAllAttempts(res.data.payload);
     });
-  }, [quizId, allAttempts]);
+  }, [quizId]);
+  
   if (!quiz || !allAttempts) {
     return <div>Loading...</div>;
   }
-
   return (
     <div className="max-w-7xl mx-auto px-6 py-8 space-y-10">
       <div id="title" className="flex items-start justify-between gap-6">
@@ -126,7 +126,7 @@ export function QuizPassDetails() {
         id="recent-comp"
         className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6"
       >
-        <RecentCompletions attempts={allAttempts}/>
+        <RecentCompletions attempts={allAttempts} />
       </div>
       <Modal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)}>
         <ShareQuiz />
