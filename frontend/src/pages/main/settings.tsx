@@ -12,7 +12,7 @@ export function Settings() {
   const handleLogout = () => {
     setUserContext(null);
     localStorage.removeItem("ThinklyToken");
-    navigate("/login");
+    navigate("/");
   };
   return (
     <div className="min-h-screen bg-gray-50">
