@@ -28,6 +28,10 @@ app.use(
 app.use(urlencoded({ extended: true }));
 app.use(json());
 
+app.get("/test", (req, res) => {
+  res.json({ ok: true });
+});
+
 app.use("/auth", authRoutes);
 app.use("/quiz", quizRoutes);
 app.use("/user", userRoutes);

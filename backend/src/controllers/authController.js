@@ -11,6 +11,7 @@ import { randomAvatar } from "../utils/random-avatar.js";
 
 class AuthController {
   async signup(req, res) {
+    console.log(read.body);
     try {
       const data = req.body;
       const availability = signupTools.availabilityOfCredentials(data);
