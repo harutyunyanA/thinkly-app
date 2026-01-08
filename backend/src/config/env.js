@@ -12,4 +12,5 @@ export const env = {
   AWS_REGION: process.env.AWS_REGION,
   AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
   BASE_PORT: process.env.BASE_PORT,
+  DATABASE_URL: process.env.DATABASE_URL,
 };

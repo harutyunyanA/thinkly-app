@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Axios = axios.create({
-  baseURL: "http://localhost:4003/",
+  baseURL: "https://thinkly-backend-9l4w.onrender.com",
   // withCredentials: true,
 });
 
