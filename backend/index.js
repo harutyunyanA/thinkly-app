@@ -19,7 +19,7 @@ app.use(
       "https://thinkly.fun",
       "https://www.thinkly.fun",
     ],
-    methods: ["GET", "POST", "PATCH", "DELETE"],
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
