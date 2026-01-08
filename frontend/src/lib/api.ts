@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Axios = axios.create({
-  baseURL: "https://thinkly-backend-9l4w.onrender.com",
+  baseURL: import.meta.env.VITE_API_URL,
   // withCredentials: true,
 });
 
