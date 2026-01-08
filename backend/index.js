@@ -1,7 +1,5 @@
 import express, { json, urlencoded } from "express";
 import "./src/config/db.js";
-// import swaggerUi from "swagger-ui-express";
-// import YAML from "yamljs";
 import authRoutes from "./src/routes/authRoutes.js";
 import quizRoutes from "./src/routes/quizRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
@@ -10,20 +8,27 @@ import cors from "cors";
 import { env } from "./src/config/env.js";
 
 const app = express();
-// const swaggerDocument = YAML.load("./src/docs/api.yaml");
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://thinkly.fun",
+  "https://www.thinkly.fun",
+];
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://thinkly.fun",
-      "https://www.thinkly.fun",
-    ],
+    origin: (origin, callback) => {
+      console.log("CORS origin:", origin);
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`Origin ${origin} not allowed by CORS`));
+      }
+    },
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
-// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(urlencoded({ extended: true }));
 app.use(json());
