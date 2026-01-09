@@ -9,22 +9,13 @@ import { env } from "./src/config/env.js";
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://thinkly.fun",
-  "https://www.thinkly.fun",
-];
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      console.log("CORS origin:", origin);
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error(`Origin ${origin} not allowed by CORS`));
-      }
-    },
+    origin: [
+      "http://localhost:5173",
+      "https://thinkly.fun",
+      "https://www.thinkly.fun",
+    ],
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
   })
