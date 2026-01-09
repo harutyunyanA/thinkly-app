@@ -150,8 +150,9 @@ class AuthController {
         return sendResponse(res, 200, true, "User already verified");
 
       await UserVerification.deleteMany({ userId: user._id });
-
+      console.log(user)
       const code = await verificationCode(user);
+      console.log(code)
       await mailer.sendVerificationCode(code, user.email);
 
       return sendResponse(res, 200, true, "New verification code sent");
