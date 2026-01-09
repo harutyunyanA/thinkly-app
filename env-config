@@ -1,6 +1,0 @@
-SECRET_KEY=H8GKEKXGh5H5c3DKnm04FXIeaUgFsNpb9v8hL86V3o0=
-SERVER_EMAIL=quizzes@thinkly.fun
-MAIL_PASS=cvrd-ggdj-hgrb-wtkz
-VERIFY_LINK=verify
-BASE_URL=http://localhost:4002
-BASE_PORT

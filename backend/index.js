@@ -14,7 +14,7 @@ const swaggerDocument = YAML.load("./src/docs/api.yaml");
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://thinkly.fun"],
+    origin: ["http://localhost:5173", "https://thinkly.fun", "https://www.thinkly.fun"],
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
   })

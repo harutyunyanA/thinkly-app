@@ -9,7 +9,8 @@ export function LandingPage() {
     if (token) {
       navigate("/home");
     }
-  }, [token, navigate]);
+  }, [token]);
+
   return (
     <div className="min-h-screen flex flex-col bg-linear-to-b from-white via-gray-50 to-gray-100 text-gray-800">
       <header className="flex justify-between items-center py-5 px-10 shadow-sm bg-white/70 backdrop-blur-md">
