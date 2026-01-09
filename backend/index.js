@@ -25,7 +25,7 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 
 app.get("/test", (req, res) => {
-  res.json({ ok: true });
+  res.status(200).send({ ok: true });
 });
 
 app.use("/auth", authRoutes);
