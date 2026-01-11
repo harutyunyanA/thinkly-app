@@ -2,14 +2,26 @@ import nodemailer from "nodemailer";
 import { env } from "../config/env.js";
 
 class Mailer {
+  // constructor() {
+  //   this.transporter = nodemailer.createTransport({
+  //     host: "smtp.mail.me.com",
+  //     port: 587,
+  //     secure: false,
+  //     auth: {
+  //       user: "harutyunyan.artyom75@icloud.com",
+  //       pass: env.MAIL_PASS,
+  //     },
+  //   });
+  // }
+
   constructor() {
     this.transporter = nodemailer.createTransport({
-      host: "smtp.mail.me.com",
+      host: "smtp.sendgrid.net",
       port: 587,
       secure: false,
       auth: {
-        user: "harutyunyan.artyom75@icloud.com",
-        pass: env.MAIL_PASS,
+        user: "apikey",
+        pass: env.SENDGRID_API_KEY,
       },
     });
   }

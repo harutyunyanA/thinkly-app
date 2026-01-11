@@ -13,4 +13,5 @@ export const env = {
   AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
   BASE_PORT: process.env.BASE_PORT,
   DATABASE_URL: process.env.DATABASE_URL,
+  SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
 };
