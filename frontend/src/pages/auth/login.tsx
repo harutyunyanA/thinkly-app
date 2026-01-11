@@ -25,7 +25,7 @@ export function Login() {
   const [error, setError] = useState<string | undefined>("");
 
   const onSubmit = (data: User) => {
-    // setData(data);
+    setData(data);
     Axios.post("/auth/signin", data)
       .then((res) => {
         const token = res.data.token;
