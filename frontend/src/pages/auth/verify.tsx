@@ -19,7 +19,7 @@ export function Verify({ username, onClose, onSuccess }: VerifyProps) {
     Axios.post("/auth/send-verification", { username }).catch(() => {
       setError("Failed to resend code");
     });
-  });
+  }, []);
 
   function handleVerify() {
     if (code.length !== 6) {
