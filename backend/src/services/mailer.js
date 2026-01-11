@@ -1,38 +1,23 @@
-import nodemailer from "nodemailer";
-// import { env } from "../config/env.js";
+import sgMail from "@sendgrid/mail";
+import { env } from "../config/env.js";
+
+sgMail.setApiKey(env.SENDGRID_API_KEY);
 
 class Mailer {
-  // constructor() {
-  //   this.transporter = nodemailer.createTransport({
-  //     host: "smtp.mail.me.com",
-  //     port: 587,
-  //     secure: false,
-  //     auth: {
-  //       user: "harutyunyan.artyom75@icloud.com",
-  //       pass: env.MAIL_PASS,
-  //     },
-  //   });
-  // }
-
-  constructor() {
-    this.transporter = nodemailer.createTransport({
-      host: "smtp.sendgrid.net",
-      port: 587,
-      secure: false,
-      auth: {
-        user: "apikey",
-        pass: process.env.SENDGRID_API_KEY,
-      },
-    });
-  }
-
   async send({ to, subject, html }) {
-    return await this.transporter.sendMail({
-      from: `"Quizzes" <${process.env.SERVER_EMAIL}>`,
-      to,
-      subject,
-      html,
-    });
+    try {
+      const msg = {
+        to,
+        from: env.SERVER_EMAIL,
+        subject,
+        html,
+      };
+      const res = await sgMail.send(msg);
+      console.log("📧 Email sent:", res[0].statusCode);
+    } catch (err) {
+      console.error("❌ Mail send error:", err.response?.body || err);
+      throw err;
+    }
   }
 
   async sendVerificationCode(code, email) {
@@ -49,18 +34,16 @@ class Mailer {
   }
 
   async sendResetPassword(token, email) {
-    const resetLink = `${process.env.BASE_URL}/reset-password?token=${token}`;
+    const resetLink = `${env.BASE_URL}/reset-password?token=${token}`;
     const html = `
       <div style="font-family: Arial, sans-serif; color: #333;">
         <h2>Reset your password</h2>
-        <p>You requested to reset your password. Click the link below to continue:</p>
+        <p>You requested to reset your password. Click the link below:</p>
         <a href="${resetLink}" 
            style="display: inline-block; margin: 16px 0; padding: 10px 16px; 
                   background-color: #007bff; color: white; text-decoration: none; 
                   border-radius: 5px;">Reset Password</a>
         <p>If you didn’t request this, just ignore this email.</p>
-        <hr />
-        <p style="font-size: 12px; color: #999;">This link will expire in 15 minutes.</p>
       </div>
     `;
     await this.send({ to: email, subject: "Password Reset Request", html });
