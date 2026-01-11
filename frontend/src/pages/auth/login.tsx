@@ -108,7 +108,7 @@ export function Login() {
           </button>
         </form>
 
-        <div className="flex items-center my-5">
+        {/* <div className="flex items-center my-5">
           <hr className="flex-1 border-gray-300" />
           <span className="px-2 text-gray-400 text-sm">OR</span>
           <hr className="flex-1 border-gray-300" />
@@ -119,7 +119,7 @@ export function Login() {
             <img src="/google-logo.svg" alt="Google" className="w-5 h-5" />
             <span className="text-sm font-medium text-gray-700">Google</span>
           </button>
-        </div>
+        </div> */}
 
         <p className="text-center text-sm text-gray-600 mt-5">
           Already have an account?{" "}

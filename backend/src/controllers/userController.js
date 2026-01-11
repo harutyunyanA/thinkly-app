@@ -191,7 +191,7 @@ class UserController {
   async dashboardStat(req, res) {
     const userId = req.user._id;
 
-    const totalQuizzes = await Quiz.find({});
+    const totalQuizzes = await Quiz.countDocuments();
     const completed = await Attempt.find({ user: userId, status: "finished" });
 
     const avgScore = completed.length
@@ -203,10 +203,10 @@ class UserController {
       : 0;
 
     const stats = {
-      totalQuizzes: totalQuizzes.length,
+      totalQuizzes: totalQuizzes,
       completed: completed.length,
-      avgScore: avgScore,
-      timeSpent: timeSpent,
+      avgScore: Math.floor(avgScore),
+      timeSpent,
     };
 
     return sendResponse(res, 200, true, "", stats);

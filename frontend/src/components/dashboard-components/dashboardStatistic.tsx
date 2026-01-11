@@ -22,7 +22,6 @@ export function DashboardStats() {
 
   const hours = Math.floor(time / 3600000);
   const minutes = Math.floor((time % 3600000) / 60000);
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <StatCard
