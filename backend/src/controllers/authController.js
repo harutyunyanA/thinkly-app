@@ -150,11 +150,8 @@ class AuthController {
         return sendResponse(res, 200, true, "User already verified");
 
       await UserVerification.deleteMany({ userId: user._id });
-      console.log(user)
       const code = await verificationCode(user);
-      console.log("before send, code: ",code)
       await mailer.sendVerificationCode(code, user.email);
-      console.log("after")
       return sendResponse(res, 200, true, "New verification code sent");
     } catch (err) {
       return sendResponse(res, 500, false, "Internal server error");
@@ -173,7 +170,7 @@ class AuthController {
 
       const token = crypto.randomBytes(32).toString("hex");
       user.resetPasswordToken = token;
-      user.resetPasswordTokenExp = Date.now() + 15 * 60 * 1000;
+      user.resetPasswordTokenExp = Date.now() + 10 * 60 * 1000;
       await user.save();
 
       await mailer.sendResetPassword(token, email);
