@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { env } from "../config/env.js";
+// import { env } from "../config/env.js";
 
 class Mailer {
   // constructor() {
@@ -21,14 +21,14 @@ class Mailer {
       secure: false,
       auth: {
         user: "apikey",
-        pass: env.SENDGRID_API_KEY,
+        pass: process.env.SENDGRID_API_KEY,
       },
     });
   }
 
   async send({ to, subject, html }) {
     return await this.transporter.sendMail({
-      from: `"Quizzes" <${env.SERVER_EMAIL}>`,
+      from: `"Quizzes" <${process.env.SERVER_EMAIL}>`,
       to,
       subject,
       html,
@@ -49,7 +49,7 @@ class Mailer {
   }
 
   async sendResetPassword(token, email) {
-    const resetLink = `${env.BASE_URL}/reset-password?token=${token}`;
+    const resetLink = `${process.env.BASE_URL}/reset-password?token=${token}`;
     const html = `
       <div style="font-family: Arial, sans-serif; color: #333;">
         <h2>Reset your password</h2>
