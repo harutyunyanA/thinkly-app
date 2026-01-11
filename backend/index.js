@@ -15,6 +15,7 @@ app.use(
       "http://localhost:5173",
       "https://thinkly.fun",
       "https://www.thinkly.fun",
+      "https://thinkly-app-frontend.onrender.com",
     ],
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,

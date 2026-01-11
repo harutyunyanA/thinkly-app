@@ -46,8 +46,8 @@ class AuthController {
 
       await newUser.save();
 
-      const verifyCode = await verificationCode(newUser);
-      mailer.sendVerificationCode(verifyCode, newUser.email);
+      // const verifyCode = await verificationCode(newUser);
+      // mailer.sendVerificationCode(verifyCode, newUser.email);
 
       return sendResponse(res, 201, true, "User created successfully");
     } catch (err) {
@@ -136,7 +136,7 @@ class AuthController {
     }
   }
 
-  async resendVerificationEmail(req, res) {
+  async sendVerificationEmail(req, res) {
     try {
       let { username } = req.body || {};
       if (!username?.trim())
@@ -152,9 +152,9 @@ class AuthController {
       await UserVerification.deleteMany({ userId: user._id });
       console.log(user)
       const code = await verificationCode(user);
-      console.log(code)
+      console.log("before send, code: ",code)
       await mailer.sendVerificationCode(code, user.email);
-
+      console.log("after")
       return sendResponse(res, 200, true, "New verification code sent");
     } catch (err) {
       return sendResponse(res, 500, false, "Internal server error");

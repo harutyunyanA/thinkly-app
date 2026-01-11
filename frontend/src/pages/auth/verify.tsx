@@ -15,6 +15,12 @@ export function Verify({ username, onClose, onSuccess }: VerifyProps) {
   const [resendLoading, setResendLoading] = useState(false);
   const [timer, setTimer] = useState(60);
 
+  useEffect(() => {
+    Axios.post("/auth/send-verification", { username }).catch(() => {
+      setError("Failed to resend code");
+    });
+  });
+
   function handleVerify() {
     if (code.length !== 6) {
       setError("Code must be 6 digits");
@@ -40,7 +46,7 @@ export function Verify({ username, onClose, onSuccess }: VerifyProps) {
     setResendLoading(true);
     setError("");
 
-    Axios.post("/auth/resend-verification", { username })
+    Axios.post("/auth/send-verification", { username })
       .then(() => {
         setTimer(60);
       })

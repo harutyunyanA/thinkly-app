@@ -9,6 +9,7 @@ export function Home() {
   const [userContext, setUserContext] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  
   useEffect(() => {
     Axios.get<IResponse<IUser>>("/auth/user")
       .then((res) => {
