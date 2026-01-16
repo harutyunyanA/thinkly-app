@@ -9,6 +9,7 @@ import { Settings } from "./pages/main/settings";
 // import { CreateQuiz } from "./components/createQuiz-components/createQuiz";
 import { QuizPassDetails } from "./pages/main/quizPassDetails";
 import { QuizPass } from "./pages/main/quizPass";
+import GoogleAuthSuccess from "./pages/auth/googleAuthSuccess";
 
 export const router = createBrowserRouter([
   { path: "", element: <LandingPage /> },
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
     path: "login",
     element: <Login />,
   },
+  {path:"/auth/success",element:<GoogleAuthSuccess/>},
   {
     path: "/home",
     element: <Home />,

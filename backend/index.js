@@ -6,6 +6,8 @@ import userRoutes from "./src/routes/userRoutes.js";
 import attemptRoutes from "./src/routes/attemptRoutes.js";
 import cors from "cors";
 import { env } from "./src/config/env.js";
+import passport from "passport";
+import "./src/config/passport.js";
 
 const app = express();
 
@@ -21,6 +23,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(passport.initialize());
 
 app.use(urlencoded({ extended: true }));
 app.use(json());

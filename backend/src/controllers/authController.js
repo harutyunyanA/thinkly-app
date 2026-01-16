@@ -123,6 +123,7 @@ class AuthController {
   }
 
   async getUser(req, res) {
+    console.log(req.user);
     try {
       const user = await User.findById(req.user._id, {
         password: 0,

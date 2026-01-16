@@ -116,7 +116,14 @@ export function Signup() {
         </div>
 
         <div className="flex gap-3 mb-5 my-2">
-          <button className="flex-1 border border-gray-300 rounded-md py-2 flex items-center justify-center gap-2 hover:bg-gray-50 transition cursor-pointer">
+          <button
+            onClick={() => {
+              const apiUrl = Axios.defaults.baseURL || "http://localhost:4003";
+              console.log(apiUrl);
+              window.location.href = `${apiUrl}/auth/google`;
+            }}
+            className="flex-1 border border-gray-300 rounded-md py-2 flex items-center justify-center gap-2 hover:bg-gray-50 transition cursor-pointer"
+          >
             <img src="/google-logo.svg" alt="Google" className="w-5 h-5" />
             <span className="text-sm font-medium text-gray-700">Google</span>
           </button>
