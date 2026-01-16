@@ -13,27 +13,42 @@ import {
 import { RecentCompletions } from "../../components/quizPass-components/recentCompletions";
 import { Modal } from "../../components/modal";
 import { ShareQuiz } from "../../components/quizPass-components/shareQuiz";
+import Loader from "../../components/loader";
 
 export function QuizPassDetails() {
-  const { quizId } = useParams();
+  const { quizId } = useParams<{ quizId: string }>();
 
   const [quiz, setQuiz] = useState<IQuiz | null>(null);
+  const [allAttempts, setAllAttempts] = useState<any>(null);
   const [isShareOpen, setIsShareOpen] = useState(false);
-  const [allAttempts, setAllAttempts] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Axios.get("quiz/" + quizId).then((res) => {
-      setQuiz(res.data.payload);
-    });
+    setLoading(true);
 
-    Axios.get("/attempt/quiz/" + quizId).then((res) => {
-      setAllAttempts(res.data.payload);
-    });
+    const fetchQuiz = Axios.get("quiz/" + quizId);
+    const fetchAttempts = Axios.get("/attempt/quiz/" + quizId);
+
+    Promise.all([fetchQuiz, fetchAttempts])
+      .then(([quizRes, attemptsRes]) => {
+        setQuiz(quizRes.data.payload);
+        setAllAttempts(attemptsRes.data.payload);
+      })
+      .finally(() => setLoading(false));
   }, [quizId]);
-  
-  if (!quiz || !allAttempts) {
-    return <div>Loading...</div>;
+
+  if (loading) {
+    return <Loader fullscreen />;
   }
+
+  if (!quiz || !allAttempts) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <p className="text-gray-500">Failed to load quiz data.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-8 space-y-10">
       <div id="title" className="flex items-start justify-between gap-6">
@@ -44,7 +59,6 @@ export function QuizPassDetails() {
           >
             <ChevronLeft className="w-5 h-5 text-gray-700" />
           </Link>
-
           <div>
             <h1 className="text-2xl font-bold text-gray-900">{quiz.title}</h1>
             <p className="text-gray-600 mt-1 max-w-xl">{quiz.description}</p>
@@ -128,6 +142,7 @@ export function QuizPassDetails() {
       >
         <RecentCompletions attempts={allAttempts} />
       </div>
+
       <Modal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)}>
         <ShareQuiz />
       </Modal>

@@ -1,12 +1,21 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Home, List, Settings } from "lucide-react";
 
 export function Sidebar() {
+  const navigate = useNavigate();
+
   return (
     <aside className="w-64 bg-white shadow-lg p-5 flex flex-col">
       <div className="flex items-center gap-2 mb-8">
-        <img src="/main-logo.svg" className="w-7 h-7" alt="logo" />
-        <span className="text-xl font-semibold text-indigo-600">Thinkly</span>
+        <div
+          className="flex items-center gap-2 mb-8 hover:cursor-pointer"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <img src="/main-logo.svg" className="w-7 h-7" alt="logo" />
+          <span className="text-xl font-semibold text-indigo-600">Thinkly</span>
+        </div>
       </div>
 
       <nav className="flex flex-col gap-4">

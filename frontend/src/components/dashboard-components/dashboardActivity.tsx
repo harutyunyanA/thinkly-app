@@ -5,27 +5,36 @@ import { QuizItem } from "./quizItem";
 import { useDebounce } from "../../lib/hooks/useDebounce";
 import { Search } from "lucide-react";
 import { Link } from "react-router-dom";
+import Loader from "../loader";
 
 export function DashboardActivity() {
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+
   const debouncedSearch = useDebounce(search, 250);
 
-  const filteredQuizzes = quizzes.filter((quiz) => {
-    const str = debouncedSearch.toLowerCase();
-    return quiz.title.toLowerCase().includes(str);
-  });
+  const filteredQuizzes = quizzes.filter((quiz) =>
+    quiz.title.toLowerCase().includes(debouncedSearch.toLowerCase())
+  );
 
   useEffect(() => {
-    Axios.get("/quiz").then((res) => {
-      setQuizzes(res.data.payload);
-    });
+    setLoading(true);
+
+    Axios.get("/quiz")
+      .then((res) => {
+        setQuizzes(res.data.payload);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (
     <div className="bg-white shadow rounded-xl p-6 col-span-2 h-full flex flex-col overflow-hidden">
       <h2 className="text-lg font-semibold">Recent Quizzes</h2>
-      <div className="flex justify-between items-center flex-wrap gap-4">
+
+      <div className="flex justify-between items-center flex-wrap gap-4 mt-4">
         <div className="relative">
           <Search size={18} className="absolute left-3 top-2.5 text-gray-400" />
           <input
@@ -37,16 +46,25 @@ export function DashboardActivity() {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-2 mt-4 flex-1 overflow-y-auto">
-        {filteredQuizzes.length ? (
-          filteredQuizzes.map((quiz) => (
-            <Link to={"/home/quiz/" + quiz._id} key={quiz._id}>
-              <QuizItem quiz={quiz} />
-            </Link>
-          ))
-        ) : (
-          <p className="text-gray-500 text-sm">No quizzes found</p>
+
+      <div className="relative flex-1 mt-4 overflow-y-auto flex flex-col gap-2">
+        {loading && (
+          <div className="flex justify-center">
+            <Loader size={80} />
+          </div>
         )}
+
+        <>
+          {filteredQuizzes.length > 0 ? (
+            filteredQuizzes.map((quiz) => (
+              <Link to={"/home/quiz/" + quiz._id} key={quiz._id}>
+                <QuizItem quiz={quiz} />
+              </Link>
+            ))
+          ) : (
+            <p className="text-gray-500 text-sm mt-2">No quizzes found</p>
+          )}
+        </>
       </div>
     </div>
   );

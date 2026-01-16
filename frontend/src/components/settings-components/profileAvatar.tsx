@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import AvatarEditor from "react-avatar-editor";
 import { Axios } from "../../lib/api";
 import type { IUser } from "../../types";
+import Loader from "../loader";
 
 type ProfileAvatarProps = {
   setUser: (user: IUser) => void;
@@ -134,10 +135,21 @@ export function ProfileAvatar({ setUser, user }: ProfileAvatarProps) {
             <button
               disabled={loading}
               onClick={handleSave}
-              className="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium
-                         hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`
+    px-4 py-2 rounded-lg text-sm font-medium transition
+    ${
+      loading
+        ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+        : "bg-blue-600 text-white hover:bg-blue-700"
+    }
+    flex items-center justify-center gap-2
+  `}
             >
-              {loading ? "Saving..." : "Save"}
+              {loading ? (
+                <Loader size={20} /> 
+              ) : (
+                "Save"
+              )}
             </button>
 
             <button

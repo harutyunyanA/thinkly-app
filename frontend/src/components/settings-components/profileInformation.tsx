@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { IUser } from "../../types";
 import { ProfileAvatar } from "./profileAvatar";
 import { Axios } from "../../lib/api";
+import Loader from "../loader";
 
 type ProfileInformationProps = {
   user: IUser;
@@ -100,7 +101,7 @@ export function ProfileInformation({ user, setUser }: ProfileInformationProps) {
                      disabled:bg-gray-400 disabled:cursor-not-allowed
                      focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
-          {loading ? "Saving..." : "Save changes"}
+          {loading ? <Loader size={20} /> : "Save changes"}
         </button>
 
         {message && (

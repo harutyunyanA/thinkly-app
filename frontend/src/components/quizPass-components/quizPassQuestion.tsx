@@ -5,6 +5,7 @@ import { MultiAnswerItem } from "./MultiAnswer";
 import { Axios } from "../../lib/api";
 import type { AnswerState } from "../../pages/main/quizPass";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import Loader from "../loader";
 
 type QuizPassQuestionProps = {
   question: IQuestion;
@@ -110,17 +111,17 @@ export function QuizPassQuestion({
           answerState.isCorrect !== null
         }
         className={`
-      self-end px-6 py-2 rounded-lg font-medium transition
-      ${
-        selectedAnswers.length === 0 ||
-        isSubmitting ||
-        answerState.isCorrect !== null
-          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-          : "bg-indigo-600 text-white hover:bg-indigo-700"
-      }
-    `}
+    self-end px-6 py-2 rounded-lg font-medium transition flex items-center justify-center
+    ${
+      selectedAnswers.length === 0 ||
+      isSubmitting ||
+      answerState.isCorrect !== null
+        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+        : "bg-indigo-600 text-white hover:bg-indigo-700"
+    }
+  `}
       >
-        {isSubmitting ? "Submitting..." : "Confirm answer"}
+        {isSubmitting ? <Loader size={24} /> : "Confirm answer"}
       </button>
       <div className="flex justify-between items-center mt-4">
         <button

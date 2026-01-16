@@ -7,11 +7,13 @@ import { QuizItem } from "../../components/quizzes-components/quizItem";
 import { useDebounce } from "../../lib/hooks/useDebounce";
 import { Modal } from "../../components/modal";
 import { CreateQuiz } from "../../components/createQuiz-components/createQuiz";
+import Loader from "../../components/loader";
 
 export function Quizzes() {
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 250);
+  const [loading, setLoading] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -21,15 +23,18 @@ export function Quizzes() {
   }>();
 
   useEffect(() => {
+    setLoading(true);
     if (!userContext) return;
 
-    Axios.get<IResponse<IQuiz[]>>(`/quiz/user/${userContext._id}`).then(
-      (res) => {
+    Axios.get<IResponse<IQuiz[]>>(`/quiz/user/${userContext._id}`)
+      .then((res) => {
         if (res.data.success && res.data.payload) {
           setQuizzes(res.data.payload);
         }
-      }
-    );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [userContext]);
 
   const filteredQuizzes = quizzes.filter((quiz) => {
@@ -41,7 +46,6 @@ export function Quizzes() {
   });
 
   function deleteQuiz(quizID: string) {
-    console.log("deleted");
     setQuizzes((prev) => prev.filter((q) => q._id !== quizID));
   }
 
@@ -92,6 +96,11 @@ export function Quizzes() {
         </div>
 
         <div className="flex flex-col gap-4 mt-4">
+          {loading && (
+            <div className="flex justify-center">
+              <Loader size={80}/>
+            </div>
+          )}
           {filteredQuizzes.length ? (
             filteredQuizzes.map((quiz) => (
               <QuizItem

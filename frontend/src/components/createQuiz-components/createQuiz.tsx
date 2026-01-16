@@ -8,6 +8,7 @@ import { PreviewQuiz } from "./previewQuiz";
 import { AxiosError } from "axios";
 import { Axios } from "../../lib/api";
 import { validateQuiz } from "../../lib/validateQuiz";
+import Loader from "../loader";
 
 type CreateQuizProps = {
   closeModal: () => void;
@@ -43,6 +44,7 @@ export function CreateQuiz({ closeModal, addQuiz }: CreateQuizProps) {
   const [quiz, setQuiz] = useState<QuizForm>(quizInitialData);
   const [page, setPage] = useState(1);
   const validQuiz = validateQuiz(quiz);
+  const [isPublishing, setIsPublishing] = useState(false);
 
   return (
     <div className="flex flex-col gap-6">
@@ -125,22 +127,36 @@ export function CreateQuiz({ closeModal, addQuiz }: CreateQuizProps) {
               </button>
 
               <button
-                className="flex items-center gap-2 px-4 py-2 rounded-md transition bg-indigo-600 text-white hover:bg-indigo-700 disabled:bg-gray-300 disabled:text-gray-600 disabled:hover:bg-gray-300 disabled:cursor-not-allowed"
-                disabled={!validQuiz}
+                disabled={!validQuiz || isPublishing}
                 onClick={() => {
+                  setIsPublishing(true);
+
                   Axios.post("/quiz", quiz)
                     .then((res) => {
                       addQuiz(res.data.payload);
-                      console.log("successfully added new quiz");
                       closeModal();
                     })
                     .catch((err: AxiosError<{ message: string }>) => {
                       console.log(err.response?.data.message);
+                    })
+                    .finally(() => {
+                      setIsPublishing(false);
                     });
                 }}
+                className="flex items-center justify-center gap-2 px-4 py-2 min-w-[120px]
+             rounded-md transition
+             bg-indigo-600 text-white hover:bg-indigo-700
+             disabled:bg-gray-300 disabled:text-gray-600
+             disabled:cursor-not-allowed"
               >
-                Publish
-                <ChevronRight className="w-4 h-4" />
+                {isPublishing ? (
+                  <Loader size={24} />
+                ) : (
+                  <>
+                    Publish
+                    <ChevronRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </div>
           )}

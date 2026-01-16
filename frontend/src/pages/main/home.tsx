@@ -4,6 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Axios } from "../../lib/api";
 import type { IResponse, IUser } from "../../types";
+import Loader from "../../components/loader";
 
 export function Home() {
   const [userContext, setUserContext] = useState<IUser | null>(null);
@@ -21,14 +22,14 @@ export function Home() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="p-6">Loading...</div>;
+  if (loading) return <Loader fullscreen={true}/>;
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar />
 
       <div className="flex flex-col flex-1">
-        <Header />
+        {/* <Header /> */}
 
         <div className="p-6">
           <Outlet context={{ userContext, setUserContext }} />

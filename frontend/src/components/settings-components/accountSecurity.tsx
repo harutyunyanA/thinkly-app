@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Axios } from "../../lib/api";
+import Loader from "../loader";
 
 export function AccountSecurity() {
   type UserPassword = {
@@ -17,6 +18,7 @@ export function AccountSecurity() {
   } = useForm<UserPassword>();
 
   const handlePasswordUpdate = (data: UserPassword) => {
+    setLoading(true);
     Axios.patch("/user/password", {
       currentPassword: data.currentPassword,
       newPassword: data.newPassword,
@@ -30,6 +32,7 @@ export function AccountSecurity() {
         setMessage(err.response.data.message);
       })
       .finally(() => {
+        setLoading(false);
         setTimeout(() => {
           setMessage("");
           setIsSuccess(false);
@@ -39,6 +42,7 @@ export function AccountSecurity() {
 
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -111,12 +115,19 @@ export function AccountSecurity() {
         <div className="pt-2 flex items-center gap-4">
           <button
             type="submit"
-            className="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2
-              text-sm font-medium text-white transition
-              hover:bg-indigo-700 focus:outline-none focus:ring-2
-              focus:ring-indigo-500 focus:ring-offset-2"
+            disabled={loading}
+            className={`
+    inline-flex items-center justify-center rounded-md px-4 py-2
+    text-sm font-medium text-white transition
+    focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
+    ${
+      loading
+        ? "bg-gray-400 cursor-not-allowed"
+        : "bg-indigo-600 hover:bg-indigo-700"
+    }
+  `}
           >
-            Update Password
+            {loading ? <Loader size={20} /> : "Update Password"}
           </button>
           {message && (
             <p

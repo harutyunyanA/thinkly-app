@@ -8,6 +8,7 @@ import { Modal } from "../../components/modal";
 import { ExitQuizContent } from "../../components/quizPass-components/quizExitModal";
 import { QuizPassStat } from "../../components/quizPass-components/quizPassStat";
 import { QuizResults } from "../../components/quizPass-components/results";
+import Loader from "../../components/loader";
 
 export type AnswerState = {
   questionIndex: number;
@@ -16,7 +17,8 @@ export type AnswerState = {
 };
 
 export function QuizPass() {
-  const { quizId } = useParams();
+  const { quizId } = useParams<{ quizId: string }>();
+  const navigate = useNavigate();
 
   const [quiz, setQuiz] = useState<IQuiz | null>(null);
   const [question, setQuestion] = useState<number>(0);
@@ -25,10 +27,9 @@ export function QuizPass() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
   const [isExitModalOpen, setIsExitModalOpen] = useState<boolean>(false);
-  const [userAttempts, setUserAttempts] = useState(null);
+  const [userAttempts, setUserAttempts] = useState<any>(null);
   const [result, setResult] = useState<boolean>(false);
 
-  const navigator = useNavigate();
   function handleAnswerSubmit(selectedAnswers: string[], isCorrect: boolean) {
     setAnswersState((prev) =>
       prev.map((a) =>
@@ -39,8 +40,9 @@ export function QuizPass() {
 
   function closeResults() {
     setResult(false);
-    navigator("/home/quiz/" + quizId);
+    navigate("/home/quiz/" + quizId);
   }
+
   function hasUnansweredQuestions() {
     return answersState.some((a) => a.isCorrect === null);
   }
@@ -86,20 +88,16 @@ export function QuizPass() {
       (a) => a.isCorrect !== null
     ).length;
 
-    if (answeredCount === quiz?.questions.length) {
+    if (answeredCount === quiz?.questions.length && attemptId) {
       Axios.post(`/attempt/${attemptId}/complete`).then((res) => {
         setUserAttempts(res.data.payload);
         setResult(true);
       });
     }
-  }, [answersState]);
+  }, [answersState, quiz?.questions.length, attemptId]);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-[60vh] text-gray-500">
-        Loading...
-      </div>
-    );
+    return <Loader fullscreen />;
   }
 
   if (error) {
@@ -118,8 +116,8 @@ export function QuizPass() {
 
   if (!quiz || !attemptId) {
     return (
-      <div className="flex items-center justify-center h-[60vh] text-gray-500">
-        Initializing attempt...
+      <div className="flex items-center justify-center h-[60vh]">
+        <Loader size={80} />
       </div>
     );
   }
@@ -140,6 +138,7 @@ export function QuizPass() {
 
         <p className="text-lg font-semibold text-gray-800">{quiz.title}</p>
       </div>
+
       <div className="grid grid-cols-[220px_1fr_220px] gap-6">
         <div className="flex flex-col gap-2 p-4 border rounded-xl bg-white">
           {quiz.questions.map((_, i) => (
@@ -163,6 +162,7 @@ export function QuizPass() {
             </div>
           ))}
         </div>
+
         <div className="p-6 border rounded-xl bg-white">
           <QuizPassQuestion
             question={quiz.questions[question]}
@@ -178,6 +178,7 @@ export function QuizPass() {
           <QuizPassStat answersState={answersState} />
         </div>
       </div>
+
       <Modal isOpen={isExitModalOpen} onClose={() => setIsExitModalOpen(false)}>
         <ExitQuizContent
           setIsExitModalOpen={setIsExitModalOpen}
@@ -185,9 +186,11 @@ export function QuizPass() {
         />
       </Modal>
 
-      {quiz && userAttempts && <Modal isOpen={result} onClose={closeResults}>
-        <QuizResults attempts={userAttempts} quiz={quiz}/>
-      </Modal>}
+      {quiz && userAttempts && (
+        <Modal isOpen={result} onClose={closeResults}>
+          <QuizResults attempts={userAttempts} quiz={quiz} />
+        </Modal>
+      )}
     </div>
   );
 }
