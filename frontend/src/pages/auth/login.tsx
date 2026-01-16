@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Axios } from "../../lib/api";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import type { AxiosError } from "axios";
 import { Verify } from "./verify";
