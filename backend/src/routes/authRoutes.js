@@ -31,6 +31,7 @@ router.get(
       env.SECRET_KEY
     );
     const frontUrl = env.FRONT_URL || "http://localhost:5173";
+    console.log(frontUrl)
     res.redirect(`${frontUrl}/auth/success?token=${token}`);
   }
 );
