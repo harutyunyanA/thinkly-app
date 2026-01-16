@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import Loader from "../../components/loader";
 // import { Loader } from "../../components/loader";
 
 export default function GoogleAuthSuccess() {
@@ -18,6 +19,6 @@ export default function GoogleAuthSuccess() {
     }
   }, [token, navigate]);
 
-  return <p>Loading...</p>;
+  return <Loader fullscreen={true} />;
   // return <Loader/>
 }
