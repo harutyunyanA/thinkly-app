@@ -188,28 +188,28 @@ class UserController {
     }
   }
 
-  async dashboardStat(req, res) {
-    const userId = req.user._id;
+  // async dashboardStat(req, res) {
+  //   const userId = req.user._id;
 
-    const totalQuizzes = await Quiz.countDocuments();
-    const completed = await Attempt.find({ user: userId, status: "finished" });
+  //   const totalQuizzes = await Quiz.countDocuments();
+  //   const completed = await Attempt.find({ user: userId, status: "finished" });
 
-    const avgScore = completed.length
-      ? completed.reduce((a, b) => a + b.score, 0) / completed.length
-      : 0;
+  //   const avgScore = completed.length
+  //     ? completed.reduce((a, b) => a + b.score, 0) / completed.length
+  //     : 0;
 
-    const timeSpent = completed.length
-      ? completed.reduce((a, b) => a + (b.finishedAt - b.createdAt), 0)
-      : 0;
+  //   const timeSpent = completed.length
+  //     ? completed.reduce((a, b) => a + (b.finishedAt - b.createdAt), 0)
+  //     : 0;
 
-    const stats = {
-      totalQuizzes: totalQuizzes,
-      completed: completed.length,
-      avgScore: Math.floor(avgScore),
-      timeSpent,
-    };
+  //   const stats = {
+  //     totalQuizzes: totalQuizzes,
+  //     completed: completed.length,
+  //     avgScore: Math.floor(avgScore),
+  //     timeSpent,
+  //   };
 
-    return sendResponse(res, 200, true, "", stats);
-  }
+  //   return sendResponse(res, 200, true, "", stats);
+  // }
 }
 export default new UserController();

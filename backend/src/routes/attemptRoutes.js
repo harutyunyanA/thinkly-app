@@ -13,4 +13,12 @@ router.post("/:id/complete", isAuthenticated, controller.complete);
 
 router.get("/quiz/:id", isAuthenticated, controller.quizAttempts);
 
+router.get(
+  "/userDashboardStats",
+  isAuthenticated,
+  controller.userDashboardStats,
+);
+
+router.get("/leaderboardStats", isAuthenticated, controller.leaderboardStats);
+
 export default router;

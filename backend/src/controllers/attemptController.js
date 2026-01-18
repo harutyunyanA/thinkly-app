@@ -79,7 +79,7 @@ class AttemptController {
       200,
       isCorrect,
       isCorrect ? "CORRECT" : "INCORRECT",
-      correctAnswerIds
+      correctAnswerIds,
     );
   }
 
@@ -109,8 +109,9 @@ class AttemptController {
 
   async complete(req, res) {
     try {
+      const { _id: userId } = req.user;
+      console.log(userId);
       const { id: attemptId } = req.params;
-
       const attempt = await Attempt.findById(attemptId);
       if (!attempt) {
         return sendResponse(res, 404, false, "attempt not found");
@@ -132,7 +133,7 @@ class AttemptController {
         (
           (quiz.averageScore * quiz.completions + attempt.score) /
           (quiz.completions + 1)
-        ).toFixed(2)
+        ).toFixed(2),
       );
 
       quiz.completions += 1;
@@ -149,8 +150,6 @@ class AttemptController {
         quiz: attempt.quiz,
         status: "finished",
       });
-
-      console.log(userAttempts);
 
       return sendResponse(res, 200, true, "quiz completed", userAttempts);
     } catch {
@@ -175,6 +174,36 @@ class AttemptController {
     } catch {
       return sendResponse(res, 500, false, "server error");
     }
+  }
+  async userDashboardStats(req, res) {
+    const userId = req.user._id;
+
+    const totalQuizzes = await Quiz.countDocuments();
+    const completed = await Attempt.find({ user: userId, status: "finished" });
+
+    const avgScore = completed.length
+      ? completed.reduce((a, b) => a + b.score, 0) / completed.length
+      : 0;
+
+    const timeSpent = completed.length
+      ? completed.reduce((a, b) => a + (b.finishedAt - b.createdAt), 0)
+      : 0;
+
+    const stats = {
+      totalQuizzes: totalQuizzes,
+      completed: completed.length,
+      avgScore: Math.floor(avgScore),
+      timeSpent,
+    };
+
+    return sendResponse(res, 200, true, "", stats);
+  }
+
+  async leaderboardStats(req, res) {
+    const users = await Attempt.find({
+      status: "finished",
+    });
+    return sendResponse(res, 200, true, "");
   }
 }
 

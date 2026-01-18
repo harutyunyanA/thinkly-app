@@ -13,7 +13,7 @@ export function DashboardStats() {
   const [data, setData] = useState<dashboardStat | null>(null);
 
   useEffect(() => {
-    Axios.get("/user/dashboardStat").then((res) => {
+    Axios.get("/attempt/userDashboardStats").then((res) => {
       setData(res.data.payload);
     });
   }, []);

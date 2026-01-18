@@ -8,6 +8,7 @@ const userSchema = new Schema({
   avatar: { type: String, default: "" },
   isVerified: { type: Boolean, default: false },
   googleId: { type: String, unique: true, sparse: true },
+  avgScore: { type: Number, default: 0 },
   provider: { type: String, enum: ["local", "google"], default: "local" },
   createdAt: { type: Date, default: Date.now },
   quizzes: [{ type: Types.ObjectId, ref: "Quiz" }],

@@ -14,7 +14,7 @@ const quizSchema = new Schema({
   owner: { type: Types.ObjectId, ref: "User", required: true },
   questions: [{ type: Types.ObjectId, ref: "Question" }],
   completions: { type: Number, default: 0 },
-  averageRating: { type: Number, default: 0 },
+  // averageRating: { type: Number, default: 0 },
   averageScore: { type: Number, default: 0 },
   topScore: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now },

@@ -1,6 +1,13 @@
+import { useEffect } from "react";
 import { LeaderItem } from "./leaderItem";
+import { Axios } from "../../lib/api";
 
 export function DashboardLeaderboard() {
+  useEffect(() => {
+    Axios.get("/attempt/leaderboardStats").then(() => {
+      console.log("get");
+    });
+  });
   return (
     <div className="bg-white shadow rounded-xl p-6">
       <h2 className="text-lg font-semibold mb-4">Leaderboard</h2>

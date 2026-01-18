@@ -3,6 +3,7 @@ import { DashboardActivity } from "../../components/dashboard-components/dashboa
 import { DashboardLeaderboard } from "../../components/dashboard-components/dashboardLeaderboard";
 
 export function Dashboard() {
+  
   return (
     <div className="h-screen flex flex-col gap-10 overflow-hidden">
       <div>

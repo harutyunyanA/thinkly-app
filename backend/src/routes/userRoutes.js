@@ -42,7 +42,7 @@ router.post(
   imageUpload("avatar"),
   controller.uploadAvatar
 );
-router.get("/dashboardStat", isAuthenticated, controller.dashboardStat);
+// router.get("/dashboardStat", isAuthenticated, controller.dashboardStat);
 router.get("/:id", controller.getUserProfile);
 
 export default router;
