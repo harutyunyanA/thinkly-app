@@ -110,7 +110,11 @@ class AttemptController {
   async complete(req, res) {
     try {
       const { _id: userId } = req.user;
-      console.log(userId);
+      const user = await User.findById(userId);
+      if (!user) {
+        return sendResponse(res, 404, false, "user not found");
+      }
+
       const { id: attemptId } = req.params;
       const attempt = await Attempt.findById(attemptId);
       if (!attempt) {
@@ -175,6 +179,7 @@ class AttemptController {
       return sendResponse(res, 500, false, "server error");
     }
   }
+
   async userDashboardStats(req, res) {
     const userId = req.user._id;
 
@@ -200,9 +205,27 @@ class AttemptController {
   }
 
   async leaderboardStats(req, res) {
-    const users = await Attempt.find({
-      status: "finished",
-    });
+    const users = await Attempt.aggregate([
+      {
+        $group: {
+          _id: "$user",
+          averageScore: { $avg: "$score" },
+          quizzesCompleted: { $sum: 1 },
+        },
+      },
+      {
+        $match: {
+          quizzesCompleted: { $gte: 5 },
+        },
+      },
+      {
+        $sort: { averageScore: -1 },
+      },
+      {
+        $limit: 10,
+      },
+    ]);
+    console.log(users);
     return sendResponse(res, 200, true, "");
   }
 }
